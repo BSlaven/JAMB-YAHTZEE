@@ -1,6 +1,40 @@
-import React from 'react'
+import { useState } from "react"
 
 const dice = () => {
+
+  const [ currentDice, setCurrentDice] = useState([
+    {
+      label: 'input_dice_one',
+      value: 1,
+      checked: false
+    },
+    {
+      label: 'input_dice_two',
+      value: 2,
+      checked: false
+    },
+    {
+      label: 'input_dice_three',
+      value: 3,
+      checked: false
+    },
+    {
+      label: 'input_dice_four',
+      value: 4,
+      checked: false
+    },
+    {
+      label: 'input_dice_five',
+      value: 5,
+      checked: false
+    },
+    {
+      label: 'input_dice_six',
+      value: 6,
+      checked: false
+    },
+  ])
+  
   return (
     <section className='dice_cointainer'>
       <div className="dice">
