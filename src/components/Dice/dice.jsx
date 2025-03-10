@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const dice = () => {
+const Dice = () => {
 
   const [ currentDice, setCurrentDice] = useState({
     input_dice_one: {
@@ -33,7 +33,14 @@ const dice = () => {
       value: 6,
       checked: false
     },
-})
+});
+
+  const rollDice = () => {
+    console.log('roll em dice!!!')
+
+    const arrayOfDice = Object.entries(currentDice);
+    console.log(arrayOfDice);
+  }
   
   return (
     <section className='dice_cointainer'>
@@ -82,9 +89,14 @@ const dice = () => {
             id="input_dice_six" />
         </div>
       </div>
-      <button className="roll_button">ROLL</button>
+      <button 
+        className="roll_button"
+        onClick={() => rollDice()}
+      >
+        ROLL
+      </button>
     </section>
   )
 }
 
-export default dice
+export default Dice
