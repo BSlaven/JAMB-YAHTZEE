@@ -2,38 +2,38 @@ import { useState } from "react"
 
 const dice = () => {
 
-  const [ currentDice, setCurrentDice] = useState([
-    {
+  const [ currentDice, setCurrentDice] = useState({
+    input_dice_one: {
       label: 'input_dice_one',
       value: 1,
       checked: false
     },
-    {
+    input_dice_two: {
       label: 'input_dice_two',
       value: 2,
       checked: false
     },
-    {
+    input_dice_three: {
       label: 'input_dice_three',
       value: 3,
       checked: false
     },
-    {
+    input_dice_four: {
       label: 'input_dice_four',
       value: 4,
       checked: false
     },
-    {
+    input_dice_five: {
       label: 'input_dice_five',
       value: 5,
       checked: false
     },
-    {
+    input_dice_six: {
       label: 'input_dice_six',
       value: 6,
       checked: false
     },
-  ])
+})
   
   return (
     <section className='dice_cointainer'>
