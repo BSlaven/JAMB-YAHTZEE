@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Dice = () => {
 
@@ -11,7 +11,7 @@ const Dice = () => {
     input_dice_two: {
       label: 'input_dice_two',
       value: 2,
-      checked: false
+      checked: true
     },
     input_dice_three: {
       label: 'input_dice_three',
@@ -21,12 +21,12 @@ const Dice = () => {
     input_dice_four: {
       label: 'input_dice_four',
       value: 4,
-      checked: false
+      checked: true
     },
     input_dice_five: {
       label: 'input_dice_five',
       value: 5,
-      checked: false
+      checked: true
     },
     input_dice_six: {
       label: 'input_dice_six',
@@ -35,11 +35,24 @@ const Dice = () => {
     },
 });
 
-  const rollDice = () => {
-    console.log('roll em dice!!!')
+  // useEffect(() => {
+  //   console.log('PROMIJENIO SI STATE JUNAČE')
+  // }, [currentDice])
 
-    const arrayOfDice = Object.entries(currentDice);
-    console.log(arrayOfDice);
+
+  const rollDice = () => {
+    const newDiceValues = {};
+    const uncheckedDice = Object.entries(currentDice).filter(item => !item[1].checked);
+
+    uncheckedDice.forEach(item => {
+      const newRandomValue = Math.floor(Math.random() * 6) + 1;
+      newDiceValues[item[0]] = {
+        checked: false,
+        value: newRandomValue,
+        label: item[0]
+      }
+    })
+    console.log(newDiceValues);
   }
   
   return (
