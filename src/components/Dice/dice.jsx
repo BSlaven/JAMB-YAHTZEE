@@ -35,10 +35,10 @@ const Dice = () => {
     },
 });
 
-  useEffect(() => {
-    console.log('PROMIJENIO SI STATE JUNAČE');
-    console.log(currentDice);
-  }, [currentDice])
+  // useEffect(() => {
+  //   console.log('PROMIJENIO SI STATE JUNAČE');
+  //   console.log(currentDice);
+  // }, [currentDice])
 
 
   const rollDice = () => {
@@ -53,7 +53,7 @@ const Dice = () => {
         label: item[0]
       }
     })
-    console.log(newDiceValues);
+    
     setCurrentDice(prevDice => {
       return {
         ...prevDice,
