@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 
 const Dice = () => {
 
+  const [ rollNumber, setRollNumber ] = useState(1);
+
   const [ currentDice, setCurrentDice] = useState({
     input_dice_one: {
       label: 'input_dice_one',
@@ -40,7 +42,6 @@ const Dice = () => {
   //   console.log(currentDice);
   // }, [currentDice])
 
-
   const rollDice = () => {
     const newDiceValues = {};
     const uncheckedDice = Object.entries(currentDice).filter(item => !item[1].checked);
@@ -59,7 +60,9 @@ const Dice = () => {
         ...prevDice,
         ...newDiceValues
       }
-    })
+    });
+
+    setRollNumber(prev => prev + 1);
   }
   
   return (
@@ -113,7 +116,7 @@ const Dice = () => {
         className="roll_button"
         onClick={() => rollDice()}
       >
-        ROLL
+        ROLL {rollNumber <= 3 ? rollNumber : 3}
       </button>
     </section>
   )
