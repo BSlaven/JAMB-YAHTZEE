@@ -115,6 +115,7 @@ const Dice = () => {
       <button 
         className="roll_button"
         onClick={() => rollDice()}
+        disabled={rollNumber > 3}
       >
         ROLL {rollNumber <= 3 ? rollNumber : 3}
       </button>
