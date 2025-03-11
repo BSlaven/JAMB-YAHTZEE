@@ -1,4 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+
+import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
+
+const diceIcons = {
+  input_dice_one: <CgDice1 />,
+  input_dice_two: <CgDice2 />,
+  input_dice_three: <CgDice3 />,
+  input_dice_four: <CgDice4 />,
+  input_dice_five: <CgDice5 />,
+  input_dice_six: <CgDice6 />
+}
 
 const Dice = () => {
 
