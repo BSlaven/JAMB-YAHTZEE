@@ -1,0 +1,25 @@
+.diceContainer {
+  display: flex;
+  gap: 2rem;
+  padding: 3rem;
+}
+
+.singleDiceContainer {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.singleDiceContainer.checked {
+  border-color: rgb(255, 107, 107);
+}
+
+.singleDiceContainer svg {
+  height: 2.8rem;
+  width: 2.8rem;
+  pointer-events: none;
+}
