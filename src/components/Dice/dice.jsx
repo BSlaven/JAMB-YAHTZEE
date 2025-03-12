@@ -82,64 +82,59 @@ const Dice = () => {
 
     setRollNumber(prev => prev + 1);
   }
+
+  const checkDice = diceName => {
+    console.log(diceName);
+
+    setCurrentDice(prevDice => {
+      return {
+        ...prevDice,
+        [diceName]: {
+          ...prevDice[diceName],
+          checked: !prevDice[diceName].checked
+        }
+      }
+    })
+  }
   
   return (
-    <section className='dice_cointainer'>
-      <div className="dice">
-        <div className="input_control">
-          <label htmlFor="input_dice_one">
-            {currentDice.input_dice_one.icon}
-          </label>
-          <input
-            type="checkbox"
-            name="input_dice_one"
-            id="input_dice_one"
-          />
+    <section className='dice_section'>
+      <div className="dice_container">
+        <div
+          onClick={() => checkDice('input_dice_one')} 
+          className={`single_dice_container ${currentDice.input_dice_one.checked ? 'checked' : null}`}
+        >
+          {currentDice.input_dice_one.icon}
         </div>
-        <div className="input_control">
-          <label htmlFor="input_dice_two">
+        <div 
+          onClick={() => checkDice('input_dice_two')} 
+          className={`single_dice_container ${currentDice.input_dice_two.checked ? 'checked' : null}`}
+        >
           {currentDice.input_dice_two.icon}
-          </label>
-          <input 
-            type="checkbox"
-            name="input_dice_two"
-            id="input_dice_two" />
         </div>
-        <div className="input_control">
-          <label htmlFor="input_dice_three">
-            {currentDice.input_dice_three.icon}
-          </label>
-          <input 
-            type="checkbox"
-            name="input_dice_three"
-            id="input_dice_three" />
+        <div 
+          onClick={() => checkDice('input_dice_three')} 
+          className={`single_dice_container ${currentDice.input_dice_three.checked ? 'checked' : null}`}
+        >
+          {currentDice.input_dice_three.icon}
         </div>
-        <div className="input_control">
-          <label htmlFor="input_dice_four">
-            {currentDice.input_dice_four.icon}
-          </label>
-          <input 
-            type="checkbox"
-            name="input_dice_four"
-            id="input_dice_four" />
+        <div 
+          onClick={() => checkDice('input_dice_four')} 
+          className={`single_dice_container ${currentDice.input_dice_four.checked ? 'checked' : null}`}
+        >
+          {currentDice.input_dice_four.icon}
         </div>
-        <div className="input_control">
-          <label htmlFor="input_dice_five">
-            {currentDice.input_dice_five.icon}
-          </label>
-          <input 
-            type="checkbox"
-            name="input_dice_five"
-            id="input_dice_five" />
+        <div
+          onClick={() => checkDice('input_dice_five')} 
+          className={`single_dice_container ${currentDice.input_dice_five.checked ? 'checked' : null}`}
+        >
+          {currentDice.input_dice_five.icon}
         </div>
-        <div className="input_control">
-          <label htmlFor="input_dice_six">
-            {currentDice.input_dice_six.icon}
-          </label>
-          <input 
-            type="checkbox"
-            name="input_dice_six"
-            id="input_dice_six" />
+        <div
+          onClick={() => checkDice('input_dice_six')} 
+          className={`single_dice_container ${currentDice.input_dice_six.checked ? 'checked' : null}`}
+        >
+          {currentDice.input_dice_six.icon}
         </div>
       </div>
       <button 
