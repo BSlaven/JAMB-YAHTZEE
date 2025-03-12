@@ -1,10 +1,10 @@
-.dice-container {
+.diceContainer {
   display: flex;
   gap: 2rem;
   padding: 3rem;
 }
 
-.single-container {
+.singleDiceContainer {
   width: 3rem;
   height: 3rem;
   display: grid;
@@ -14,11 +14,11 @@
   cursor: pointer;
 }
 
-.single-container.checked {
+.singleDiceContainer.checked {
   border-color: red;
 }
 
-.single-container svg {
+.singleDiceContainer svg {
   height: 2.8rem;
   width: 2.8rem;
   pointer-events: none;
