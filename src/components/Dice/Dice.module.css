@@ -20,7 +20,7 @@
 }
 
 .singleDiceContainer.checked {
-  border-color: rgb(255, 107, 107);
+  color: rgb(255, 101, 101);
 }
 
 .singleDiceContainer svg {
