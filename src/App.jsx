@@ -5,7 +5,7 @@ import Dice from './components/Dice/Dice';
 function App() {
   return (
     <>        
-      <h1>IGRAJTE JAMB</h1>
+      <h1 className='game_title'>IGRAJTE JAMB</h1>
       <Dice />
     </>
   )
