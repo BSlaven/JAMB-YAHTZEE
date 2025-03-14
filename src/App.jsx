@@ -10,7 +10,7 @@ function App() {
     <Router>
       <h1 className='game_title'>
         <Link to={'/'}>
-          IGRAJTE JAMB
+          JAMB
         </Link>
       </h1>
       <Routes>
