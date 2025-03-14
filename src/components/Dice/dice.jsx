@@ -86,7 +86,7 @@ const Dice = () => {
   }
 
   const checkDice = diceName => {
-    console.log(diceName);
+    if(rollNumber < 2) return;
 
     setCurrentDice(prevDice => {
       return {
