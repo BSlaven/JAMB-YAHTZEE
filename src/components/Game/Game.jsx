@@ -2,7 +2,9 @@ import Dice from '../Dice/Dice';
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <div>
+      <Dice />
+    </div>
   )
 }
 
