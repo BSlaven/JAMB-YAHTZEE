@@ -1,5 +1,9 @@
 .game_title {
   margin: 2rem 0;
   text-align: center;
+}
+
+.game_title a {
+  text-decoration: none;
   color: #fff
 }
