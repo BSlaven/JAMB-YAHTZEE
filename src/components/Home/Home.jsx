@@ -24,6 +24,7 @@ const Home = () => {
           type="text"
           id="game_id"
           name="game_id"
+          placeholder="id igre..."
         />
       </div>
 
