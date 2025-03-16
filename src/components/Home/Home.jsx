@@ -1,6 +1,7 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router";
+
+import classes from './Home.module.css';
 
 const Home = () => {
 
@@ -15,26 +16,24 @@ const Home = () => {
   }
   
   return (
-    <section>
-      <div className="input_control">
-        <label htmlFor="game_id">Unesite oznaku igre</label>
-        <input
-          onChange={(e) => setGameId(e.target.value)}
-          value={gameId}
-          type="text"
-          id="game_id"
-          name="game_id"
-          placeholder="id igre..."
-        />
-      </div>
+    <div className={classes.inputControl}>
+      <label htmlFor="game_id">Unesite ID igre</label>
+      <input
+        onChange={(e) => setGameId(e.target.value)}
+        value={gameId}
+        type="text"
+        id="game_id"
+        name="game_id"
+        placeholder="id igre..."
+      />
 
       <button 
-        className="enter_game_btn"
+        className={classes.enterGameBtn}
         onClick={enterGameHandler}
       >
         Uđi u igru
       </button>
-    </section>
+    </div>
   )
 }
 
