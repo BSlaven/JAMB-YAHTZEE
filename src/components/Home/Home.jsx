@@ -17,8 +17,8 @@ const Home = () => {
   }
   
   return (
-    <div className="input_control">
-      <label htmlFor="game_id">Unesite oznaku igre</label>
+    <div className={classes.inputControl}>
+      <label htmlFor="game_id">Unesite ID igre</label>
       <input
         onChange={(e) => setGameId(e.target.value)}
         value={gameId}
@@ -29,7 +29,7 @@ const Home = () => {
       />
 
       <button 
-        className="enter_game_btn"
+        className={classes.enterGameBtn}
         onClick={enterGameHandler}
       >
         Uđi u igru
