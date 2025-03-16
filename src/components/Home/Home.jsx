@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router";
 
+import classes from './Home.module.css';
+
 const Home = () => {
 
   const navigate = useNavigate();
