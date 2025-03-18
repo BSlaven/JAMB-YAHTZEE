@@ -1,10 +1,17 @@
 import { useState } from 'react';
 
+import Column from '../Column/Column';
+
 const columns = [ 'downColumn', 'freeColumn', 'upColumn', 'announcementColumn']
 
 const Fields = () => {
   return (
-    <div>Fields</div>
+    <>
+      <h3>Fields</h3>
+      {columns.map(column => {
+        <Column column={column} />
+      })}
+    </>
   )
 }
 
