@@ -4,10 +4,10 @@ const Column = ({ column, isRandomColumn = false }) => {
 
   const [ columns, setColumns ] = useState({
     ones: {
-      value: 0,
+      // value: 0,
       isAvailable: true,
       name: 'ones',
-      next: 'twos'
+      next: calculateNextField('toMiddle', 'ones', null, 'twos')
     },
     twos: {
       value: 0,
