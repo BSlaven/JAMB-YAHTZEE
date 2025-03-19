@@ -67,37 +67,37 @@ const Column = ({ column, isRandomColumn = false }) => {
       // value: 0,
       isAvailable: true,
       name: 'ones',
-      next: calculateNextField('toMiddle', 'ones', null, 'twos')
+      next: setNextField(column, 'ones', null, 'twos')
     },
     twos: {
       value: 0,
       isAvailable: false,
       name: 'twos',
-      next: 'threes'
+      next: setNextField(column, 'twos', 'ones', 'threes')
     },
     threes: {
       value: 0,
       isAvailable: false,
       name: 'threes',
-      next: 'fours'
+      next: setNextField(column, 'threes', 'twos', 'fours')
     },
     fours: {
       value: 0,
       isAvailable: false,
       name: 'fours',
-      next: 'fives'
+      next: setNextField(column, 'fours', 'threes', 'fives')
     },
     fives: {
       value: 0,
       isAvailable: false,
       name: 'fives',
-      next: 'sixes'
+      next: setNextField(column, 'fives', 'fours', 'sixes')
     },
     sixes: {
       value: 0,
       isAvailable: false,
       name: 'sixes',
-      next: 'maximum'
+      next: setNextField(column, 'sixes', 'fives', 'maximum')
     },
     numbersTotal: {
       value: 0
@@ -106,13 +106,13 @@ const Column = ({ column, isRandomColumn = false }) => {
       value: 0,
       isAvailable: false,
       name: 'maximum',
-      next: 'minimum'
+      next: setNextField(column, 'maximum', 'sixes', 'minimum')
     },
     minimum: {
       value: 0,
       isAvailable: false,
       name: 'minimum',
-      next: 'triling'
+      next: setNextField(column, 'minimum', 'maximum', 'kenta')
     },
     differenceTotal: {
       value: 0,
@@ -121,31 +121,31 @@ const Column = ({ column, isRandomColumn = false }) => {
       value: 0,
       isAvailable: false,
       name: 'kenta',
-      next: 'triling'
+      next: setNextField(column, 'kenta', 'minimum', 'triling')
     },
     triling: {
       value: 0,
       isAvailable: false,
       name: 'triling',
-      next: 'ful'
+      next: setNextField(column, 'triling', 'kenta', 'ful')
     },
     ful: {
       value: 0,
       isAvailable: false,
       name: 'ful',
-      next: 'poker'
+      next: setNextField(column, 'ful', 'triling', 'poker')
     },
     poker: {
       value: 0,
       isAvailable: false,
       name: 'poker',
-      next: 'jamb'
+      next: setNextField(column, 'poker', 'ful', 'jamb')
     },
     jamb: {
       value: 0,
       isAvailable: false,
       name: 'jamb',
-      next: null
+      next: setNextField(column, 'jamb', 'poker', null)
     },
     setsTotal: {
       value: 0,
