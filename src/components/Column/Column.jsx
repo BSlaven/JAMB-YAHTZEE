@@ -93,14 +93,13 @@ const Column = ({ column, isRandomColumn = false }) => {
   })
   
   return (
-    <section>
-      <h4>d</h4>
-      <div className="field">1</div>
-      <div className="field">2</div>
-      <div className="field">3</div>
-      <div className="field">4</div>
-      <div className="field">5</div>
-      <div className="field">6</div>
+    <section className={classes.columnContainer}>
+      <h4>{column[0]}</h4>
+      {Object.entries(columns).map(item => {
+        return <div key={item[0]} className={classes.field}>
+          {item[1].value}
+        </div>
+      })}
     </section>
   )
 }
