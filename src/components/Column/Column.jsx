@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Column = ({ column }) => {
+const Column = ({ column, isRandomColumn = false }) => {
 
   const [ columns, setColumns ] = useState({
     ones: {
