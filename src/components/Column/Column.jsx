@@ -4,6 +4,64 @@ import classes from './Column.module.css';
 
 const Column = ({ column, isRandomColumn = false }) => {
 
+  const setNextField = (column, currentField, upField, downField) => {
+    let nextField;
+
+    if(column === 'down') nextField = downField;
+
+    if(column === 'up') nextField = upField;
+    
+    if(column === 'toMiddle') {
+      if(currentField === 'maximum' || currentField === 'minimum') return;
+
+      switch(currentField) {
+        case 'ones':
+        case 'twos':
+        case 'threes':
+        case 'fours':
+        case 'fives':
+        case 'sixes':
+          nextField = downField
+          break;
+        case 'kenta':
+        case 'triling':
+        case 'full':
+        case 'poker':
+        case 'jamb':
+          nextField = upField
+          break;
+        default:
+          nextField = null
+      }
+    }
+    
+    if(column === 'fromMiddle') {
+      if(currentField === 'ones' || currentField === 'jamb') return;
+
+      switch(currentField) {
+        case 'maximum':
+        case 'twos':
+        case 'threes':
+        case 'fours':
+        case 'fives':
+        case 'sixes':
+          nextField = upField
+          break;
+        case 'kenta':
+        case 'triling':
+        case 'full':
+        case 'poker':
+        case 'minimum':
+          nextField = upField
+          break;
+        default:
+          nextField = null
+      }
+    }
+
+    return nextField;
+  }
+
   const [ columns, setColumns ] = useState({
     ones: {
       // value: 0,
