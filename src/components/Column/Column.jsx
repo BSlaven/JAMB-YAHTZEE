@@ -62,10 +62,22 @@ const Column = ({ column, isRandomColumn = false }) => {
     return nextField;
   }
 
+  const setFieldAvailability = (column, field) => {
+    if(column === 'downColumn' && field === 'ones') return true;
+
+    if(column === 'upColumn' && field === 'jamb') return true;
+
+    if(column === 'fromMiddle' && (field === 'maximum' || field === 'minimum')) return true;
+
+    if(column === 'toMiddle' && (field === 'ones' || field === 'jamb')) return true;
+
+    return false;
+  }
+
   const [ columns, setColumns ] = useState({
     ones: {
       // value: 0,
-      isAvailable: true,
+      isAvailable: isRandomColumn || setFieldAvailability(column, 'ones'),
       name: 'ones',
       next: setNextField(column, 'ones', null, 'twos'),
       isChecked: false,
@@ -73,7 +85,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     twos: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'twos',
       next: setNextField(column, 'twos', 'ones', 'threes'),
       isChecked: false,
@@ -81,7 +93,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     threes: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'threes',
       next: setNextField(column, 'threes', 'twos', 'fours'),
       isChecked: false,
@@ -89,7 +101,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     fours: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'fours',
       next: setNextField(column, 'fours', 'threes', 'fives'),
       isChecked: false,
@@ -97,7 +109,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     fives: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'fives',
       next: setNextField(column, 'fives', 'fours', 'sixes'),
       isChecked: false,
@@ -105,7 +117,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     sixes: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'sixes',
       next: setNextField(column, 'sixes', 'fives', 'maximum'),
       isChecked: false,
@@ -116,7 +128,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     maximum: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn || setFieldAvailability(column, 'maximum'),
       name: 'maximum',
       next: setNextField(column, 'maximum', 'sixes', 'minimum'),
       isChecked: false,
@@ -124,7 +136,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     minimum: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn || setFieldAvailability(column, 'minimum'),
       name: 'minimum',
       next: setNextField(column, 'minimum', 'maximum', 'kenta'),
       isChecked: false,
@@ -135,7 +147,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     kenta: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'kenta',
       next: setNextField(column, 'kenta', 'minimum', 'triling'),
       isChecked: false,
@@ -143,7 +155,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     triling: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'triling',
       next: setNextField(column, 'triling', 'kenta', 'ful'),
       isChecked: false,
@@ -151,7 +163,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     ful: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'ful',
       next: setNextField(column, 'ful', 'triling', 'poker'),
       isChecked: false,
@@ -159,7 +171,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     poker: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn,
       name: 'poker',
       next: setNextField(column, 'poker', 'ful', 'jamb'),
       isChecked: false,
@@ -167,7 +179,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     jamb: {
       value: 0,
-      isAvailable: false,
+      isAvailable: isRandomColumn || setFieldAvailability(column, 'jamb'),
       name: 'jamb',
       next: setNextField(column, 'jamb', 'poker', null),
       isChecked: false,
