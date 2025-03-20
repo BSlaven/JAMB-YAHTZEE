@@ -1,17 +1,19 @@
 import { useState } from 'react';
 
+import classes from './Fields.module.css';
+
 import Column from '../Column/Column';
 
 const columns = [ 'downColumn', 'freeColumn', 'upColumn', 'announcementColumn']
 
 const Fields = () => {
+  
   return (
-    <>
-      <h3>Fields</h3>
+    <div className={classes.fieldsContainer}>
       {columns.map(column => {
-        <Column column={column} />
+        return <Column key={column} column={column} />
       })}
-    </>
+    </div>
   )
 }
 

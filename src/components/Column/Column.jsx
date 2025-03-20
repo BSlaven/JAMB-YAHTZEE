@@ -7,9 +7,9 @@ const Column = ({ column, isRandomColumn = false }) => {
   const setNextField = (column, currentField, upField, downField) => {
     let nextField;
 
-    if(column === 'down') nextField = downField;
+    if(column === 'downColumn') nextField = downField;
 
-    if(column === 'up') nextField = upField;
+    if(column === 'upColumn') nextField = upField;
     
     if(column === 'toMiddle') {
       if(currentField === 'maximum' || currentField === 'minimum') return;
