@@ -188,16 +188,40 @@ const Column = ({ column, isRandomColumn = false }) => {
     setsTotal: {
       value: 0,
     }
-  })
+  });
+
+  const fieldClickHandler = ([ fieldName, fieldObject ]) => {
+    const next = columns[fieldObject.next].name;
+    console.log(next);
+    console.log(fieldName);
+    console.log(fieldObject);
+
+    // setColumns(prev => {
+    //   return {
+    //     ...prev,
+    //    fieldName: {
+    //    ...fieldObject,
+    //    isChecked: true,
+    //    value: 4
+    // }
+    //   }
+    // })
+  }
   
   return (
     <section className={classes.columnContainer}>
       <h4>{column[0]}</h4>
       {Object.entries(columns).map(item => {
-        console.log(item[0], item[1].next);
-        return <div key={item[0]} className={classes.field}>
-          {item[0]}
-        </div>
+        return (
+          <div 
+            key={item[0]}
+            className={classes.field}
+            onClick={() => fieldClickHandler(item)}
+          >
+            {/* {item[1].isChecked ? item[1].value : null} */}
+            {item[0]}
+          </div>
+        )
       })}
     </section>
   )
