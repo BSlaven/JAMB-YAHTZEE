@@ -84,6 +84,25 @@ const Column = ({ column, isRandomColumn = false }) => {
 
       return fieldValue;
     }
+
+    if(field === 'maximum') {
+      const fieldValue = dice
+        .toSorted()
+        .slice(1)
+        .reduce((acc, curr) => acc + curr)
+
+      return fieldValue;
+    }
+
+    if(field === 'minimum') {
+      const fieldValue = dice
+        .toSorted()
+        .reverse()
+        .slice(1)
+        .reduce((acc, curr) => acc + curr)
+
+      return fieldValue;
+    }
   }
 
   const [ columns, setColumns ] = useState({
