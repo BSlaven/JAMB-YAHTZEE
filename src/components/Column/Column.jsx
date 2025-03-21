@@ -103,6 +103,17 @@ const Column = ({ column, isRandomColumn = false }) => {
 
       return fieldValue;
     }
+
+    const valuesObject = {}
+    for(value of dice) {
+      if(!valuesObject.value) {
+        valuesObject[value] = 1;
+        return
+      }
+      valuesObject[value] ++;
+    }
+
+    
   }
 
   const [ columns, setColumns ] = useState({
