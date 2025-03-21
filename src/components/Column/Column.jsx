@@ -74,6 +74,18 @@ const Column = ({ column, isRandomColumn = false }) => {
     return false;
   }
 
+  const calculateFieldValue = (field, number) => {
+    const dice = [ 2, 4, 6, 6, 2, 1]
+
+    if(number) {
+      const fieldValue = dice
+        .filter(item => item === number)
+        .reduce((acc, curr) => acc + curr);
+
+      return fieldValue;
+    }
+  }
+
   const [ columns, setColumns ] = useState({
     ones: {
       // value: 0,
