@@ -1,0 +1,5 @@
+.fieldsContainer {
+  display: flex;
+  gap: 2px;
+  text-align: center;
+}

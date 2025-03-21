@@ -1,0 +1,17 @@
+.columnContainer h4 {
+  margin: 0 0 0.5rem
+
+}
+
+.field {
+  background-color: rgba(57, 51, 139, 0.438);
+  width: 2.2rem;
+  height: 1.8rem;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.field.available {
+  border-color: green;
+}
