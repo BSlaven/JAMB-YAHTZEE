@@ -190,22 +190,25 @@ const Column = ({ column, isRandomColumn = false }) => {
     }
   });
 
+  console.log(columns)
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     const next = columns[fieldObject.next].name;
-    console.log(next);
-    console.log(fieldName);
-    console.log(fieldObject);
 
-    // setColumns(prev => {
-    //   return {
-    //     ...prev,
-    //    fieldName: {
-    //    ...fieldObject,
-    //    isChecked: true,
-    //    value: 4
-    // }
-    //   }
-    // })
+    setColumns(prev => {
+      return {
+        ...prev,
+        [fieldName]: {
+          ...fieldObject,
+          isChecked: true,
+          value: 4
+        },
+        [next]: {
+          ...columns[next],
+          isPreviousChecked: true
+        }
+      }
+    })
   }
   
   return (
@@ -215,11 +218,13 @@ const Column = ({ column, isRandomColumn = false }) => {
         return (
           <div 
             key={item[0]}
-            className={classes.field}
+            className={`
+              ${classes.field}
+              ${item[1].isAvailable ? `${classes.available}` : null}`
+            }
             onClick={() => fieldClickHandler(item)}
           >
             {/* {item[1].isChecked ? item[1].value : null} */}
-            {item[0]}
           </div>
         )
       })}

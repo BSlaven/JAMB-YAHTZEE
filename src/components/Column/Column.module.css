@@ -1,9 +1,5 @@
-.columnContainer {
-  
-}
-
 .columnContainer h4 {
-  margin: 0 0 0.4rem
+  margin: 0 0 0.5rem
 
 }
 
@@ -13,4 +9,9 @@
   height: 1.8rem;
   margin-bottom: 2px;
   border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.field.available {
+  border-color: green;
 }

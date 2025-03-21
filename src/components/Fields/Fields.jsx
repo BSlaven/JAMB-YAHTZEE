@@ -1,11 +1,8 @@
-import { useState } from 'react';
-
 import classes from './Fields.module.css';
 
 import Column from '../Column/Column';
 
-// const columns = [ 'downColumn', 'freeColumn', 'upColumn', 'announcementColumn']
-const columns = [ 'downColumn' ]
+const columns = [ 'downColumn', 'freeColumn', 'upColumn', 'announcementColumn']
 
 const Fields = () => {
   
