@@ -77,31 +77,29 @@ const Column = ({ column, isRandomColumn = false }) => {
   const calculateFieldValue = (field, number) => {
     const dice = [ 2, 4, 6, 6, 2, 1]
 
-    if(number) {
-      const fieldValue = dice
-        .filter(item => item === number)
-        .reduce((acc, curr) => acc + curr);
-
-      return fieldValue;
-    }
-
-    if(field === 'maximum') {
-      const fieldValue = dice
-        .toSorted()
-        .slice(1)
-        .reduce((acc, curr) => acc + curr)
-
-      return fieldValue;
-    }
-
-    if(field === 'minimum') {
-      const fieldValue = dice
-        .toSorted()
-        .reverse()
-        .slice(1)
-        .reduce((acc, curr) => acc + curr)
-
-      return fieldValue;
+    switch(field) {
+      case 'ones':
+      case 'twos':
+      case 'threes':
+      case 'fours':
+      case 'fives':
+      case 'sixes':
+        return dice
+          .filter(item => item === number)
+          .reduce((acc, curr) => acc + curr);
+      
+      case 'maximum':
+        return dice
+          .sort()
+          .pop()
+          .reduce((acc, curr) => acc + curr);
+      
+      case 'minimum':
+        return dice
+          .sort()
+          .reverse()
+          .pop()
+          .reduce((acc, curr) => acc + curr);
     }
 
     const valuesObject = {}
