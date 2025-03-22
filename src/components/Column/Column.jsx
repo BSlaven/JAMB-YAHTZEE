@@ -117,6 +117,7 @@ const Column = ({ column, isRandomColumn = false }) => {
   const [ columns, setColumns ] = useState({
     ones: {
       // value: 0,
+      numberValue: 1,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'ones'),
       name: 'ones',
       next: setNextField(column, 'ones', null, 'twos'),
@@ -125,6 +126,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     twos: {
       value: 0,
+      numberValue: 2,
       isAvailable: isRandomColumn,
       name: 'twos',
       next: setNextField(column, 'twos', 'ones', 'threes'),
@@ -133,6 +135,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     threes: {
       value: 0,
+      numberValue: 3,
       isAvailable: isRandomColumn,
       name: 'threes',
       next: setNextField(column, 'threes', 'twos', 'fours'),
@@ -141,6 +144,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     fours: {
       value: 0,
+      numberValue: 4,
       isAvailable: isRandomColumn,
       name: 'fours',
       next: setNextField(column, 'fours', 'threes', 'fives'),
@@ -149,6 +153,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     fives: {
       value: 0,
+      numberValue: 5,
       isAvailable: isRandomColumn,
       name: 'fives',
       next: setNextField(column, 'fives', 'fours', 'sixes'),
@@ -157,6 +162,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     },
     sixes: {
       value: 0,
+      numberValue: 6,
       isAvailable: isRandomColumn,
       name: 'sixes',
       next: setNextField(column, 'sixes', 'fives', 'maximum'),
@@ -241,7 +247,7 @@ const Column = ({ column, isRandomColumn = false }) => {
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
-          value: 4
+          value: calculateFieldValue(fieldName, fieldObject.numberValue)
         },
         [next]: {
           ...columns[next],
