@@ -110,8 +110,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       }
       valuesObject[value] ++;
     }
-
-    
   }
 
   const [ columns, setColumns ] = useState({
