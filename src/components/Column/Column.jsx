@@ -132,7 +132,14 @@ const Column = ({ column, isRandomColumn = false }) => {
         if(uniqueSet.length >= 5) return 45;
         return 45;
       case 'full':
-        return 30 + 30;
+        const filteredMap = mapArray.filter(item => item[1] >= 2);
+        if(filteredMap.length === 2 && filteredMap.some(item => item[1] === 3)) {
+          const total = filteredMap
+            .map(item => parseInt(item[0]) * item[1])
+            .reduce((acc, curr) => acc + curr)
+          return total + 30;
+        }
+        return 0;
       case 'poker':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 4);
         if(multiplesOfTheSame.length === 0) return 0;
@@ -145,6 +152,22 @@ const Column = ({ column, isRandomColumn = false }) => {
         return 0;
     }
   }
+
+//   const dice = [1, 3, 3, 5, 5, 5]
+// const diceMap = {}
+// dice.forEach(item => {
+//     if(!diceMap[item]) {
+//         diceMap[item] = 1
+//         return
+//     }
+//     diceMap[item]++
+// })
+// const filteredDice = Object.entries(diceMap).filter(item => item[1] >= 2)
+// console.log(filteredDice)
+// const total = filteredDice.map(item => parseInt(item[0]) * item[1])
+// console.log(total)
+// const singleTotal = total.reduce((acc, curr) => acc + curr)
+// console.log(singleTotal + 30)
 
 
 
