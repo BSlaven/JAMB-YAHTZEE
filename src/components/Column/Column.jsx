@@ -155,7 +155,6 @@ const Column = ({ column, isRandomColumn = false }) => {
 
   const [ columns, setColumns ] = useState({
     ones: {
-      // value: 0,
       numberValue: 1,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'ones'),
       name: 'ones',
@@ -164,7 +163,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     twos: {
-      value: 0,
       numberValue: 2,
       isAvailable: isRandomColumn,
       name: 'twos',
@@ -173,7 +171,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     threes: {
-      value: 0,
       numberValue: 3,
       isAvailable: isRandomColumn,
       name: 'threes',
@@ -182,7 +179,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     fours: {
-      value: 0,
       numberValue: 4,
       isAvailable: isRandomColumn,
       name: 'fours',
@@ -191,7 +187,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     fives: {
-      value: 0,
       numberValue: 5,
       isAvailable: isRandomColumn,
       name: 'fives',
@@ -200,7 +195,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     sixes: {
-      value: 0,
       numberValue: 6,
       isAvailable: isRandomColumn,
       name: 'sixes',
@@ -209,10 +203,9 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     numbersTotal: {
-      value: 0
+      value: 0,
     },
     maximum: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'maximum'),
       name: 'maximum',
       next: setNextField(column, 'maximum', 'sixes', 'minimum'),
@@ -220,7 +213,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     minimum: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'minimum'),
       name: 'minimum',
       next: setNextField(column, 'minimum', 'maximum', 'kenta'),
@@ -231,7 +223,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       value: 0,
     },
     kenta: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'kenta',
       next: setNextField(column, 'kenta', 'minimum', 'triling'),
@@ -239,7 +230,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     triling: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'triling',
       next: setNextField(column, 'triling', 'kenta', 'ful'),
@@ -247,7 +237,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     ful: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'ful',
       next: setNextField(column, 'ful', 'triling', 'poker'),
@@ -255,7 +244,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     poker: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'poker',
       next: setNextField(column, 'poker', 'ful', 'jamb'),
@@ -263,7 +251,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     jamb: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'jamb'),
       name: 'jamb',
       next: setNextField(column, 'jamb', 'poker', null),
@@ -274,8 +261,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       value: 0,
     }
   });
-
-  console.log(columns)
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     const next = columns[fieldObject.next].name;
@@ -309,7 +294,7 @@ const Column = ({ column, isRandomColumn = false }) => {
             }
             onClick={() => fieldClickHandler(item)}
           >
-            {/* {item[1].isChecked ? item[1].value : null} */}
+            {item[1].isChecked ? item[1].value : null}
           </div>
         )
       })}
