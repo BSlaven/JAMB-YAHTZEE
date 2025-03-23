@@ -262,7 +262,11 @@ const Column = ({ column, isRandomColumn = false }) => {
     }
   });
 
+  console.log(columns)
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
+    if(!fieldObject.isAvailable) return;
+    
     const next = columns[fieldObject.next].name;
 
     setColumns(prev => {
@@ -290,7 +294,7 @@ const Column = ({ column, isRandomColumn = false }) => {
             key={item[0]}
             className={`
               ${classes.field}
-              ${item[1].isAvailable ? `${classes.available}` : null}`
+              ${(item[1].isAvailable) ? `${classes.available}` : null}`
             }
             onClick={() => fieldClickHandler(item)}
           >
