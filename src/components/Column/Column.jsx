@@ -153,24 +153,6 @@ const Column = ({ column, isRandomColumn = false }) => {
     }
   }
 
-//   const dice = [1, 3, 3, 5, 5, 5]
-// const diceMap = {}
-// dice.forEach(item => {
-//     if(!diceMap[item]) {
-//         diceMap[item] = 1
-//         return
-//     }
-//     diceMap[item]++
-// })
-// const filteredDice = Object.entries(diceMap).filter(item => item[1] >= 2)
-// console.log(filteredDice)
-// const total = filteredDice.map(item => parseInt(item[0]) * item[1])
-// console.log(total)
-// const singleTotal = total.reduce((acc, curr) => acc + curr)
-// console.log(singleTotal + 30)
-
-
-
   const [ columns, setColumns ] = useState({
     ones: {
       // value: 0,
