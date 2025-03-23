@@ -128,14 +128,18 @@ const Column = ({ column, isRandomColumn = false }) => {
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 3);
         return Math.max(multiplesOfTheSame)[0] * 3 + 20;
       case 'kenta':
+        const uniqueSet = new Set(...mapArray.map(item => item[1]))
+        if(uniqueSet.length >= 5) return 45;
         return 45;
       case 'full':
         return 30 + 30;
       case 'poker':
-        multiplesOfTheSame = mapArray.find(item => item[1] >= 4);
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 4);
+        if(multiplesOfTheSame.length === 0) return 0;
         return multiplesOfTheSame[0] * 4 + 40;
       case 'jamb':
-        multiplesOfTheSame = mapArray.find(item => item[1] >= 5);
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 5);
+        if(multiplesOfTheSame.length === 0) return 0;
         return multiplesOfTheSame[0] * 5 + 50;
       default:
         return 0;
