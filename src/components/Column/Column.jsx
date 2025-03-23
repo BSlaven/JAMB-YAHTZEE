@@ -74,9 +74,88 @@ const Column = ({ column, isRandomColumn = false }) => {
     return false;
   }
 
+  const calculateFieldValue = (field, number) => {
+    const dice = [ 2, 4, 6, 6, 2, 1]
+
+    switch(field) {
+      case 'ones':
+      case 'twos':
+      case 'threes':
+      case 'fours':
+      case 'fives':
+      case 'sixes':
+        return dice
+          .filter(item => item === number)
+          .reduce((acc, curr) => acc + curr);
+      
+      case 'maximum':
+        return dice
+          .sort()
+          .pop()
+          .reduce((acc, curr) => acc + curr);
+      
+      case 'minimum':
+        return dice
+          .sort()
+          .reverse()
+          .pop()
+          .reduce((acc, curr) => acc + curr);
+
+      case 'triling':
+      case 'kenta':
+      case 'full':
+      case 'poker':
+      case 'jamb':
+        return calculateSetValue(field);
+    }
+  }
+  
+  const calculateSetValue = (field) => {
+    const valuesObject = {}
+    for(value of dice) {
+      if(!valuesObject.value) {
+        valuesObject[value] = 1;
+        return
+      }
+      valuesObject[value]++;
+    }
+
+    const mapArray = Object.entries(valuesObject);
+    let multiplesOfTheSame;
+
+    switch(field) {
+      case 'triling':
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 3);
+        return Math.max(multiplesOfTheSame)[0] * 3 + 20;
+      case 'kenta':
+        const uniqueSet = new Set(...mapArray.map(item => item[1]))
+        if(uniqueSet.length >= 5) return 45;
+        return 45;
+      case 'full':
+        const filteredMap = mapArray.filter(item => item[1] >= 2);
+        if(filteredMap.length === 2 && filteredMap.some(item => item[1] === 3)) {
+          const total = filteredMap
+            .map(item => parseInt(item[0]) * item[1])
+            .reduce((acc, curr) => acc + curr)
+          return total + 30;
+        }
+        return 0;
+      case 'poker':
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 4);
+        if(multiplesOfTheSame.length === 0) return 0;
+        return multiplesOfTheSame[0] * 4 + 40;
+      case 'jamb':
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 5);
+        if(multiplesOfTheSame.length === 0) return 0;
+        return multiplesOfTheSame[0] * 5 + 50;
+      default:
+        return 0;
+    }
+  }
+
   const [ columns, setColumns ] = useState({
     ones: {
-      // value: 0,
+      numberValue: 1,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'ones'),
       name: 'ones',
       next: setNextField(column, 'ones', null, 'twos'),
@@ -84,7 +163,7 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     twos: {
-      value: 0,
+      numberValue: 2,
       isAvailable: isRandomColumn,
       name: 'twos',
       next: setNextField(column, 'twos', 'ones', 'threes'),
@@ -92,7 +171,7 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     threes: {
-      value: 0,
+      numberValue: 3,
       isAvailable: isRandomColumn,
       name: 'threes',
       next: setNextField(column, 'threes', 'twos', 'fours'),
@@ -100,7 +179,7 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     fours: {
-      value: 0,
+      numberValue: 4,
       isAvailable: isRandomColumn,
       name: 'fours',
       next: setNextField(column, 'fours', 'threes', 'fives'),
@@ -108,7 +187,7 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     fives: {
-      value: 0,
+      numberValue: 5,
       isAvailable: isRandomColumn,
       name: 'fives',
       next: setNextField(column, 'fives', 'fours', 'sixes'),
@@ -116,7 +195,7 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     sixes: {
-      value: 0,
+      numberValue: 6,
       isAvailable: isRandomColumn,
       name: 'sixes',
       next: setNextField(column, 'sixes', 'fives', 'maximum'),
@@ -124,10 +203,9 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     numbersTotal: {
-      value: 0
+      value: 0,
     },
     maximum: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'maximum'),
       name: 'maximum',
       next: setNextField(column, 'maximum', 'sixes', 'minimum'),
@@ -135,7 +213,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     minimum: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'minimum'),
       name: 'minimum',
       next: setNextField(column, 'minimum', 'maximum', 'kenta'),
@@ -146,7 +223,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       value: 0,
     },
     kenta: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'kenta',
       next: setNextField(column, 'kenta', 'minimum', 'triling'),
@@ -154,7 +230,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     triling: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'triling',
       next: setNextField(column, 'triling', 'kenta', 'ful'),
@@ -162,7 +237,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     ful: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'ful',
       next: setNextField(column, 'ful', 'triling', 'poker'),
@@ -170,7 +244,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     poker: {
-      value: 0,
       isAvailable: isRandomColumn,
       name: 'poker',
       next: setNextField(column, 'poker', 'ful', 'jamb'),
@@ -178,7 +251,6 @@ const Column = ({ column, isRandomColumn = false }) => {
       isPreviousChecked: false
     },
     jamb: {
-      value: 0,
       isAvailable: isRandomColumn || setFieldAvailability(column, 'jamb'),
       name: 'jamb',
       next: setNextField(column, 'jamb', 'poker', null),
@@ -193,6 +265,8 @@ const Column = ({ column, isRandomColumn = false }) => {
   console.log(columns)
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
+    if(!fieldObject.isAvailable) return;
+
     const next = columns[fieldObject.next].name;
 
     setColumns(prev => {
@@ -201,7 +275,7 @@ const Column = ({ column, isRandomColumn = false }) => {
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
-          value: 4
+          value: calculateFieldValue(fieldName, fieldObject.numberValue)
         },
         [next]: {
           ...columns[next],
@@ -220,11 +294,11 @@ const Column = ({ column, isRandomColumn = false }) => {
             key={item[0]}
             className={`
               ${classes.field}
-              ${item[1].isAvailable ? `${classes.available}` : null}`
+              ${(item[1].isAvailable || item[1].isPreviousChecked) ? `${classes.available}` : null}`
             }
             onClick={() => fieldClickHandler(item)}
           >
-            {/* {item[1].isChecked ? item[1].value : null} */}
+            {item[1].isChecked ? item[1].value : null}
           </div>
         )
       })}
