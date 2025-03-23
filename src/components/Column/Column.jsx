@@ -100,17 +100,49 @@ const Column = ({ column, isRandomColumn = false }) => {
           .reverse()
           .pop()
           .reduce((acc, curr) => acc + curr);
-    }
 
+      case 'triling':
+      case 'kenta':
+      case 'full':
+      case 'poker':
+      case 'jamb':
+        return calculateSetValue(field);
+    }
+  }
+  
+  const calculateSetValue = (field) => {
     const valuesObject = {}
     for(value of dice) {
       if(!valuesObject.value) {
         valuesObject[value] = 1;
         return
       }
-      valuesObject[value] ++;
+      valuesObject[value]++;
+    }
+
+    const mapArray = Object.entries(valuesObject);
+    let multiplesOfTheSame;
+
+    switch(field) {
+      case 'triling':
+        multiplesOfTheSame = mapArray.filter(item => item[1] >= 3);
+        return Math.max(multiplesOfTheSame)[0] * 3 + 20;
+      case 'kenta':
+        return 45;
+      case 'full':
+        return 30 + 30;
+      case 'poker':
+        multiplesOfTheSame = mapArray.find(item => item[1] >= 4);
+        return multiplesOfTheSame[0] * 4 + 40;
+      case 'jamb':
+        multiplesOfTheSame = mapArray.find(item => item[1] >= 5);
+        return multiplesOfTheSame[0] * 5 + 50;
+      default:
+        return 0;
     }
   }
+
+
 
   const [ columns, setColumns ] = useState({
     ones: {
