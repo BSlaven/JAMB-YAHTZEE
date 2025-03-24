@@ -279,7 +279,8 @@ const Column = ({ column, isRandomColumn = false }) => {
         },
         [next]: {
           ...columns[next],
-          isPreviousChecked: true
+          isPreviousChecked: true,
+          isAvailable: true
         }
       }
     })
@@ -294,7 +295,7 @@ const Column = ({ column, isRandomColumn = false }) => {
             key={item[0]}
             className={`
               ${classes.field}
-              ${(item[1].isAvailable || item[1].isPreviousChecked) ? `${classes.available}` : null}`
+              ${(!item[1].isChecked && item[1].isAvailable && item[1].isPreviousChecked) ? `${classes.available}` : null}`
             }
             onClick={() => fieldClickHandler(item)}
           >
