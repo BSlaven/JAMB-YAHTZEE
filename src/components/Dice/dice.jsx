@@ -6,20 +6,14 @@ import DiceContext from "../../context/DiceContext";
 
 const Dice = () => {
 
-  const [ rollNumber, setRollNumber ] = useState(1);
+  
 
-  const { dice, checkDice, rollDice } = useContext(DiceContext);
+  const { dice, checkDice, rollDice, rollNumber } = useContext(DiceContext);
 
   // useEffect(() => {
   //   console.log('PROMIJENIO SI STATE JUNAČE');
   //   console.log(currentDice);
   // }, [currentDice])
-
-  const diceRollHandler = () => {
-    rollDice();
-
-    setRollNumber(prev => prev + 1);
-  }
   
   return (
     <div className={classes.diceContainer}>
@@ -61,7 +55,7 @@ const Dice = () => {
       </div>
       <button 
         className={classes.rollButton}
-        onClick={() => diceRollHandler()}
+        onClick={() => rollDice()}
         disabled={rollNumber > 3}
       >
         ROLL {rollNumber <= 3 ? rollNumber : 3}

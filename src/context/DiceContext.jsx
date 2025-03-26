@@ -17,6 +17,8 @@ export const DiceProvider = ({ children }) => {
 
   const [ diceValues, setDiceValues ] = useState([]);
 
+  const [ rollNumber, setRollNumber ] = useState(1);
+
   const [ dice, setDice ] = useState({
     input_dice_one: {
       label: 'input_dice_one',
@@ -72,7 +74,7 @@ export const DiceProvider = ({ children }) => {
   const checkDice = diceName => {
     if(rollNumber < 2) return;
 
-    setCurrentDice(prevDice => {
+    setDice(prevDice => {
       return {
         ...prevDice,
         [diceName]: {
@@ -97,12 +99,14 @@ export const DiceProvider = ({ children }) => {
       }
     })
     
-    setCurrentDice(prevDice => {
+    setDice(prevDice => {
       return {
         ...prevDice,
         ...newDiceValues
       }
     });
+
+    setRollNumber(prev => prev + 1);
   }
 
   return <DiceContext.Provider value={{
@@ -110,6 +114,7 @@ export const DiceProvider = ({ children }) => {
       dice,
       gameTotals,
       gameColumns,
+      rollNumber,
       checkDice,
       rollDice
     }}>
