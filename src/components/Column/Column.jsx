@@ -262,7 +262,7 @@ const Column = ({ column, isRandomColumn = false }) => {
     }
   });
 
-  console.log(columns)
+  // console.log(columns)
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject.isAvailable) return;

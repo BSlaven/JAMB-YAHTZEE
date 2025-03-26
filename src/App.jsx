@@ -4,20 +4,23 @@ import './App.css';
 
 import Home from "./components/Home/Home";
 import Game from "./components/Game/Game";
+import { DiceProvider } from "./context/DiceContext";
 
 function App() {
   return (
-    <Router>
-      <h1 className='game_title'>
-        <Link to={'/'}>
-          JAMB
-        </Link>
-      </h1>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/game/:id" element={<Game />} />
-      </Routes>
-    </Router>
+    <DiceProvider>
+      <Router>
+        <h1 className='game_title'>
+          <Link to={'/'}>
+            JAMB
+          </Link>
+        </h1>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/game/:id" element={<Game />} />
+        </Routes>
+      </Router>
+    </DiceProvider>
   )
 }
 
