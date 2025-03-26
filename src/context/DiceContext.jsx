@@ -16,6 +16,7 @@ const DiceContext = createContext();
 export const DiceProvider = ({ children }) => {
 
   const [ diceValues, setDiceValues ] = useState([]);
+
   const [ dice, setDice ] = useState({
     input_dice_one: {
       label: 'input_dice_one',
@@ -68,11 +69,26 @@ export const DiceProvider = ({ children }) => {
     totalsTotal: 0
   });
 
+    const checkDice = diceName => {
+      if(rollNumber < 2) return;
+  
+      setCurrentDice(prevDice => {
+        return {
+          ...prevDice,
+          [diceName]: {
+            ...prevDice[diceName],
+            checked: !prevDice[diceName].checked
+          }
+        }
+      })
+    }
+
   return <DiceContext.Provider value={{
       diceValues,
       dice,
       gameTotals,
-      gameColumns
+      gameColumns,
+      checkDice
     }}>
     {children}
   </DiceContext.Provider>

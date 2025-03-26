@@ -8,7 +8,7 @@ const Dice = () => {
 
   const [ rollNumber, setRollNumber ] = useState(1);
 
-  const { dice } = useContext(DiceContext);
+  const { dice, checkDice } = useContext(DiceContext);
 
   // useEffect(() => {
   //   console.log('PROMIJENIO SI STATE JUNAČE');
@@ -37,20 +37,6 @@ const Dice = () => {
     });
 
     setRollNumber(prev => prev + 1);
-  }
-
-  const checkDice = diceName => {
-    if(rollNumber < 2) return;
-
-    setCurrentDice(prevDice => {
-      return {
-        ...prevDice,
-        [diceName]: {
-          ...prevDice[diceName],
-          checked: !prevDice[diceName].checked
-        }
-      }
-    })
   }
   
   return (
