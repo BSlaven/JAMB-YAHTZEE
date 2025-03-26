@@ -1,25 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import classes from './Dice.module.css';
 
-import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
-
-const diceIcons = {
-  input_dice_1: <CgDice1 />,
-  input_dice_2: <CgDice2 />,
-  input_dice_3: <CgDice3 />,
-  input_dice_4: <CgDice4 />,
-  input_dice_5: <CgDice5 />,
-  input_dice_6: <CgDice6 />
-}
+import DiceContext from "../../context/DiceContext";
 
 const Dice = () => {
 
   const [ rollNumber, setRollNumber ] = useState(1);
 
-  const [ currentDice, setCurrentDice] = useState({
-  
-});
+  const { dice } = useContext(DiceContext);
 
   // useEffect(() => {
   //   console.log('PROMIJENIO SI STATE JUNAČE');
@@ -28,7 +17,7 @@ const Dice = () => {
 
   const rollDice = () => {
     const newDiceValues = {};
-    const uncheckedDice = Object.entries(currentDice).filter(item => !item[1].checked);
+    const uncheckedDice = Object.entries(dice).filter(item => !item[1].checked);
 
     uncheckedDice.forEach(item => {
       const newRandomValue = Math.floor(Math.random() * 6) + 1;
@@ -68,39 +57,39 @@ const Dice = () => {
     <div className={classes.diceContainer}>
       <div
         onClick={() => checkDice('input_dice_one')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_one.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_one.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_one.icon}
+        {dice.input_dice_one.icon}
       </div>
       <div 
         onClick={() => checkDice('input_dice_two')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_two.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_two.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_two.icon}
+        {dice.input_dice_two.icon}
       </div>
       <div 
         onClick={() => checkDice('input_dice_three')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_three.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_three.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_three.icon}
+        {dice.input_dice_three.icon}
       </div>
       <div 
         onClick={() => checkDice('input_dice_four')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_four.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_four.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_four.icon}
+        {dice.input_dice_four.icon}
       </div>
       <div
         onClick={() => checkDice('input_dice_five')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_five.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_five.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_five.icon}
+        {dice.input_dice_five.icon}
       </div>
       <div
         onClick={() => checkDice('input_dice_six')}
-        className={`${classes.singleDiceContainer} ${currentDice.input_dice_six.checked ? classes.checked : null}`}
+        className={`${classes.singleDiceContainer} ${dice.input_dice_six.checked ? classes.checked : null}`}
       >
-        {currentDice.input_dice_six.icon}
+        {dice.input_dice_six.icon}
       </div>
       <button 
         className={classes.rollButton}

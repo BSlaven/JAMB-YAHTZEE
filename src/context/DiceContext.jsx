@@ -1,5 +1,16 @@
 import { createContext, useState } from "react";
 
+import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
+
+const diceIcons = {
+  input_dice_1: <CgDice1 />,
+  input_dice_2: <CgDice2 />,
+  input_dice_3: <CgDice3 />,
+  input_dice_4: <CgDice4 />,
+  input_dice_5: <CgDice5 />,
+  input_dice_6: <CgDice6 />
+}
+
 const DiceContext = createContext();
 
 export const DiceProvider = ({ children }) => {
@@ -43,7 +54,7 @@ export const DiceProvider = ({ children }) => {
       icon: diceIcons.input_dice_6
     }
   });
-  
+
   const [ gameColumns, setGameColumns ] = useState([
     { columnName: 'downColumn', isRandomColumn: false },
     { columnName: 'upColumn', isRandomColumn: false },
