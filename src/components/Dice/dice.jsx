@@ -8,33 +8,15 @@ const Dice = () => {
 
   const [ rollNumber, setRollNumber ] = useState(1);
 
-  const { dice, checkDice } = useContext(DiceContext);
+  const { dice, checkDice, rollDice } = useContext(DiceContext);
 
   // useEffect(() => {
   //   console.log('PROMIJENIO SI STATE JUNAČE');
   //   console.log(currentDice);
   // }, [currentDice])
 
-  const rollDice = () => {
-    const newDiceValues = {};
-    const uncheckedDice = Object.entries(dice).filter(item => !item[1].checked);
-
-    uncheckedDice.forEach(item => {
-      const newRandomValue = Math.floor(Math.random() * 6) + 1;
-      newDiceValues[item[0]] = {
-        checked: false,
-        value: newRandomValue,
-        label: item[0],
-        icon: diceIcons[`input_dice_${newRandomValue}`]
-      }
-    })
-    
-    setCurrentDice(prevDice => {
-      return {
-        ...prevDice,
-        ...newDiceValues
-      }
-    });
+  const diceRollHandler = () => {
+    rollDice();
 
     setRollNumber(prev => prev + 1);
   }
@@ -79,7 +61,7 @@ const Dice = () => {
       </div>
       <button 
         className={classes.rollButton}
-        onClick={() => rollDice()}
+        onClick={() => diceRollHandler()}
         disabled={rollNumber > 3}
       >
         ROLL {rollNumber <= 3 ? rollNumber : 3}

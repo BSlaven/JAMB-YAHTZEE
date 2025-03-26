@@ -69,26 +69,49 @@ export const DiceProvider = ({ children }) => {
     totalsTotal: 0
   });
 
-    const checkDice = diceName => {
-      if(rollNumber < 2) return;
-  
-      setCurrentDice(prevDice => {
-        return {
-          ...prevDice,
-          [diceName]: {
-            ...prevDice[diceName],
-            checked: !prevDice[diceName].checked
-          }
+  const checkDice = diceName => {
+    if(rollNumber < 2) return;
+
+    setCurrentDice(prevDice => {
+      return {
+        ...prevDice,
+        [diceName]: {
+          ...prevDice[diceName],
+          checked: !prevDice[diceName].checked
         }
-      })
-    }
+      }
+    })
+  }
+
+  const rollDice = () => {
+    const newDiceValues = {};
+    const uncheckedDice = Object.entries(dice).filter(item => !item[1].checked);
+
+    uncheckedDice.forEach(item => {
+      const newRandomValue = Math.floor(Math.random() * 6) + 1;
+      newDiceValues[item[0]] = {
+        checked: false,
+        value: newRandomValue,
+        label: item[0],
+        icon: diceIcons[`input_dice_${newRandomValue}`]
+      }
+    })
+    
+    setCurrentDice(prevDice => {
+      return {
+        ...prevDice,
+        ...newDiceValues
+      }
+    });
+  }
 
   return <DiceContext.Provider value={{
       diceValues,
       dice,
       gameTotals,
       gameColumns,
-      checkDice
+      checkDice,
+      rollDice
     }}>
     {children}
   </DiceContext.Provider>
