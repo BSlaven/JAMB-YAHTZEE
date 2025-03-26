@@ -12,6 +12,7 @@ const diceIcons = {
 }
 
 const DiceContext = createContext();
+export const ColumnContext = createContext();
 
 export const DiceProvider = ({ children }) => {
 
@@ -64,6 +65,7 @@ export const DiceProvider = ({ children }) => {
     { columnName: 'freeColumn', isRandomColumn: true },
     { columnName: 'announcementColumn', isRandomColumn: true },
   ]);
+  
   const [ gameTotals, setGameTotals ] = useState({
     numbersTotal: 0,
     differencsTotal: 0,
@@ -113,12 +115,13 @@ export const DiceProvider = ({ children }) => {
       diceValues,
       dice,
       gameTotals,
-      gameColumns,
       rollNumber,
       checkDice,
       rollDice
     }}>
-    {children}
+      <ColumnContext.Provider value={gameColumns}>
+        {children}
+      </ColumnContext.Provider>
   </DiceContext.Provider>
 }
 
