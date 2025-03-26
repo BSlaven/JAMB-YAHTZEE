@@ -18,42 +18,7 @@ const Dice = () => {
   const [ rollNumber, setRollNumber ] = useState(1);
 
   const [ currentDice, setCurrentDice] = useState({
-    input_dice_one: {
-      label: 'input_dice_one',
-      value: 1,
-      checked: false,
-      icon: diceIcons.input_dice_1
-    },
-    input_dice_two: {
-      label: 'input_dice_two',
-      value: 2,
-      checked: true,
-      icon: diceIcons.input_dice_2
-    },
-    input_dice_three: {
-      label: 'input_dice_three',
-      value: 3,
-      checked: false,
-      icon: diceIcons.input_dice_3
-    },
-    input_dice_four: {
-      label: 'input_dice_four',
-      value: 4,
-      checked: true,
-      icon: diceIcons.input_dice_4
-    },
-    input_dice_five: {
-      label: 'input_dice_five',
-      value: 5,
-      checked: true,
-      icon: diceIcons.input_dice_5
-    },
-    input_dice_six: {
-      label: 'input_dice_six',
-      value: 6,
-      checked: false,
-      icon: diceIcons.input_dice_6
-    },
+  
 });
 
   // useEffect(() => {
