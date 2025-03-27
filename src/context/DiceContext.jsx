@@ -60,6 +60,7 @@ export const DiceProvider = ({ children }) => {
   });
 
   const [ gameColumns, setGameColumns ] = useState([
+    { columnName: 'defaultColumn', isRandomColumn: false, isDefault: true },
     { columnName: 'downColumn', isRandomColumn: false },
     { columnName: 'upColumn', isRandomColumn: false },
     { columnName: 'freeColumn', isRandomColumn: true },
