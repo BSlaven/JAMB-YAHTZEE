@@ -328,8 +328,9 @@ const Column = ({ columnName, isRandomColumn = false, isDefault}) => {
             key={item[0]}
             className={`
               ${classes.field}
-              ${(item[1].isAvailable && !item[1].isChecked) ? `${classes.available}` : null}`
-            }
+              ${(item[1].isAvailable && !item[1].isChecked) ? `${classes.available}` : null}
+              ${unclickable(item[1].fieldDisplay) ? `${classes.dark}` : null}
+            `}
             onClick={() => fieldClickHandler(item)}
           >
             {item[1].isChecked ? item[1].value : null}
