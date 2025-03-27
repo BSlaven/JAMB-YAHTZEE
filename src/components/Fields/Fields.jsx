@@ -15,7 +15,7 @@ const Fields = () => {
       {gameColumns.map(column => {
         return <Column 
           key={column.columnName}
-          column={column.columnName}
+          {...column}
         />
       })}
     </div>
