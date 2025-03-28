@@ -2,9 +2,7 @@ import { useState } from "react";
 
 import classes from './Column.module.css';
 
-const Column = ({ columnName, isRandomColumn = false, isDefault}) => {
-
-  console.log(columnName, isRandomColumn, isDefault)
+const Column = ({columnName, isRandomColumn = false, isDefault}) => {
 
   const setNextField = (column, currentField, upField, downField) => {
     let nextField;

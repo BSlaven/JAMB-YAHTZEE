@@ -74,6 +74,8 @@ export const DiceProvider = ({ children }) => {
     totalsTotal: 0
   });
 
+  const totalsTotal = Object.values(gameTotals).reduce((acc, curr) => acc + curr);
+
   const checkDice = diceName => {
     if(rollNumber < 2) return;
 
