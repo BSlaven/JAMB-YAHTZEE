@@ -94,15 +94,18 @@ export const DiceProvider = ({ children }) => {
       columnSetsTotal: 0
     }
   ]);
-  
-  const [ gameTotals, setGameTotals ] = useState({
-    numbersTotal: 0,
-    differencsTotal: 0,
-    setsTotals: 0,
-    totalsTotal: 0
-  });
 
-  const totalsTotal = Object.values(gameTotals).reduce((acc, curr) => acc + curr);
+  const numbersTotals = gameColumns
+    .map(item => item.columnNumbersTotal)
+    .reduce((acc, curr) => acc + curr);
+
+  const differencesTotals = gameColumns
+    .map(item => item.columnDifference)
+    .reduce((acc, curr) => acc + curr);
+
+  const setsTotals = gameColumns
+    .map(item => item.columnSetsTotal)
+    .reduce((acc, curr) => acc + curr);
 
   const checkDice = diceName => {
     if(rollNumber < 2) return;
@@ -145,7 +148,9 @@ export const DiceProvider = ({ children }) => {
   return <DiceContext.Provider value={{
       diceValues,
       dice,
-      gameTotals,
+      numbersTotals,
+      differencesTotals,
+      setsTotals,
       rollNumber,
       checkDice,
       rollDice
