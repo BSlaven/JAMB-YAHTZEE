@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import DiceContext from "../../context/DiceContext";
 
 import classes from './Column.module.css';
 
 const Column = ({ column }) => {
 
-  console.log(column.isRandomColumn);
+  const { addNewTotal } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     let nextField;
@@ -77,6 +79,7 @@ const Column = ({ column }) => {
   }
 
   const calculateFieldValue = (field, number) => {
+    addNewTotal(column.columnName, field, 44);
     const dice = [ 2, 4, 6, 6, 2, 1]
 
     switch(field) {

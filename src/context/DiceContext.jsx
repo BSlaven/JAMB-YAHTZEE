@@ -95,6 +95,23 @@ export const DiceProvider = ({ children }) => {
     }
   ]);
 
+  const addNewTotal = (columnName, newTotal, addValue) => {
+    console.log(columnName, newTotal, addValue)
+    setGameColumns(prev => {
+      const newColumns = structuredClone(gameColumns);
+
+      const alteredColumn = newColumns.find(item => item.columnName === columnName);
+
+      const columnIndex = newColumns.findIndex(item => item.columnName === columnName);
+
+      alteredColumn[newTotal] += addValue;
+
+      newColumns.splice(columnIndex, 1, alteredColumn);
+
+      return newColumns;
+    })
+  }
+
   const numbersTotals = gameColumns
     .map(item => item.columnNumbersTotal)
     .reduce((acc, curr) => acc + curr);
@@ -153,7 +170,8 @@ export const DiceProvider = ({ children }) => {
       setsTotals,
       rollNumber,
       checkDice,
-      rollDice
+      rollDice,
+      addNewTotal
     }}>
       <ColumnContext.Provider value={gameColumns}>
         {children}
