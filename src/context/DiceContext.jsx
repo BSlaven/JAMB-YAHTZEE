@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
@@ -95,20 +95,42 @@ export const DiceProvider = ({ children }) => {
     }
   ]);
 
-  const addNewTotal = (columnName, newTotal, addValue) => {
-    console.log(columnName, newTotal, addValue)
-    setGameColumns(prev => {
-      const newColumns = structuredClone(gameColumns);
+  const [ columnsTotals, setColumnsTotals ] = useState({
+    downColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    upColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    freeColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    announcementColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    }
+  });
 
-      const alteredColumn = newColumns.find(item => item.columnName === columnName);
+  const addNewTotal = (columnName, newTotalField, addValue) => {
+    console.log(columnName, newTotalField, addValue);
 
-      const columnIndex = newColumns.findIndex(item => item.columnName === columnName);
-
-      alteredColumn[newTotal] += addValue;
-
-      newColumns.splice(columnIndex, 1, alteredColumn);
-
-      return newColumns;
+    const currentValue = columnsTotals[columnName][newTotalField]
+    
+    setColumnsTotals(prev => {
+      return {
+        ...prev,
+        [columnName]: {
+          ...prev[columnName],
+          [newTotalField]: currentValue + addValue
+        }
+      }
     })
   }
 
@@ -171,9 +193,12 @@ export const DiceProvider = ({ children }) => {
       rollNumber,
       checkDice,
       rollDice,
-      addNewTotal
     }}>
-      <ColumnContext.Provider value={gameColumns}>
+      <ColumnContext.Provider value={{
+        gameColumns,
+        columnsTotals,
+        addNewTotal,
+      }}>
         {children}
       </ColumnContext.Provider>
   </DiceContext.Provider>

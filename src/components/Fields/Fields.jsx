@@ -8,7 +8,7 @@ import Column from '../Column/Column';
 
 const Fields = () => {
 
-  const gameColumns = useContext(ColumnContext);
+  const { gameColumns } = useContext(ColumnContext);
   
   return (
     <div className={classes.fieldsContainer}>
