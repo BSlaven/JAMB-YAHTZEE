@@ -8,8 +8,6 @@ const Column = ({ column }) => {
 
   const { addNewTotal, columnsTotals } = useContext(ColumnContext);
 
-  console.log(columnsTotals);
-
   const setNextField = (column, currentField, upField, downField) => {
     let nextField;
 

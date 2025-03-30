@@ -119,8 +119,6 @@ export const DiceProvider = ({ children }) => {
   });
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
-    console.log(columnName, newTotalField, addValue);
-
     const currentValue = columnsTotals[columnName][newTotalField]
     
     setColumnsTotals(prev => {
