@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { ColumnContext } from "../../context/DiceContext";
 
 import classes from './Column.module.css';
 
-const Column = ({columnName, isRandomColumn = false, isDefault}) => {
+const Column = ({ column }) => {
+
+  const { addNewTotal, columnsTotals } = useContext(ColumnContext);
+
+  console.log(columnsTotals);
 
   const setNextField = (column, currentField, upField, downField) => {
     let nextField;
@@ -74,9 +80,11 @@ const Column = ({columnName, isRandomColumn = false, isDefault}) => {
     return false;
   }
 
+  
   const calculateFieldValue = (field, number) => {
     const dice = [ 2, 4, 6, 6, 2, 1]
-
+    addNewTotal('downColumn', 'numbersTotals', 44);
+    
     switch(field) {
       case 'ones':
       case 'twos':
@@ -156,55 +164,55 @@ const Column = ({columnName, isRandomColumn = false, isDefault}) => {
   const [ columns, setColumns ] = useState({
     ones: {
       numberValue: 1,
-      isAvailable: isRandomColumn || setFieldAvailability(columnName, 'ones'),
+      isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'ones'),
       name: 'ones',
       fieldDisplay: 1,
-      next: setNextField(columnName, 'ones', null, 'twos'),
+      next: setNextField(column.columnName, 'ones', null, 'twos'),
       isChecked: false,
       isPreviousChecked: false
     },
     twos: {
       numberValue: 2,
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'twos',
       fieldDisplay: 2,
-      next: setNextField(columnName, 'twos', 'ones', 'threes'),
+      next: setNextField(column.columnName, 'twos', 'ones', 'threes'),
       isChecked: false,
       isPreviousChecked: false
     },
     threes: {
       numberValue: 3,
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'threes',
       fieldDisplay: 3,
-      next: setNextField(columnName, 'threes', 'twos', 'fours'),
+      next: setNextField(column.columnName, 'threes', 'twos', 'fours'),
       isChecked: false,
       isPreviousChecked: false
     },
     fours: {
       numberValue: 4,
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'fours',
       fieldDisplay: 4,
-      next: setNextField(columnName, 'fours', 'threes', 'fives'),
+      next: setNextField(column.columnName, 'fours', 'threes', 'fives'),
       isChecked: false,
       isPreviousChecked: false
     },
     fives: {
       numberValue: 5,
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'fives',
       fieldDisplay: 5,
-      next: setNextField(columnName, 'fives', 'fours', 'sixes'),
+      next: setNextField(column.columnName, 'fives', 'fours', 'sixes'),
       isChecked: false,
       isPreviousChecked: false
     },
     sixes: {
       numberValue: 6,
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'sixes',
       fieldDisplay: 6,
-      next: setNextField(columnName, 'sixes', 'fives', 'maximum'),
+      next: setNextField(column.columnName, 'sixes', 'fives', 'maximum'),
       isChecked: false,
       isPreviousChecked: false
     },
@@ -213,18 +221,18 @@ const Column = ({columnName, isRandomColumn = false, isDefault}) => {
       fieldDisplay: 'ukupno',
     },
     maximum: {
-      isAvailable: isRandomColumn || setFieldAvailability(columnName, 'maximum'),
+      isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'maximum'),
       name: 'maximum',
       fieldDisplay: 'max',
-      next: setNextField(columnName, 'maximum', 'sixes', 'minimum'),
+      next: setNextField(column.columnName, 'maximum', 'sixes', 'minimum'),
       isChecked: false,
       isPreviousChecked: false
     },
     minimum: {
-      isAvailable: isRandomColumn || setFieldAvailability(columnName, 'minimum'),
+      isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'minimum'),
       name: 'minimum',
       fieldDisplay: 'min',
-      next: setNextField(columnName, 'minimum', 'maximum', 'kenta'),
+      next: setNextField(column.columnName, 'minimum', 'maximum', 'kenta'),
       isChecked: false,
       isPreviousChecked: false
     },
@@ -233,42 +241,42 @@ const Column = ({columnName, isRandomColumn = false, isDefault}) => {
       fieldDisplay: 'razlika',
     },
     kenta: {
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'kenta',
       fieldDisplay: 'kenta',
-      next: setNextField(columnName, 'kenta', 'minimum', 'triling'),
+      next: setNextField(column.columnName, 'kenta', 'minimum', 'triling'),
       isChecked: false,
       isPreviousChecked: false
     },
     triling: {
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'triling',
       fieldDisplay: 'triling',
-      next: setNextField(columnName, 'triling', 'kenta', 'ful'),
+      next: setNextField(column.columnName, 'triling', 'kenta', 'ful'),
       isChecked: false,
       isPreviousChecked: false
     },
     ful: {
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'ful',
       fieldDisplay: 'ful',
-      next: setNextField(columnName, 'ful', 'triling', 'poker'),
+      next: setNextField(column.columnName, 'ful', 'triling', 'poker'),
       isChecked: false,
       isPreviousChecked: false
     },
     poker: {
-      isAvailable: isRandomColumn,
+      isAvailable: column.isRandomColumn,
       name: 'poker',
       fieldDisplay: 'poker',
-      next: setNextField(columnName, 'poker', 'ful', 'jamb'),
+      next: setNextField(column.columnName, 'poker', 'ful', 'jamb'),
       isChecked: false,
       isPreviousChecked: false
     },
     jamb: {
-      isAvailable: isRandomColumn || setFieldAvailability(columnName, 'jamb'),
+      isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'jamb'),
       name: 'jamb',
       fieldDisplay: 'jamb',
-      next: setNextField(columnName, 'jamb', 'poker', null),
+      next: setNextField(column.columnName, 'jamb', 'poker', null),
       isChecked: false,
       isPreviousChecked: false
     },
@@ -306,9 +314,9 @@ const Column = ({columnName, isRandomColumn = false, isDefault}) => {
   
   return (
     <section className={classes.columnContainer}>
-      <h4>{columnName[0]}</h4>
+      <h4>{column.columnName[0]}</h4>
       {Object.entries(columns).map(item => {
-        if(isDefault) {
+        if(column.isDefault) {
           return <div 
             key={item[0]}
             className={`

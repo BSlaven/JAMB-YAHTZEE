@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
@@ -60,21 +60,91 @@ export const DiceProvider = ({ children }) => {
   });
 
   const [ gameColumns, setGameColumns ] = useState([
-    { columnName: 'defaultColumn', isRandomColumn: false, isDefault: true },
-    { columnName: 'downColumn', isRandomColumn: false },
-    { columnName: 'upColumn', isRandomColumn: false },
-    { columnName: 'freeColumn', isRandomColumn: true },
-    { columnName: 'announcementColumn', isRandomColumn: true },
+    { 
+      columnName: 'defaultColumn',
+      isRandomColumn: false,
+      isDefault: true,
+    },
+    { 
+      columnName: 'downColumn',
+      isRandomColumn: false,
+      columnNumbersTotal: 0,
+      columnDifference: 0,
+      columnSetsTotal: 0
+    },
+    { 
+      columnName: 'upColumn',
+      isRandomColumn: false,
+      columnNumbersTotal: 0,
+      columnDifference: 0,
+      columnSetsTotal: 0
+    },
+    { 
+      columnName: 'freeColumn',
+      isRandomColumn: true,
+      columnNumbersTotal: 0,
+      columnDifference: 0,
+      columnSetsTotal: 0
+    },
+    { 
+      columnName: 'announcementColumn',
+      isRandomColumn: true,
+      columnNumbersTotal: 0,
+      columnDifference: 0,
+      columnSetsTotal: 0
+    }
   ]);
-  
-  const [ gameTotals, setGameTotals ] = useState({
-    numbersTotal: 0,
-    differencsTotal: 0,
-    setsTotals: 0,
-    totalsTotal: 0
+
+  const [ columnsTotals, setColumnsTotals ] = useState({
+    downColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    upColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    freeColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    },
+    announcementColumn: {
+      numbersTotals: 0,
+      differencesTotals: 0,
+      setsTotals: 0
+    }
   });
 
-  const totalsTotal = Object.values(gameTotals).reduce((acc, curr) => acc + curr);
+  const addNewTotal = (columnName, newTotalField, addValue) => {
+    console.log(columnName, newTotalField, addValue);
+
+    const currentValue = columnsTotals[columnName][newTotalField]
+    
+    setColumnsTotals(prev => {
+      return {
+        ...prev,
+        [columnName]: {
+          ...prev[columnName],
+          [newTotalField]: currentValue + addValue
+        }
+      }
+    })
+  }
+
+  const numbersTotals = gameColumns
+    .map(item => item.columnNumbersTotal)
+    .reduce((acc, curr) => acc + curr);
+
+  const differencesTotals = gameColumns
+    .map(item => item.columnDifference)
+    .reduce((acc, curr) => acc + curr);
+
+  const setsTotals = gameColumns
+    .map(item => item.columnSetsTotal)
+    .reduce((acc, curr) => acc + curr);
 
   const checkDice = diceName => {
     if(rollNumber < 2) return;
@@ -117,12 +187,18 @@ export const DiceProvider = ({ children }) => {
   return <DiceContext.Provider value={{
       diceValues,
       dice,
-      gameTotals,
+      numbersTotals,
+      differencesTotals,
+      setsTotals,
       rollNumber,
       checkDice,
-      rollDice
+      rollDice,
     }}>
-      <ColumnContext.Provider value={gameColumns}>
+      <ColumnContext.Provider value={{
+        gameColumns,
+        columnsTotals,
+        addNewTotal,
+      }}>
         {children}
       </ColumnContext.Provider>
   </DiceContext.Provider>
