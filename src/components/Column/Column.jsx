@@ -1,5 +1,12 @@
 import { useState, useContext } from "react";
 
+import { FaAnglesDown } from "react-icons/fa6";
+import { FaAnglesUp } from "react-icons/fa6";
+import { LuArrowUpDown } from "react-icons/lu";
+import { TbCircleDashedLetterR } from "react-icons/tb";
+import { TbCircleDashedLetterN } from "react-icons/tb";
+import { TbCircleLetterR } from "react-icons/tb";
+
 import { ColumnContext } from "../../context/DiceContext";
 
 import classes from './Column.module.css';
@@ -312,7 +319,11 @@ const Column = ({ column }) => {
   
   return (
     <section className={classes.columnContainer}>
-      <h4>{column.columnName[0]}</h4>
+      <h4>
+        <TbCircleLetterR />
+        {/* <LuArrowUpDown /> */}
+        {/* <TbCircleDashedLetterR /> */}
+      </h4>
       {Object.entries(columns).map(item => {
         if(column.isDefault) {
           return <div 
