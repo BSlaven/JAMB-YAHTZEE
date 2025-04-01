@@ -124,8 +124,9 @@ const Column = ({ column }) => {
   }
   
   const calculateSetValue = (field) => {
+    const dice = [ 2, 4, 6, 6, 2, 1]
     const valuesObject = {}
-    for(value of dice) {
+    for(let value of dice) {
       if(!valuesObject.value) {
         valuesObject[value] = 1;
         return
@@ -159,7 +160,7 @@ const Column = ({ column }) => {
         return multiplesOfTheSame[0] * 4 + 40;
       case 'jamb':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 5);
-        if(multiplesOfTheSame.length === 0) return 0;
+        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
         return multiplesOfTheSame[0] * 5 + 50;
       default:
         return 0;
@@ -293,6 +294,10 @@ const Column = ({ column }) => {
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject.isAvailable) return;
+
+    const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
+
+    console.log('evo ti računice', fieldValue)
 
     const next = columns[fieldObject.next].name;
 

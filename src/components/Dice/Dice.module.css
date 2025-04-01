@@ -1,5 +1,5 @@
 .diceContainer {
-  background-color: rgb(0, 24, 24);
+  background-color: rgba(0, 29, 66, 0.393);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
