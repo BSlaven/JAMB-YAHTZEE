@@ -10,12 +10,15 @@ import { TbCircleLetterR } from "react-icons/tb";
 import { ColumnContext } from "../../context/DiceContext";
 
 import classes from './Column.module.css';
+import { MdAppBlocking } from "react-icons/md";
 
 const Column = ({ column }) => {
 
   const { addNewTotal, columnsTotals } = useContext(ColumnContext);
 
   const setNextField = (column, currentField, upField, downField) => {
+    if(column.isRandomColumn) return;
+
     let nextField;
 
     if(column === 'downColumn') nextField = downField;
@@ -116,7 +119,7 @@ const Column = ({ column }) => {
 
       case 'triling':
       case 'kenta':
-      case 'full':
+      case 'ful':
       case 'poker':
       case 'jamb':
         return calculateSetValue(field);
@@ -124,44 +127,73 @@ const Column = ({ column }) => {
   }
   
   const calculateSetValue = (field) => {
-    const dice = [ 2, 4, 6, 6, 2, 1]
+
+    const dice = [ 2, 4, 6, 6, 6, 1]
     const valuesObject = {}
-    for(let value of dice) {
-      if(!valuesObject.value) {
+    dice.forEach(value => {
+      if(!valuesObject[value]) {
         valuesObject[value] = 1;
         return
       }
       valuesObject[value]++;
-    }
+    })
 
     const mapArray = Object.entries(valuesObject);
+
     let multiplesOfTheSame;
 
     switch(field) {
       case 'triling':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 3);
-        return Math.max(multiplesOfTheSame)[0] * 3 + 20;
+        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
+        const trilingValue = multiplesOfTheSame .sort((a, b) => Number(b[0]) - Number(a[0]))
+        return (parseInt(trilingValue[0][0]) * 3) + 20;
+
       case 'kenta':
-        const uniqueSet = new Set(...mapArray.map(item => item[1]))
-        if(uniqueSet.length >= 5) return 45;
-        return 45;
-      case 'full':
+        const uniqueSet = [... new Set(mapArray.map(item => item[0]))];
+
+        if(!uniqueSet || uniqueSet.length < 5) return 0;
+
+        if(uniqueSet.length === 6) return 45;
+
+        const filteredKenta = uniqueSet.filter((item, index) => {
+          if(index === 0) return uniqueSet[index + 1] - item === 1;
+
+          if(index === 4) return item - uniqueSet[index - 1];
+
+          return uniqueSet[index + 1] - item === 1 && item - uniqueSet[index - 1] === 1
+        })
+
+        if(!filteredKenta || filteredKenta.length < 5) return 0;
+
+        return 35;
+
+      case 'ful':
         const filteredMap = mapArray.filter(item => item[1] >= 2);
-        if(filteredMap.length === 2 && filteredMap.some(item => item[1] === 3)) {
-          const total = filteredMap
-            .map(item => parseInt(item[0]) * item[1])
-            .reduce((acc, curr) => acc + curr)
-          return total + 30;
-        }
-        return 0;
+
+        if(filteredMap.length !== 2 || !filteredMap.map(item => item[1]).includes(3)) return 0;
+
+        const fulTotal = filteredMap
+          .map(item => parseInt(item[0] * item[1]))
+          .reduce((acc, curr) => acc + curr);
+
+        return fulTotal + 30;
+        
       case 'poker':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 4);
-        if(multiplesOfTheSame.length === 0) return 0;
-        return multiplesOfTheSame[0] * 4 + 40;
+
+        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
+  
+        const pokerTotal = parseInt(multiplesOfTheSame[0]) * 4 + 40;
+        return pokerTotal;
+        
       case 'jamb':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 5);
-        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
-        return multiplesOfTheSame[0] * 5 + 50;
+
+      if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
+
+      const jambTotal = parseInt(multiplesOfTheSame[0]) * 5 + 50;
+      return jambTotal;
       default:
         return 0;
     }
@@ -293,11 +325,9 @@ const Column = ({ column }) => {
   });
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
-    if(!fieldObject.isAvailable) return;
+    if(!fieldObject?.isAvailable) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
-
-    console.log('evo ti računice', fieldValue)
 
     const next = columns[fieldObject.next].name;
 
