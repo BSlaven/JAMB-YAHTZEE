@@ -17,6 +17,8 @@ const Column = ({ column }) => {
   const { addNewTotal, columnsTotals } = useContext(ColumnContext);
 
   const setNextField = (column, currentField, upField, downField) => {
+    if(column.isRandomColumn) return;
+
     let nextField;
 
     if(column === 'downColumn') nextField = downField;
@@ -117,7 +119,7 @@ const Column = ({ column }) => {
 
       case 'triling':
       case 'kenta':
-      case 'full':
+      case 'ful':
       case 'poker':
       case 'jamb':
         return calculateSetValue(field);
@@ -149,40 +151,49 @@ const Column = ({ column }) => {
 
       case 'kenta':
         const uniqueSet = [... new Set(mapArray.map(item => item[0]))];
-      if(!uniqueSet || uniqueSet.length < 5) return 0;
 
-      if(uniqueSet.length === 6) return 45;
+        if(!uniqueSet || uniqueSet.length < 5) return 0;
 
-      const filteredKenta = uniqueSet.filter((item, index) => {
-        if(index === 0) return uniqueSet[index + 1] - item === 1;
+        if(uniqueSet.length === 6) return 45;
 
-        if(index === 4) return item - uniqueSet[index - 1];
+        const filteredKenta = uniqueSet.filter((item, index) => {
+          if(index === 0) return uniqueSet[index + 1] - item === 1;
 
-        return uniqueSet[index + 1] - item === 1 && item - uniqueSet[index - 1] === 1
-      })
+          if(index === 4) return item - uniqueSet[index - 1];
 
-      if(!filteredKenta || filteredKenta.length < 5) return 0;
+          return uniqueSet[index + 1] - item === 1 && item - uniqueSet[index - 1] === 1
+        })
 
-      const kentaValue = filteredKenta.length === 5 ? 35 : 45;
-      return kentaValue;
-      
-      case 'full':
+        if(!filteredKenta || filteredKenta.length < 5) return 0;
+
+        return 35;
+
+      case 'ful':
         const filteredMap = mapArray.filter(item => item[1] >= 2);
-        if(filteredMap.length === 2 && filteredMap.some(item => item[1] === 3)) {
-          const total = filteredMap
-            .map(item => parseInt(item[0]) * item[1])
-            .reduce((acc, curr) => acc + curr)
-          return total + 30;
-        }
-        return 0;
+
+        if(filteredMap.length !== 2 || !filteredMap.map(item => item[1]).includes(3)) return 0;
+
+        const fulTotal = filteredMap
+          .map(item => parseInt(item[0] * item[1]))
+          .reduce((acc, curr) => acc + curr);
+
+        return fulTotal + 30;
+        
       case 'poker':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 4);
-        if(multiplesOfTheSame.length === 0) return 0;
-        return multiplesOfTheSame[0] * 4 + 40;
+
+        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
+  
+        const pokerTotal = parseInt(multiplesOfTheSame[0]) * 4 + 40;
+        return pokerTotal;
+        
       case 'jamb':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 5);
-        if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
-        return multiplesOfTheSame[0] * 5 + 50;
+
+      if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
+
+      const jambTotal = parseInt(multiplesOfTheSame[0]) * 5 + 50;
+      return jambTotal;
       default:
         return 0;
     }
@@ -314,11 +325,9 @@ const Column = ({ column }) => {
   });
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
-    if(!fieldObject.isAvailable) return;
+    if(!fieldObject?.isAvailable) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
-
-    console.log('evo ti računice', fieldValue)
 
     const next = columns[fieldObject.next].name;
 
