@@ -100,9 +100,9 @@ const Column = ({ column }) => {
       case 'fours':
       case 'fives':
       case 'sixes':
-        return dice
-          .filter(item => item === number)
-          .reduce((acc, curr) => acc + curr);
+        const filteredNumber = dice.filter(item => item === number)
+        if(!filteredNumber || filteredNumber.length === 0) return 0;
+        return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
         return dice
@@ -328,7 +328,9 @@ const Column = ({ column }) => {
     if(!fieldObject?.isAvailable) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
-
+    
+    console.log(fieldValue)
+    
     if(column.isRandomColumn) {
       setColumns(prev => {
         return {

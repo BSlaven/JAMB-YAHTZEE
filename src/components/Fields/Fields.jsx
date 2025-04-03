@@ -8,21 +8,23 @@ import Column from '../Column/Column';
 
 const Fields = () => {
 
-  const { gameColumns } = useContext(ColumnContext);
-
-  const filteredColumns = Object.values(gameColumns).filter(item => !item.isDefault);
-
+  const { columnsTotals, gameColumns } = useContext(ColumnContext);
+  
+  const filteredColumns = Object.values(columnsTotals).filter(item => !item.isDefault);
+  
   const numbersTotals = filteredColumns
-    .map(item => item.columnNumbersTotal)
+    .map(item => item.numbersTotals)
     .reduce((acc, curr) => acc + curr);
 
-    const differencesTotals = filteredColumns
-      .map(item => item.columnDifference)
-      .reduce((acc, curr) => acc + curr);
+  const differencesTotals = filteredColumns
+    .map(item => item.differencesTotals)
+    .reduce((acc, curr) => acc + curr);
 
-    const setsTotals = filteredColumns
-      .map(item => item.columnSetsTotal)
-      .reduce((acc, curr) => acc + curr);
+  const setsTotals = filteredColumns
+    .map(item => item.setsTotals)
+    .reduce((acc, curr) => acc + curr);
+
+
   
   return (
     <div className={classes.fieldsContainer}>
