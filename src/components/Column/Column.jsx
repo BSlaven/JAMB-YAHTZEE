@@ -329,6 +329,20 @@ const Column = ({ column }) => {
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
 
+    if(column.isRandomColumn) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          [fieldName]: {
+            ...fieldObject,
+            isChecked: true,
+            value: calculateFieldValue(fieldName, fieldObject.numberValue)
+          }
+        }
+      })
+      return;
+    }
+
     const next = columns[fieldObject.next].name;
 
     setColumns(prev => {
