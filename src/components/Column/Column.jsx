@@ -105,12 +105,17 @@ const Column = ({ column }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        return dice
-          .sort()
-          .pop()
-          .reduce((acc, curr) => acc + curr);
+        const maxDiceCopy = [...dice];
+        maxDiceCopy.sort().shift()
+        const max = maxDiceCopy.reduce((acc, curr) => acc + curr);
+        return max;
       
       case 'minimum':
+        const minDiceCopy = [...dice];
+        minDiceCopy.sort().pop()
+        const min = minDiceCopy.reduce((acc, curr) => acc + curr);
+        return min;
+
         return dice
           .sort()
           .reverse()
