@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
@@ -115,12 +115,6 @@ const Column = ({ column }) => {
         minDiceCopy.sort().pop()
         const min = minDiceCopy.reduce((acc, curr) => acc + curr);
         return min;
-
-        return dice
-          .sort()
-          .reverse()
-          .pop()
-          .reduce((acc, curr) => acc + curr);
 
       case 'triling':
       case 'kenta':
@@ -260,7 +254,7 @@ const Column = ({ column }) => {
       isPreviousChecked: false
     },
     numbersTotal: {
-      value: 0,
+      value: column.isDefault ? null : columnsTotals[column.columnName].numbersTotals,
       fieldDisplay: 'ukupno',
     },
     maximum: {
@@ -329,12 +323,17 @@ const Column = ({ column }) => {
     }
   });
 
+  const columnNumbers = Object.values(columns)
+    .map(item => item.value)
+    .filter(item => item)
+    .reduce((acc, curr) => acc + curr)
+
+  console.log('ovo tije value', columnNumbers);
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject?.isAvailable) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
-    
-    console.log(fieldValue)
     
     if(column.isRandomColumn) {
       setColumns(prev => {
@@ -404,7 +403,8 @@ const Column = ({ column }) => {
             `}
             onClick={() => fieldClickHandler(item)}
           >
-            {item[1].isChecked ? item[1].value : null}
+            {item[1].isChecked || item[0] === 'numbersTotal' || item[0] === 'differenceTotal' || item[0] === 'setsTotal'
+            ? item[1].value : null}
           </div>
         )
       })}
