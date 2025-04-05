@@ -91,7 +91,6 @@ const Column = ({ column }) => {
   
   const calculateFieldValue = (field, number) => {
     const dice = [ 2, 4, 6, 6, 2, 1]
-    addNewTotal('downColumn', 'numbersTotals', 44);
     
     switch(field) {
       case 'ones':
@@ -206,7 +205,8 @@ const Column = ({ column }) => {
       fieldDisplay: 1,
       next: setNextField(column.columnName, 'ones', null, 'twos'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     twos: {
       numberValue: 2,
@@ -215,7 +215,8 @@ const Column = ({ column }) => {
       fieldDisplay: 2,
       next: setNextField(column.columnName, 'twos', 'ones', 'threes'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     threes: {
       numberValue: 3,
@@ -224,7 +225,8 @@ const Column = ({ column }) => {
       fieldDisplay: 3,
       next: setNextField(column.columnName, 'threes', 'twos', 'fours'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     fours: {
       numberValue: 4,
@@ -233,7 +235,8 @@ const Column = ({ column }) => {
       fieldDisplay: 4,
       next: setNextField(column.columnName, 'fours', 'threes', 'fives'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     fives: {
       numberValue: 5,
@@ -242,7 +245,8 @@ const Column = ({ column }) => {
       fieldDisplay: 5,
       next: setNextField(column.columnName, 'fives', 'fours', 'sixes'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     sixes: {
       numberValue: 6,
@@ -251,7 +255,8 @@ const Column = ({ column }) => {
       fieldDisplay: 6,
       next: setNextField(column.columnName, 'sixes', 'fives', 'maximum'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     numbersTotal: {
       value: column.isDefault ? null : columnsTotals[column.columnName].numbersTotals,
@@ -263,7 +268,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'max',
       next: setNextField(column.columnName, 'maximum', 'sixes', 'minimum'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'differencesTotals'
     },
     minimum: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'minimum'),
@@ -271,7 +277,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'min',
       next: setNextField(column.columnName, 'minimum', 'maximum', 'kenta'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'differencesTotals'
     },
     differenceTotal: {
       value: 0,
@@ -283,7 +290,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'kenta',
       next: setNextField(column.columnName, 'kenta', 'minimum', 'triling'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotals'
     },
     triling: {
       isAvailable: column.isRandomColumn,
@@ -291,7 +299,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'triling',
       next: setNextField(column.columnName, 'triling', 'kenta', 'ful'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotals'
     },
     ful: {
       isAvailable: column.isRandomColumn,
@@ -299,7 +308,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'ful',
       next: setNextField(column.columnName, 'ful', 'triling', 'poker'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotals'
     },
     poker: {
       isAvailable: column.isRandomColumn,
@@ -307,7 +317,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'poker',
       next: setNextField(column.columnName, 'poker', 'ful', 'jamb'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotals'
     },
     jamb: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'jamb'),
@@ -315,7 +326,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'jamb',
       next: setNextField(column.columnName, 'jamb', 'poker', null),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotals'
     },
     setsTotal: {
       value: 0,
@@ -323,17 +335,12 @@ const Column = ({ column }) => {
     }
   });
 
-  const columnNumbers = Object.values(columns)
-    .map(item => item.value)
-    .filter(item => item)
-    .reduce((acc, curr) => acc + curr)
-
-  console.log('ovo tije value', columnNumbers);
-
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject?.isAvailable) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
+
+    addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
     
     if(column.isRandomColumn) {
       setColumns(prev => {
@@ -342,7 +349,7 @@ const Column = ({ column }) => {
           [fieldName]: {
             ...fieldObject,
             isChecked: true,
-            value: calculateFieldValue(fieldName, fieldObject.numberValue)
+            value: fieldValue
           }
         }
       })
@@ -357,7 +364,7 @@ const Column = ({ column }) => {
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
-          value: calculateFieldValue(fieldName, fieldObject.numberValue)
+          value: fieldValue
         },
         [next]: {
           ...columns[next],
