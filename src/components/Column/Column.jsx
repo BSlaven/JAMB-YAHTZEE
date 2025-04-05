@@ -258,7 +258,7 @@ const Column = ({ column }) => {
       isPreviousChecked: false,
       totalsField: 'numbersTotals'
     },
-    numbersTotal: {
+    numbersTotals: {
       value: column.isDefault ? null : columnsTotals[column.columnName].numbersTotals,
       fieldDisplay: 'ukupno',
     },
@@ -335,10 +335,19 @@ const Column = ({ column }) => {
     }
   });
 
+  useEffect(() => {
+    console.log(columns)
+
+  }, [columns])
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject?.isAvailable) return;
 
-    const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
+    const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue);
+
+    const { totalsField } = fieldObject;
+
+    console.log(columns[totalsField]);
 
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
     
@@ -346,6 +355,10 @@ const Column = ({ column }) => {
       setColumns(prev => {
         return {
           ...prev,
+          [totalsField]: {
+            ...columns[totalsField],
+            value: columns[totalsField].value + fieldValue
+          },
           [fieldName]: {
             ...fieldObject,
             isChecked: true,
@@ -361,6 +374,10 @@ const Column = ({ column }) => {
     setColumns(prev => {
       return {
         ...prev,
+        [totalsField]: {
+          ...columns[totalsField],
+          value: columns[totalsField].value + fieldValue
+        },
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
@@ -410,7 +427,7 @@ const Column = ({ column }) => {
             `}
             onClick={() => fieldClickHandler(item)}
           >
-            {item[1].isChecked || item[0] === 'numbersTotal' || item[0] === 'differenceTotal' || item[0] === 'setsTotal'
+            {item[1].isChecked || item[0] === 'numbersTotals' || item[0] === 'differenceTotal' || item[0] === 'setsTotal'
             ? item[1].value : null}
           </div>
         )
