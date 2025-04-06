@@ -340,6 +340,18 @@ const Column = ({ column }) => {
 
   }, [columns])
 
+  const calculateDifference = () => {
+    if(!columns.maximum.value || !columns.minimum.value || !columns.ones.value) return;
+
+    const diff = max - min;
+
+    if(diff <= 0) return 0;
+
+    const diffTotal = diff * columns.ones.value;
+
+    addNewTotal(column.columnName, 'differencesTotals', diffTotal);
+  }
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject?.isAvailable) return;
 
@@ -347,9 +359,11 @@ const Column = ({ column }) => {
 
     const { totalsField } = fieldObject;
 
-    console.log(columns[totalsField]);
-
-    addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+    if(fieldName === 'ones' || fieldName === 'maximum' || fieldName === 'minimum') {
+      calculateDifference();
+    } else {
+      addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+    }
     
     if(column.isRandomColumn) {
       setColumns(prev => {
