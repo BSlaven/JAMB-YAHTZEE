@@ -281,7 +281,7 @@ const Column = ({ column }) => {
       totalsField: 'differencesTotals'
     },
     differenceTotal: {
-      value: 0,
+      value: column.isDefault ? null : columnsTotals[column.columnName].differencesTotals,
       fieldDisplay: 'razlika',
     },
     kenta: {
@@ -337,17 +337,19 @@ const Column = ({ column }) => {
 
   useEffect(() => {
     console.log(columns)
-
+    calculateDifference()
   }, [columns])
 
   const calculateDifference = () => {
+    
     if(!columns.maximum.value || !columns.minimum.value || !columns.ones.value) return;
 
-    const diff = max - min;
-
+    const diff = columns.maximum.value - columns.minimum.value;
+    
     if(diff <= 0) return 0;
-
+    
     const diffTotal = diff * columns.ones.value;
+    console.log('ovo je razlika', diffTotal)
 
     addNewTotal(column.columnName, 'differencesTotals', diffTotal);
   }
@@ -359,11 +361,7 @@ const Column = ({ column }) => {
 
     const { totalsField } = fieldObject;
 
-    if(fieldName === 'ones' || fieldName === 'maximum' || fieldName === 'minimum') {
-      calculateDifference();
-    } else {
       addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
-    }
     
     if(column.isRandomColumn) {
       setColumns(prev => {
@@ -371,7 +369,7 @@ const Column = ({ column }) => {
           ...prev,
           [totalsField]: {
             ...columns[totalsField],
-            value: columns[totalsField].value + fieldValue
+            value: columns[totalsField]?.value + fieldValue
           },
           [fieldName]: {
             ...fieldObject,
