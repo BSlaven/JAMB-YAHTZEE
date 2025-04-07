@@ -278,10 +278,10 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'minimum', 'maximum', 'kenta'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'differencesTotals'
+      totalsField: 'differenceTotal'
     },
     differenceTotal: {
-      value: column.isDefault ? null : columnsTotals[column.columnName].differencesTotals,
+      value: column.isDefault ? null : columnsTotals[column.columnName].differenceTotal,
       fieldDisplay: 'razlika',
     },
     kenta: {

@@ -98,22 +98,22 @@ export const DiceProvider = ({ children }) => {
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
+      differenceTotal: 0,
       setsTotals: 0
     },
     upColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
+      differenceTotal: 0,
       setsTotals: 0
     },
     freeColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
+      differenceTotal: 0,
       setsTotals: 0
     },
     announcementColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
+      differenceTotal: 0,
       setsTotals: 0
     }
   });
