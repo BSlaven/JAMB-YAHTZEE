@@ -259,8 +259,9 @@ const Column = ({ column }) => {
       totalsField: 'numbersTotals'
     },
     numbersTotals: {
-      value: column.isDefault ? null : columnsTotals[column.columnName].numbersTotals,
+      value: columnsTotals[column.columnName]?.numbersTotals,
       fieldDisplay: 'ukupno',
+      isChecked: true
     },
     maximum: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'maximum'),
@@ -269,7 +270,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'maximum', 'sixes', 'minimum'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'differencesTotals'
+      totalsField: 'differenceTotal'
     },
     minimum: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'minimum'),
@@ -336,7 +337,7 @@ const Column = ({ column }) => {
   });
 
   useEffect(() => {
-    console.log(columns)
+    console.log(columnsTotals[column.columnName]?.numbersTotals)
     calculateDifference()
   }, [columns])
 
@@ -351,26 +352,30 @@ const Column = ({ column }) => {
     const diffTotal = diff * columns.ones.value;
     console.log('ovo je razlika', diffTotal)
 
-    addNewTotal(column.columnName, 'differencesTotals', diffTotal);
+    addNewTotal(column.columnName, 'differenceTotal', diffTotal);
   }
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
-    if(!fieldObject?.isAvailable) return;
+    if(!fieldObject?.isAvailable || fieldObject.isChecked) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue);
 
+    // console.log('ovo je fieldValue', fieldValue)
+
     const { totalsField } = fieldObject;
 
+    if(fieldName !== 'maximum' || fieldName !== 'minimum') {
       addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+    }
     
     if(column.isRandomColumn) {
       setColumns(prev => {
         return {
           ...prev,
-          [totalsField]: {
-            ...columns[totalsField],
-            value: columns[totalsField]?.value + fieldValue
-          },
+          // [totalsField]: {
+          //   ...columns[totalsField],
+          //   value: columns[totalsField]?.value + fieldValue
+          // },
           [fieldName]: {
             ...fieldObject,
             isChecked: true,
@@ -383,13 +388,15 @@ const Column = ({ column }) => {
 
     const next = columns[fieldObject.next].name;
 
+    console.log(columns[totalsField])
+
     setColumns(prev => {
       return {
         ...prev,
-        [totalsField]: {
-          ...columns[totalsField],
-          value: columns[totalsField].value + fieldValue
-        },
+        // [totalsField]: {
+        //   ...columns[totalsField],
+        //   value: columns[totalsField].value + fieldValue
+        // },
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
@@ -439,8 +446,7 @@ const Column = ({ column }) => {
             `}
             onClick={() => fieldClickHandler(item)}
           >
-            {item[1].isChecked || item[0] === 'numbersTotals' || item[0] === 'differenceTotal' || item[0] === 'setsTotal'
-            ? item[1].value : null}
+            {item[1].isChecked ? item[1].value : null}
           </div>
         )
       })}
