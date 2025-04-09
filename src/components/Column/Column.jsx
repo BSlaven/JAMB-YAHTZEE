@@ -338,7 +338,7 @@ const Column = ({ column }) => {
 
   useEffect(() => {
     console.log(columnsTotals[column.columnName]?.numbersTotals)
-    calculateDifference()
+    //calculateDifference()
   }, [columns])
 
   const calculateTotalsDifference = (fieldName, newFieldValue) => {
