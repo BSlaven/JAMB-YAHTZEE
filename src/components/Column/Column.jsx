@@ -341,17 +341,58 @@ const Column = ({ column }) => {
     calculateDifference()
   }, [columns])
 
-  const calculateDifference = () => {
-    
-    if(!columns.maximum.value || !columns.minimum.value || !columns.ones.value) return;
+  const calculateTotalsDifference = (fieldName, newFieldValue) => {
+    let totalsFieldValue = 0;
 
-    const diff = columns.maximum.value - columns.minimum.value;
+    let isDiffPossible = true;
     
-    if(diff <= 0) return 0;
-    
-    const diffTotal = diff * columns.ones.value;
-    console.log('ovo je razlika', diffTotal)
+    switch(fieldName) {
+      case 'ones':
+        if(!columns.maximum.value || !columns.minimum.value) {
+          isDiffPossible = false;
+        };
+        break;
+      
+      case 'maximum':
+        if(!columns.ones.value || !columns.minimum.value) {
+          isDiffPossible = false;
+        }
+        break;
 
+      case 'minimum':
+        if(!columns.ones.value || !columns.maximum.value) {
+          isDiffPossible = false;
+        };
+        break
+    }
+
+    if(isDiffPossible) {
+      switch(fieldName) {
+        case 'ones':
+          totalsFieldValue = (columns.maximum.value - columns.minimum.value) * newFieldValue;
+          break;
+
+        case 'maximum':
+          totalsFieldValue = (newFieldValue - columns.minimum.value) * columns.ones.value;
+          break;
+
+        case 'minimum':
+          totalsFieldValue = (columns.maximum.value - newFieldValue) * columns.ones.value;
+      }
+    }
+
+    if(isRandomColumn) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          differenceTotal: {
+            ...prev.differenceTotal,
+            value: totalsFieldValue
+          }
+        }
+      })
+    }
+    
     addNewTotal(column.columnName, 'differenceTotal', diffTotal);
   }
 
