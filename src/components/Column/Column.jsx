@@ -396,6 +396,10 @@ const Column = ({ column }) => {
     addNewTotal(column.columnName, 'differenceTotal', diffTotal);
   }
 
+  const calculateSetsAndNumbersTotals = (totalsField, newFieldValue) => {
+    
+  }
+
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
     if(!fieldObject?.isAvailable || fieldObject.isChecked) return;
 
@@ -405,9 +409,12 @@ const Column = ({ column }) => {
 
     const { totalsField } = fieldObject;
 
-    if(fieldName !== 'maximum' || fieldName !== 'minimum') {
-      addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+    if(fieldName !== 'ones') {
+      calculateTotalsDifference(fieldName, fieldValue);
+      calculateSetsAndNumbersTotals(totalsField, fieldValue);
     }
+
+    addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
     
     if(column.isRandomColumn) {
       setColumns(prev => {
