@@ -409,7 +409,7 @@ const Column = ({ column }) => {
 
     const { totalsField } = fieldObject;
 
-    if(fieldName !== 'ones') {
+    if(fieldName === 'ones') {
       calculateTotalsDifference(fieldName, fieldValue);
       calculateSetsAndNumbersTotals(totalsField, fieldValue);
     }
