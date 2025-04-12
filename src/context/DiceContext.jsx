@@ -127,6 +127,7 @@ export const DiceProvider = ({ children }) => {
 
     // console.log(columnName, newTotalField, addValue)
     // console.log('promijenio si kontekst')
+    // console.log(addValue)
 
     if(newTotalField === 'differenceTotal') {
       setColumnsTotals(prev => {

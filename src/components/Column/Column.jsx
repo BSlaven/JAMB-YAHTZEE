@@ -341,7 +341,7 @@ const Column = ({ column }) => {
     //calculateDifference()
   }, [columns])
 
-  const calculateTotalsDifference = (fieldName, newFieldValue) => {
+  const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
     let totalsFieldValue = 0;
 
     let isDiffPossible = true;
@@ -381,19 +381,46 @@ const Column = ({ column }) => {
       }
     }
 
-    if(isRandomColumn) {
+    if(column.isRandomColumn) {
       setColumns(prev => {
         return {
           ...prev,
           differenceTotal: {
             ...prev.differenceTotal,
             value: totalsFieldValue
+          },
+          [fieldName]: {
+            ...fieldObject,
+            isChecked: true,
+            value: newFieldValue
           }
         }
       })
+      addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);
+      return
     }
-    
-    addNewTotal(column.columnName, 'differenceTotal', diffTotal);
+
+    setColumns(prev => {
+      return {
+        ...prev,
+        differenceTotal: {
+          ...prev.differenceTotal,
+          value: totalsFieldValue
+        },
+        [fieldName]: {
+          ...fieldObject,
+          isChecked: true,
+          value: newFieldValue
+        },
+        [next]: {
+          ...columns[next],
+          isPreviousChecked: true,
+          isAvailable: true
+        }
+      }
+    })
+
+    addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);    
   }
 
   const calculateSetsAndNumbersTotals = (totalsField, newFieldValue) => {
@@ -410,8 +437,14 @@ const Column = ({ column }) => {
     const { totalsField } = fieldObject;
 
     if(fieldName === 'ones') {
+      calculateTotalsDifference(fieldName, fieldValue, fieldObject);
+      calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
+      return;
+    }
+
+    if(fieldName === 'maximum' || fieldName === 'minimum') {
       calculateTotalsDifference(fieldName, fieldValue);
-      calculateSetsAndNumbersTotals(totalsField, fieldValue);
+      return;
     }
 
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
