@@ -259,7 +259,7 @@ const Column = ({ column }) => {
       totalsField: 'numbersTotals'
     },
     numbersTotals: {
-      value: columnsTotals[column.columnName]?.numbersTotals,
+      // value: columnsTotals[column.columnName]?.numbersTotals,
       fieldDisplay: 'ukupno',
       isChecked: true
     },
@@ -337,7 +337,7 @@ const Column = ({ column }) => {
   });
 
   useEffect(() => {
-    console.log(columnsTotals[column.columnName]?.numbersTotals)
+    console.log('OVO TI JE KOLONA', columns)
     //calculateDifference()
   }, [columns])
 
@@ -399,8 +399,6 @@ const Column = ({ column }) => {
       addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);
       return
     }
-
-    console.log(fieldObject);
 
     const next = columns[fieldObject.next].name;
 
@@ -473,15 +471,13 @@ const Column = ({ column }) => {
 
     const next = columns[fieldObject.next].name;
 
-    console.log(columns[totalsField])
-
     setColumns(prev => {
       return {
         ...prev,
-        // [totalsField]: {
-        //   ...columns[totalsField],
-        //   value: columns[totalsField].value + fieldValue
-        // },
+        [totalsField]: {
+          ...columns[totalsField],
+          value: columns[totalsField].value + fieldValue
+        },
         [fieldName]: {
           ...fieldObject,
           isChecked: true,
