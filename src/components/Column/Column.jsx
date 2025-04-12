@@ -400,6 +400,10 @@ const Column = ({ column }) => {
       return
     }
 
+    console.log(fieldObject);
+
+    const next = columns[fieldObject.next].name;
+
     setColumns(prev => {
       return {
         ...prev,
@@ -443,7 +447,7 @@ const Column = ({ column }) => {
     }
 
     if(fieldName === 'maximum' || fieldName === 'minimum') {
-      calculateTotalsDifference(fieldName, fieldValue);
+      calculateTotalsDifference(fieldName, fieldValue, fieldObject);
       return;
     }
 
