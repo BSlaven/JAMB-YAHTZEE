@@ -292,7 +292,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'kenta', 'minimum', 'triling'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'setsTotals'
+      totalsField: 'setsTotal'
     },
     triling: {
       isAvailable: column.isRandomColumn,
@@ -301,7 +301,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'triling', 'kenta', 'ful'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'setsTotals'
+      totalsField: 'setsTotal'
     },
     ful: {
       isAvailable: column.isRandomColumn,
@@ -310,7 +310,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'ful', 'triling', 'poker'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'setsTotals'
+      totalsField: 'setsTotal'
     },
     poker: {
       isAvailable: column.isRandomColumn,
@@ -319,7 +319,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'poker', 'ful', 'jamb'),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'setsTotals'
+      totalsField: 'setsTotal'
     },
     jamb: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'jamb'),
@@ -328,7 +328,7 @@ const Column = ({ column }) => {
       next: setNextField(column.columnName, 'jamb', 'poker', null),
       isChecked: false,
       isPreviousChecked: false,
-      totalsField: 'setsTotals'
+      totalsField: 'setsTotal'
     },
     setsTotal: {
       value: 0,
@@ -425,14 +425,54 @@ const Column = ({ column }) => {
     addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);    
   }
 
-  const calculateSetsAndNumbersTotals = (totalsField, newFieldValue) => {
+  const calculateSetsAndNumbersTotals = (totalsField, newFieldValue, fieldObject) => {
     let newTotalValue = 0;
 
     const currentTotalsValue = columns[totalsField].value;
 
-    newTotalValue = currentTotalsValue + newFieldValue;
+    newTotalValue = currentTotalsValue + newFieldValue;    
 
-    return newTotalValue;
+    if(column.isRandomColumn) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          [totalsField]: {
+            ...columns[totalsField],
+            value: columns[totalsField]?.value + newFieldValue
+          },
+          [fieldObject.name]: {
+            ...fieldObject,
+            isChecked: true,
+            value: newFieldValue
+          }
+        }
+      })
+      return;
+    }
+
+    const next = columns[fieldObject.next].name;
+
+    setColumns(prev => {
+      return {
+        ...prev,
+        [totalsField]: {
+          ...columns[totalsField],
+          value: columns[totalsField].value + newFieldValue
+        },
+        [fieldObject.name]: {
+          ...fieldObject,
+          isChecked: true,
+          value: newFieldValue
+        },
+        [next]: {
+          ...columns[next],
+          isPreviousChecked: true,
+          isAvailable: true
+        }
+      }
+    })
+
+    return newTotalValue;    
   }
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
@@ -447,6 +487,7 @@ const Column = ({ column }) => {
     if(fieldName === 'ones') {
       calculateTotalsDifference(fieldName, fieldValue, fieldObject);
       calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
+      addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
       return;
     }
 
@@ -456,46 +497,8 @@ const Column = ({ column }) => {
     }
 
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
-    
-    if(column.isRandomColumn) {
-      setColumns(prev => {
-        return {
-          ...prev,
-          [totalsField]: {
-            ...columns[totalsField],
-            value: columns[totalsField]?.value + fieldValue
-          },
-          [fieldName]: {
-            ...fieldObject,
-            isChecked: true,
-            value: fieldValue
-          }
-        }
-      })
-      return;
-    }
 
-    const next = columns[fieldObject.next].name;
-
-    setColumns(prev => {
-      return {
-        ...prev,
-        [totalsField]: {
-          ...columns[totalsField],
-          value: columns[totalsField].value + fieldValue
-        },
-        [fieldName]: {
-          ...fieldObject,
-          isChecked: true,
-          value: fieldValue
-        },
-        [next]: {
-          ...columns[next],
-          isPreviousChecked: true,
-          isAvailable: true
-        }
-      }
-    })
+    calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
   }
 
   const unclickable = element => {
