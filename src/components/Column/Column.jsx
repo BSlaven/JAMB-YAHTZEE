@@ -336,10 +336,10 @@ const Column = ({ column }) => {
     }
   });
 
-  useEffect(() => {
-    console.log('OVO TI JE KOLONA', columns)
-    //calculateDifference()
-  }, [columns])
+  // useEffect(() => {
+  //   console.log('OVO TI JE KOLONA', columns)
+  //   //calculateDifference()
+  // }, [columns])
 
   const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
     let totalsFieldValue = 0;
@@ -479,8 +479,6 @@ const Column = ({ column }) => {
     if(!fieldObject?.isAvailable || fieldObject.isChecked) return;
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue);
-
-    // console.log('ovo je fieldValue', fieldValue)
 
     const { totalsField } = fieldObject;
 

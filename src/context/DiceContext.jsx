@@ -118,16 +118,8 @@ export const DiceProvider = ({ children }) => {
     }
   });
 
-  useEffect(() => {
-    // console.log(columnsTotals);
-  }, [columnsTotals])
-
   const addNewTotal = (columnName, newTotalField, addValue) => {
     const currentValue = columnsTotals[columnName][newTotalField]
-
-    // console.log(columnName, newTotalField, addValue)
-    // console.log('promijenio si kontekst')
-    // console.log(addValue)
 
     if(newTotalField === 'differenceTotal') {
       setColumnsTotals(prev => {
