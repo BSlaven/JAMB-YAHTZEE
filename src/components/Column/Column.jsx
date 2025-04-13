@@ -400,8 +400,6 @@ const Column = ({ column }) => {
       return
     }
 
-    const next = columns[fieldObject.next].name;
-
     setColumns(prev => {
       return {
         ...prev,
@@ -413,14 +411,24 @@ const Column = ({ column }) => {
           ...fieldObject,
           isChecked: true,
           value: newFieldValue
-        },
-        [next]: {
-          ...columns[next],
-          isPreviousChecked: true,
-          isAvailable: true
         }
       }
     })
+
+    const next = columns[fieldObject.next]?.name;
+
+    if(next) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          [next]: {
+            ...columns[next],
+            isPreviousChecked: true,
+            isAvailable: true
+          }
+        }
+      })
+    }
 
     addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);    
   }
@@ -450,8 +458,6 @@ const Column = ({ column }) => {
       return;
     }
 
-    const next = columns[fieldObject.next].name;
-
     setColumns(prev => {
       return {
         ...prev,
@@ -463,14 +469,24 @@ const Column = ({ column }) => {
           ...fieldObject,
           isChecked: true,
           value: newFieldValue
-        },
-        [next]: {
-          ...columns[next],
-          isPreviousChecked: true,
-          isAvailable: true
         }
       }
     })
+
+    const next = columns[fieldObject.next]?.name;
+
+    if(next) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          [next]: {
+            ...columns[next],
+            isPreviousChecked: true,
+            isAvailable: true
+          }
+        }
+      })
+    }
 
     return newTotalValue;    
   }
