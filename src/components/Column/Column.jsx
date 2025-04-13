@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
@@ -91,7 +91,6 @@ const Column = ({ column }) => {
   
   const calculateFieldValue = (field, number) => {
     const dice = [ 2, 4, 6, 6, 2, 1]
-    addNewTotal('downColumn', 'numbersTotals', 44);
     
     switch(field) {
       case 'ones':
@@ -105,17 +104,16 @@ const Column = ({ column }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        return dice
-          .sort()
-          .pop()
-          .reduce((acc, curr) => acc + curr);
+        const maxDiceCopy = [...dice];
+        maxDiceCopy.sort().shift()
+        const max = maxDiceCopy.reduce((acc, curr) => acc + curr);
+        return max;
       
       case 'minimum':
-        return dice
-          .sort()
-          .reverse()
-          .pop()
-          .reduce((acc, curr) => acc + curr);
+        const minDiceCopy = [...dice];
+        minDiceCopy.sort().pop()
+        const min = minDiceCopy.reduce((acc, curr) => acc + curr);
+        return min;
 
       case 'triling':
       case 'kenta':
@@ -207,7 +205,8 @@ const Column = ({ column }) => {
       fieldDisplay: 1,
       next: setNextField(column.columnName, 'ones', null, 'twos'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     twos: {
       numberValue: 2,
@@ -216,7 +215,8 @@ const Column = ({ column }) => {
       fieldDisplay: 2,
       next: setNextField(column.columnName, 'twos', 'ones', 'threes'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     threes: {
       numberValue: 3,
@@ -225,7 +225,8 @@ const Column = ({ column }) => {
       fieldDisplay: 3,
       next: setNextField(column.columnName, 'threes', 'twos', 'fours'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     fours: {
       numberValue: 4,
@@ -234,7 +235,8 @@ const Column = ({ column }) => {
       fieldDisplay: 4,
       next: setNextField(column.columnName, 'fours', 'threes', 'fives'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     fives: {
       numberValue: 5,
@@ -243,7 +245,8 @@ const Column = ({ column }) => {
       fieldDisplay: 5,
       next: setNextField(column.columnName, 'fives', 'fours', 'sixes'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
     sixes: {
       numberValue: 6,
@@ -252,11 +255,13 @@ const Column = ({ column }) => {
       fieldDisplay: 6,
       next: setNextField(column.columnName, 'sixes', 'fives', 'maximum'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'numbersTotals'
     },
-    numbersTotal: {
+    numbersTotals: {
       value: 0,
       fieldDisplay: 'ukupno',
+      isChecked: true
     },
     maximum: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'maximum'),
@@ -264,7 +269,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'max',
       next: setNextField(column.columnName, 'maximum', 'sixes', 'minimum'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'differenceTotal'
     },
     minimum: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'minimum'),
@@ -272,7 +278,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'min',
       next: setNextField(column.columnName, 'minimum', 'maximum', 'kenta'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'differenceTotal'
     },
     differenceTotal: {
       value: 0,
@@ -284,7 +291,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'kenta',
       next: setNextField(column.columnName, 'kenta', 'minimum', 'triling'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotal'
     },
     triling: {
       isAvailable: column.isRandomColumn,
@@ -292,7 +300,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'triling',
       next: setNextField(column.columnName, 'triling', 'kenta', 'ful'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotal'
     },
     ful: {
       isAvailable: column.isRandomColumn,
@@ -300,7 +309,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'ful',
       next: setNextField(column.columnName, 'ful', 'triling', 'poker'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotal'
     },
     poker: {
       isAvailable: column.isRandomColumn,
@@ -308,7 +318,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'poker',
       next: setNextField(column.columnName, 'poker', 'ful', 'jamb'),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotal'
     },
     jamb: {
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'jamb'),
@@ -316,7 +327,8 @@ const Column = ({ column }) => {
       fieldDisplay: 'jamb',
       next: setNextField(column.columnName, 'jamb', 'poker', null),
       isChecked: false,
-      isPreviousChecked: false
+      isPreviousChecked: false,
+      totalsField: 'setsTotal'
     },
     setsTotal: {
       value: 0,
@@ -324,21 +336,114 @@ const Column = ({ column }) => {
     }
   });
 
-  const fieldClickHandler = ([ fieldName, fieldObject ]) => {
-    if(!fieldObject?.isAvailable) return;
+  // useEffect(() => {
+  //   console.log('OVO TI JE KOLONA', columns)
+  //   //calculateDifference()
+  // }, [columns])
 
-    const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue)
+  const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
+    let totalsFieldValue = 0;
+
+    let isDiffPossible = true;
     
-    console.log(fieldValue)
-    
+    switch(fieldName) {
+      case 'ones':
+        if(!columns.maximum.value || !columns.minimum.value) {
+          isDiffPossible = false;
+        };
+        break;
+      
+      case 'maximum':
+        if(!columns.ones.value || !columns.minimum.value) {
+          isDiffPossible = false;
+        }
+        break;
+
+      case 'minimum':
+        if(!columns.ones.value || !columns.maximum.value) {
+          isDiffPossible = false;
+        };
+        break
+    }
+
+    if(isDiffPossible) {
+      switch(fieldName) {
+        case 'ones':
+          totalsFieldValue = (columns.maximum.value - columns.minimum.value) * newFieldValue;
+          break;
+
+        case 'maximum':
+          totalsFieldValue = (newFieldValue - columns.minimum.value) * columns.ones.value;
+          break;
+
+        case 'minimum':
+          totalsFieldValue = (columns.maximum.value - newFieldValue) * columns.ones.value;
+      }
+    }
+
     if(column.isRandomColumn) {
       setColumns(prev => {
         return {
           ...prev,
+          differenceTotal: {
+            ...prev.differenceTotal,
+            value: totalsFieldValue
+          },
           [fieldName]: {
             ...fieldObject,
             isChecked: true,
-            value: calculateFieldValue(fieldName, fieldObject.numberValue)
+            value: newFieldValue
+          }
+        }
+      })
+      addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);
+      return
+    }
+
+    const next = columns[fieldObject.next].name;
+
+    setColumns(prev => {
+      return {
+        ...prev,
+        differenceTotal: {
+          ...prev.differenceTotal,
+          value: totalsFieldValue
+        },
+        [fieldName]: {
+          ...fieldObject,
+          isChecked: true,
+          value: newFieldValue
+        },
+        [next]: {
+          ...columns[next],
+          isPreviousChecked: true,
+          isAvailable: true
+        }
+      }
+    })
+
+    addNewTotal(column.columnName, 'differenceTotal', totalsFieldValue);    
+  }
+
+  const calculateSetsAndNumbersTotals = (totalsField, newFieldValue, fieldObject) => {
+    let newTotalValue = 0;
+
+    const currentTotalsValue = columns[totalsField].value;
+
+    newTotalValue = currentTotalsValue + newFieldValue;    
+
+    if(column.isRandomColumn) {
+      setColumns(prev => {
+        return {
+          ...prev,
+          [totalsField]: {
+            ...columns[totalsField],
+            value: columns[totalsField]?.value + newFieldValue
+          },
+          [fieldObject.name]: {
+            ...fieldObject,
+            isChecked: true,
+            value: newFieldValue
           }
         }
       })
@@ -350,10 +455,14 @@ const Column = ({ column }) => {
     setColumns(prev => {
       return {
         ...prev,
-        [fieldName]: {
+        [totalsField]: {
+          ...columns[totalsField],
+          value: columns[totalsField].value + newFieldValue
+        },
+        [fieldObject.name]: {
           ...fieldObject,
           isChecked: true,
-          value: calculateFieldValue(fieldName, fieldObject.numberValue)
+          value: newFieldValue
         },
         [next]: {
           ...columns[next],
@@ -362,6 +471,32 @@ const Column = ({ column }) => {
         }
       }
     })
+
+    return newTotalValue;    
+  }
+
+  const fieldClickHandler = ([ fieldName, fieldObject ]) => {
+    if(!fieldObject?.isAvailable || fieldObject.isChecked) return;
+
+    const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue);
+
+    const { totalsField } = fieldObject;
+
+    if(fieldName === 'ones') {
+      calculateTotalsDifference(fieldName, fieldValue, fieldObject);
+      calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
+      addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+      return;
+    }
+
+    if(fieldName === 'maximum' || fieldName === 'minimum') {
+      calculateTotalsDifference(fieldName, fieldValue, fieldObject);
+      return;
+    }
+
+    addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
+
+    calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
   }
 
   const unclickable = element => {
@@ -399,7 +534,7 @@ const Column = ({ column }) => {
             `}
             onClick={() => fieldClickHandler(item)}
           >
-            {item[1].isChecked ? item[1].value : null}
+            {item[1].value}
           </div>
         )
       })}

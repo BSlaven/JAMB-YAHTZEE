@@ -98,28 +98,41 @@ export const DiceProvider = ({ children }) => {
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
-      setsTotals: 0
+      differenceTotal: 0,
+      setsTotal: 0
     },
     upColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
-      setsTotals: 0
+      differenceTotal: 0,
+      setsTotal: 0
     },
     freeColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
-      setsTotals: 0
+      differenceTotal: 0,
+      setsTotal: 0
     },
     announcementColumn: {
       numbersTotals: 0,
-      differencesTotals: 0,
-      setsTotals: 0
+      differenceTotal: 0,
+      setsTotal: 0
     }
   });
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
     const currentValue = columnsTotals[columnName][newTotalField]
+
+    if(newTotalField === 'differenceTotal') {
+      setColumnsTotals(prev => {
+        return {
+          ...prev,
+          [columnName]: {
+            ...prev[columnName],
+            [newTotalField]: addValue
+          }
+        }
+      })
+      return
+    }
 
     setColumnsTotals(prev => {
       return {

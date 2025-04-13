@@ -17,11 +17,11 @@ const Fields = () => {
     .reduce((acc, curr) => acc + curr);
 
   const differencesTotals = filteredColumns
-    .map(item => item.differencesTotals)
+    .map(item => item.differenceTotal)
     .reduce((acc, curr) => acc + curr);
 
   const setsTotals = filteredColumns
-    .map(item => item.setsTotals)
+    .map(item => item.setsTotal)
     .reduce((acc, curr) => acc + curr);
 
 
