@@ -21,7 +21,7 @@ const Fields = () => {
     .reduce((acc, curr) => acc + curr);
 
   const setsTotals = filteredColumns
-    .map(item => item.setsTotals)
+    .map(item => item.setsTotal)
     .reduce((acc, curr) => acc + curr);
 
 

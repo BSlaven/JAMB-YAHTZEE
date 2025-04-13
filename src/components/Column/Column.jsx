@@ -259,7 +259,7 @@ const Column = ({ column }) => {
       totalsField: 'numbersTotals'
     },
     numbersTotals: {
-      // value: columnsTotals[column.columnName]?.numbersTotals,
+      value: 0,
       fieldDisplay: 'ukupno',
       isChecked: true
     },
@@ -282,7 +282,7 @@ const Column = ({ column }) => {
       totalsField: 'differenceTotal'
     },
     differenceTotal: {
-      value: column.isDefault ? null : columnsTotals[column.columnName].differenceTotal,
+      value: 0,
       fieldDisplay: 'razlika',
     },
     kenta: {
@@ -426,7 +426,13 @@ const Column = ({ column }) => {
   }
 
   const calculateSetsAndNumbersTotals = (totalsField, newFieldValue) => {
-    
+    let newTotalValue = 0;
+
+    const currentTotalsValue = columns[totalsField].value;
+
+    newTotalValue = currentTotalsValue + newFieldValue;
+
+    return newTotalValue;
   }
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
@@ -455,10 +461,10 @@ const Column = ({ column }) => {
       setColumns(prev => {
         return {
           ...prev,
-          // [totalsField]: {
-          //   ...columns[totalsField],
-          //   value: columns[totalsField]?.value + fieldValue
-          // },
+          [totalsField]: {
+            ...columns[totalsField],
+            value: columns[totalsField]?.value + fieldValue
+          },
           [fieldName]: {
             ...fieldObject,
             isChecked: true,
@@ -527,7 +533,7 @@ const Column = ({ column }) => {
             `}
             onClick={() => fieldClickHandler(item)}
           >
-            {item[1].isChecked ? item[1].value : null}
+            {item[1].value}
           </div>
         )
       })}

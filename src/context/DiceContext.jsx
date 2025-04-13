@@ -99,27 +99,27 @@ export const DiceProvider = ({ children }) => {
     downColumn: {
       numbersTotals: 0,
       differenceTotal: 0,
-      setsTotals: 0
+      setsTotal: 0
     },
     upColumn: {
       numbersTotals: 0,
       differenceTotal: 0,
-      setsTotals: 0
+      setsTotal: 0
     },
     freeColumn: {
       numbersTotals: 0,
       differenceTotal: 0,
-      setsTotals: 0
+      setsTotal: 0
     },
     announcementColumn: {
       numbersTotals: 0,
       differenceTotal: 0,
-      setsTotals: 0
+      setsTotal: 0
     }
   });
 
   useEffect(() => {
-    console.log(columnsTotals);
+    // console.log(columnsTotals);
   }, [columnsTotals])
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
