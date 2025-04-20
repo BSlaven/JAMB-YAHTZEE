@@ -173,7 +173,7 @@ export const DiceProvider = ({ children }) => {
     })
   }
 
-  const rollDice = () => {
+  const rollDice = () => {    
     const newDiceValues = {};
     const uncheckedDice = Object.entries(dice).filter(item => !item[1].checked);
 
