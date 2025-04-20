@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 
+
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
 import { LuArrowUpDown } from "react-icons/lu";
@@ -8,13 +9,14 @@ import { TbCircleDashedLetterN } from "react-icons/tb";
 import { TbCircleLetterR } from "react-icons/tb";
 
 import { ColumnContext } from "../../context/DiceContext";
+import DiceContext from '../../context/DiceContext';
 
 import classes from './Column.module.css';
-import { MdAppBlocking } from "react-icons/md";
 
 const Column = ({ column }) => {
 
   const { addNewTotal, columnsTotals } = useContext(ColumnContext);
+  const { showToast } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
@@ -492,7 +494,10 @@ const Column = ({ column }) => {
   }
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
-    if(!fieldObject?.isAvailable || fieldObject.isChecked) return;
+    if(!fieldObject?.isAvailable || fieldObject.isChecked) {
+      showToast('error', 'To polje nije dostupno!')
+      return;
+    };
 
     const fieldValue = calculateFieldValue(fieldName, fieldObject.numberValue);
 
