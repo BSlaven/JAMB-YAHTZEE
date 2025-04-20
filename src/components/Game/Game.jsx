@@ -1,20 +1,27 @@
+import { useContext } from 'react';
+
+import DiceContext from '../../context/DiceContext';
+
+import { Toaster } from 'sonner';
+
 import classes from './Game.module.css';
 
 import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
-import { toast, Toaster } from 'sonner';
 
 const Game = () => {
+
+  const { showToast } = useContext(DiceContext);
 
   return (
     <div className={classes.gameContainer}>
 
       <Toaster visibleToasts={5} richColors position='top-left' />
       <button
-        onClick={() => {
-          return toast.success('dobro je majstore!')
-        }}
-      >toast</button>
+        onClick={() => showToast('success', 'može majsta!')}
+      >
+        toast
+      </button>
       
       <Dice />
       <Fields />

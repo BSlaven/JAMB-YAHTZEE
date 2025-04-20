@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
+import { toast } from 'sonner';
+
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
 const diceIcons = {
@@ -195,6 +197,10 @@ export const DiceProvider = ({ children }) => {
     setRollNumber(prev => prev + 1);
   }
 
+  const showToast = (status, message) => {
+    return toast[status](message);
+  }
+
   return <DiceContext.Provider value={{
       diceValues,
       dice,
@@ -204,6 +210,7 @@ export const DiceProvider = ({ children }) => {
       rollNumber,
       checkDice,
       rollDice,
+      showToast
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
