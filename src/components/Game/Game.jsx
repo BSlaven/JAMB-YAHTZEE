@@ -14,6 +14,9 @@ const Game = () => {
       
       <Dice />
       <Fields />
+
+      <Dice isOpponent={true} />
+      <Fields isOpponent={true} />
     </div>
   )
 }
