@@ -8,7 +8,7 @@ const socket = io("http://localhost:3000", {
 
 const OppComponent = () => {
 
-  const [ opponentData, setOpponentData ] = useState('Slaven je majstor')
+  const [ opponentData, setOpponentData ] = useState('')
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
@@ -20,15 +20,17 @@ const OppComponent = () => {
     }
   }, [])
 
-  const sendData = () => {
-    socket.emit('opponentData', opponentData);
+  const sendData = data => {
+    socket.emit('opponentData', data);
   }
   
   return (
     <div>
       <h5>Opponent Component</h5>
+      {opponentData && <p>Opponent: {opponentData}</p>}
 
-      <button onClick={() => sendData()}>Send</button>
+      
+      <button onClick={() => sendData('Slaven je živa legenda')}>Send</button>
     </div>
   )
 }
