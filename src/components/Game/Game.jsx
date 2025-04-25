@@ -4,6 +4,7 @@ import classes from './Game.module.css';
 
 import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
+import OppComponent from '../OppComponent/OppComponent';
 
 const Game = () => {
 
@@ -14,6 +15,9 @@ const Game = () => {
       
       <Dice />
       <Fields />
+
+      <OppComponent />
+
     </div>
   )
 }
