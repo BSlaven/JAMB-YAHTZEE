@@ -520,6 +520,17 @@ const Column = ({ column }) => {
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
   }
 
+  const sendData = () => {
+    const data = {
+      columnName: column.columnName,
+      columnNumbersTotal: columnsTotals[column.columnName].numbersTotals,
+      columnDifference: columnsTotals[column.columnName].differenceTotal,
+      columnSetsTotal: columnsTotals[column.columnName].setsTotal
+    }
+
+    return data;
+  }
+
   const unclickable = element => {
     return (element === 'ukupno' || element === 'razlika')
   }
