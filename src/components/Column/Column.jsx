@@ -523,6 +523,8 @@ const Column = ({ column }) => {
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
 
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
+
+    sendData();
   }
 
   const sendData = () => {
@@ -533,7 +535,7 @@ const Column = ({ column }) => {
       columnSetsTotal: columnsTotals[column.columnName].setsTotal
     }
 
-    return data;
+    socket.emit('opponentData', data);
   }
 
   const unclickable = element => {
