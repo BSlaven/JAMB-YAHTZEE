@@ -1,5 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 
+import { io } from 'socket.io-client';
+
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
 
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
