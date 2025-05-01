@@ -22,7 +22,6 @@ const OppComponent = () => {
 
   return (
     <div>
-      <h5>Opponent Component</h5>
       {opponentData && <div>
         <h5>Opponent Data</h5>
         <p>Opponent numbers: {opponentData.columnNumbersTotal}</p>
