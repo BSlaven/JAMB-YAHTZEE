@@ -2,6 +2,12 @@ import { createContext, useEffect, useState } from "react";
 
 import { toast } from 'sonner';
 
+import { io } from 'socket.io-client';
+
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
+
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
 const diceIcons = {
@@ -60,6 +66,15 @@ export const DiceProvider = ({ children }) => {
       icon: diceIcons.input_dice_6
     }
   });
+
+  useEffect(() => {
+    sendDiceValues();
+  }, [ dice ])
+
+  const sendDiceValues = () => {
+    console.log('dice', dice)
+    socket.emit('newDiceValues', dice);
+  }
 
   const [ gameColumns, setGameColumns ] = useState([
     { 
