@@ -1,5 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 
+import { io } from 'socket.io-client';
+
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
 
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
@@ -518,6 +523,19 @@ const Column = ({ column }) => {
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
 
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
+
+    sendData();
+  }
+
+  const sendData = () => {
+    const data = {
+      columnName: column.columnName,
+      columnNumbersTotal: columnsTotals[column.columnName].numbersTotals,
+      columnDifference: columnsTotals[column.columnName].differenceTotal,
+      columnSetsTotal: columnsTotals[column.columnName].setsTotal
+    }
+
+    socket.emit('opponentData', data);
   }
 
   const unclickable = element => {

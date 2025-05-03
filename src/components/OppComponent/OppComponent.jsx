@@ -8,11 +8,17 @@ const socket = io("http://localhost:3000", {
 
 const OppComponent = () => {
 
-  const [ opponentData, setOpponentData ] = useState('')
+  const [ opponentData, setOpponentData ] = useState(null);
+  const [ opponentDice, setOpponentDice ] = useState(null);
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
       setOpponentData(data);
+    });
+
+    socket.on('newDiceValues', (data) => {
+      console.log('New dice values received:', data);
+      setOpponentDice(data);
     });
 
     return () => {
@@ -20,17 +26,15 @@ const OppComponent = () => {
     }
   }, [])
 
-  const sendData = data => {
-    socket.emit('opponentData', data);
-  }
-  
   return (
     <div>
-      <h5>Opponent Component</h5>
-      {opponentData && <p>Opponent: {opponentData}</p>}
-
-      
-      <button onClick={() => sendData('Slaven je živa legenda')}>Send</button>
+      {opponentData && <div>
+        <h5>Opponent Data</h5>
+        <p>Opponent numbers: {opponentData.columnNumbersTotal}</p>
+        <p>Opponent diff: {opponentData.columnDifference}</p>
+        <p>Opponent sets: {opponentData.columnSetsTotal}</p>
+        <p>Opponent totals: {opponentData.columnNumbersTotal + opponentData.columnDifference + opponentData.columnSetsTotal}</p>
+        </div>}
     </div>
   )
 }
