@@ -9,10 +9,16 @@ const socket = io("http://localhost:3000", {
 const OppComponent = () => {
 
   const [ opponentData, setOpponentData ] = useState(null);
+  const [ opponentDice, setOpponentDice ] = useState(null);
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
       setOpponentData(data);
+    });
+
+    socket.on('newDiceValues', (data) => {
+      console.log('New dice values received:', data);
+      setOpponentDice(data);
     });
 
     return () => {

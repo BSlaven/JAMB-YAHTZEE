@@ -175,7 +175,7 @@ export const DiceProvider = ({ children }) => {
     .reduce((acc, curr) => acc + curr);
 
   const checkDice = diceName => {
-    if(rollNumber < 2) return;
+    if(rollNumber > 2) return;
 
     setDice(prevDice => {
       return {
