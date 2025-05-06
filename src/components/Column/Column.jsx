@@ -528,14 +528,10 @@ const Column = ({ column }) => {
   }
 
   const sendData = () => {
-    const data = {
-      columnName: column.columnName,
-      columnNumbersTotal: columnsTotals[column.columnName].numbersTotals,
-      columnDifference: columnsTotals[column.columnName].differenceTotal,
-      columnSetsTotal: columnsTotals[column.columnName].setsTotal
-    }
 
-    socket.emit('opponentData', data);
+    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');
+
+    socket.emit('opponentData', playerSimplifiedColumns);
   }
 
   const unclickable = element => {

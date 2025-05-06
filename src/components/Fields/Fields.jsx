@@ -49,8 +49,6 @@ const Fields = () => {
   const setsTotals = filteredColumns
     .map(item => item.setsTotal)
     .reduce((acc, curr) => acc + curr);
-
-
   
   return (
     <div className={classes.fieldsContainer}>
