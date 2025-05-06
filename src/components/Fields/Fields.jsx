@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { ColumnContext } from '../../context/DiceContext';
 
@@ -11,6 +11,32 @@ const Fields = () => {
   const { columnsTotals, gameColumns } = useContext(ColumnContext);
   
   const filteredColumns = Object.values(columnsTotals).filter(item => !item.isDefault);
+  
+  useEffect(() => {
+    const simpleColumns = gameColumns.map(item => {
+      return {
+        columnName: item.columnName,
+        ones: 0,
+        twos: 0,
+        threes: 0,
+        fours: 0,
+        fives: 0,
+        sixes: 0,
+        numbersTotals: 0,
+        maximum: 0,
+        minimum: 0,
+        differenceTotal: 0,
+        kenta: 0,
+        triling: 0,
+        ful: 0,
+        poker: 0,
+        jamb: 0,
+        setsTotal: 0
+      }
+    });
+
+    localStorage.setItem('simpleColumns', JSON.stringify(simpleColumns));
+  }, []);
   
   const numbersTotals = filteredColumns
     .map(item => item.numbersTotals)
