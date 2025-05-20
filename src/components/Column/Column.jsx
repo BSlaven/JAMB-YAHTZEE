@@ -343,11 +343,6 @@ const Column = ({ column }) => {
     }
   });
 
-  // useEffect(() => {
-  //   console.log('OVO TI JE KOLONA', columns)
-  //   //calculateDifference()
-  // }, [columns])
-
   const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
     let totalsFieldValue = 0;
 
