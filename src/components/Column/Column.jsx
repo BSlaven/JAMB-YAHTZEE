@@ -519,12 +519,14 @@ const Column = ({ column }) => {
 
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
 
-    sendData();
+    // sendData();
   }
 
   const sendData = () => {
 
     const playerSimplifiedColumns = localStorage.getItem('simpleColumns');
+
+    
 
     socket.emit('opponentData', playerSimplifiedColumns);
   }
