@@ -343,6 +343,10 @@ const Column = ({ column }) => {
     }
   });
 
+  useEffect(() => {
+    sendData();
+  }, [columns]);
+
   const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
     let totalsFieldValue = 0;
 
@@ -524,9 +528,7 @@ const Column = ({ column }) => {
 
   const sendData = () => {
 
-    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');
-
-    
+    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');    
 
     socket.emit('opponentData', playerSimplifiedColumns);
   }
