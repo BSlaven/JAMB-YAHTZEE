@@ -554,6 +554,8 @@ const Column = ({ column }) => {
 
     playerColumns[columnIndex] = newSimplifiedColumn;
 
+    localStorage.setItem('simpleColumns', JSON.stringify(playerColumns));
+
     socket.emit('opponentData', playerColumns);
   }
 
