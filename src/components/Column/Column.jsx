@@ -530,7 +530,29 @@ const Column = ({ column }) => {
 
     const playerColumns = JSON.parse(playerSimplifiedColumns);
 
-    playerColumns[columnIndex] = columns;
+    const newSimplifiedColumn = columns.map(item => {
+      return {
+        columnName: item.columnName,
+        ones: item.ones,
+        twos: item.twos,
+        threes: item.threes,
+        fours: item.fours,
+        fives: item.fives,
+        sixes: item.sixes,
+        numbersTotals: item.numbersTotals,
+        maximum: item.maximum,
+        minimum: item.minimum,
+        differenceTotal: item.differenceTotal,
+        kenta: item.kenta,
+        triling: item.triling,
+        ful: item.ful,
+        poker: item.poker,
+        jamb: item.jamb,
+        setsTotal: item.setsTotal
+      }
+    })
+
+    playerColumns[columnIndex] = newSimplifiedColumn;
 
     socket.emit('opponentData', playerColumns);
   }
