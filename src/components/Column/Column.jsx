@@ -522,15 +522,17 @@ const Column = ({ column }) => {
     addNewTotal(column.columnName, fieldObject.totalsField, fieldValue);
 
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
-
-    // sendData();
   }
 
   const sendData = () => {
+    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');
+    const columnIndex = columnsTotals.findIndex(item => item.columnName === column.columnName);
 
-    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');    
+    const playerColumns = JSON.parse(playerSimplifiedColumns);
 
-    socket.emit('opponentData', playerSimplifiedColumns);
+    playerColumns[columnIndex] = columns;
+
+    socket.emit('opponentData', playerColumns);
   }
 
   const unclickable = element => {
