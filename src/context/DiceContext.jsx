@@ -69,11 +69,14 @@ export const DiceProvider = ({ children }) => {
 
   useEffect(() => {
     sendDiceValues();
-  }, [ dice ])
+  }, [ dice, rollNumber ]);
 
   const sendDiceValues = () => {
     console.log('dice', dice)
-    socket.emit('newDiceValues', dice);
+    socket.emit('newDiceValues', {
+      dice, rollNumber
+    });
+
   }
 
   const [ gameColumns, setGameColumns ] = useState([
