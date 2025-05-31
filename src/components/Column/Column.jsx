@@ -204,7 +204,7 @@ const Column = ({ column }) => {
     }
   }
 
-  const [ columns, setColumns ] = useState({
+  const [ columnFields, setColumnFields ] = useState({
     ones: {
       numberValue: 1,
       isAvailable: column.isRandomColumn || setFieldAvailability(column.columnName, 'ones'),
@@ -345,7 +345,7 @@ const Column = ({ column }) => {
 
   useEffect(() => {
     sendData();
-  }, [columns]);
+  }, [columnFields]);
 
   const calculateTotalsDifference = (fieldName, newFieldValue, fieldObject) => {
     let totalsFieldValue = 0;
@@ -354,19 +354,19 @@ const Column = ({ column }) => {
     
     switch(fieldName) {
       case 'ones':
-        if(!columns.maximum.value || !columns.minimum.value) {
+        if(!columnFields.maximum.value || !columnFields.minimum.value) {
           isDiffPossible = false;
         };
         break;
       
       case 'maximum':
-        if(!columns.ones.value || !columns.minimum.value) {
+        if(!columnFields.ones.value || !columnFields.minimum.value) {
           isDiffPossible = false;
         }
         break;
 
       case 'minimum':
-        if(!columns.ones.value || !columns.maximum.value) {
+        if(!columnFields.ones.value || !columnFields.maximum.value) {
           isDiffPossible = false;
         };
         break
@@ -375,20 +375,20 @@ const Column = ({ column }) => {
     if(isDiffPossible) {
       switch(fieldName) {
         case 'ones':
-          totalsFieldValue = (columns.maximum.value - columns.minimum.value) * newFieldValue;
+          totalsFieldValue = (columnFields.maximum.value - columnFields.minimum.value) * newFieldValue;
           break;
 
         case 'maximum':
-          totalsFieldValue = (newFieldValue - columns.minimum.value) * columns.ones.value;
+          totalsFieldValue = (newFieldValue - columnFields.minimum.value) * columnFields.ones.value;
           break;
 
         case 'minimum':
-          totalsFieldValue = (columns.maximum.value - newFieldValue) * columns.ones.value;
+          totalsFieldValue = (columnFields.maximum.value - newFieldValue) * columnFields.ones.value;
       }
     }
 
     if(column.isRandomColumn) {
-      setColumns(prev => {
+      setColumnFields(prev => {
         return {
           ...prev,
           differenceTotal: {
@@ -406,7 +406,7 @@ const Column = ({ column }) => {
       return
     }
 
-    setColumns(prev => {
+    setColumnFields(prev => {
       return {
         ...prev,
         differenceTotal: {
@@ -421,14 +421,14 @@ const Column = ({ column }) => {
       }
     })
 
-    const next = columns[fieldObject.next]?.name;
+    const next = columnFields[fieldObject.next]?.name;
 
     if(next) {
-      setColumns(prev => {
+      setColumnFields(prev => {
         return {
           ...prev,
           [next]: {
-            ...columns[next],
+            ...columnFields[next],
             isPreviousChecked: true,
             isAvailable: true
           }
@@ -442,17 +442,17 @@ const Column = ({ column }) => {
   const calculateSetsAndNumbersTotals = (totalsField, newFieldValue, fieldObject) => {
     let newTotalValue = 0;
 
-    const currentTotalsValue = columns[totalsField].value;
+    const currentTotalsValue = columnFields[totalsField].value;
 
     newTotalValue = currentTotalsValue + newFieldValue;    
 
     if(column.isRandomColumn) {
-      setColumns(prev => {
+      setColumnFields(prev => {
         return {
           ...prev,
           [totalsField]: {
-            ...columns[totalsField],
-            value: columns[totalsField]?.value + newFieldValue
+            ...columnFields[totalsField],
+            value: columnFields[totalsField]?.value + newFieldValue
           },
           [fieldObject.name]: {
             ...fieldObject,
@@ -464,12 +464,12 @@ const Column = ({ column }) => {
       return;
     }
 
-    setColumns(prev => {
+    setColumnFields(prev => {
       return {
         ...prev,
         [totalsField]: {
-          ...columns[totalsField],
-          value: columns[totalsField].value + newFieldValue
+          ...columnFields[totalsField],
+          value: columnFields[totalsField].value + newFieldValue
         },
         [fieldObject.name]: {
           ...fieldObject,
@@ -479,14 +479,14 @@ const Column = ({ column }) => {
       }
     })
 
-    const next = columns[fieldObject.next]?.name;
+    const next = columnFields[fieldObject.next]?.name;
 
     if(next) {
-      setColumns(prev => {
+      setColumnFields(prev => {
         return {
           ...prev,
           [next]: {
-            ...columns[next],
+            ...columnFields[next],
             isPreviousChecked: true,
             isAvailable: true
           }
@@ -530,7 +530,7 @@ const Column = ({ column }) => {
 
     const playerColumns = JSON.parse(playerSimplifiedColumns);
 
-    const newSimplifiedColumn = columns.map(item => {
+    const newSimplifiedColumn = columnFields.map(item => {
       return {
         columnName: item.columnName,
         ones: item.ones,
@@ -570,7 +570,7 @@ const Column = ({ column }) => {
         {/* <LuArrowUpDown /> */}
         {/* <TbCircleDashedLetterR /> */}
       </h4>
-      {Object.entries(columns).map(item => {
+      {Object.entries(columnFields).map(item => {
         if(column.isDefault) {
           return <div 
             key={item[0]}
