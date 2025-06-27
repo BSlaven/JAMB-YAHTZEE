@@ -16,6 +16,7 @@ const Fields = () => {
     const simpleColumns = gameColumns.map(item => {
       return {
         columnName: item.columnName,
+        fieldDisplay: item.columnName,
         ones: 0,
         twos: 0,
         threes: 0,
