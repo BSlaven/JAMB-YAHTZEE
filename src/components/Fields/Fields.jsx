@@ -14,24 +14,104 @@ const Fields = () => {
   
   useEffect(() => {
     const simpleColumns = gameColumns.map(item => {
+      
       return {
-        columnName: item.columnName,
-        ones: 0,
-        twos: 0,
-        threes: 0,
-        fours: 0,
-        fives: 0,
-        sixes: 0,
-        numbersTotals: 0,
-        maximum: 0,
-        minimum: 0,
-        differenceTotal: 0,
-        kenta: 0,
-        triling: 0,
-        ful: 0,
-        poker: 0,
-        jamb: 0,
-        setsTotal: 0
+        ones: {
+          columnName: item.columnName,
+          fieldDisplay: 'ones',
+          isChecked: false,
+          value: 0
+        },
+        twos: {
+          columnName: item.columnName,
+          fieldDisplay: 'twos',
+          isChecked: false,
+          value: 0
+        },
+        threes: {
+          columnName: item.columnName,
+          fieldDisplay: 'threes',
+          isChecked: false,
+          value: 0
+        },
+        fours: {
+          columnName: item.columnName,
+          fieldDisplay: 'fours',
+          isChecked: false,
+          value: 0
+        },
+        fives: {
+          columnName: item.columnName,
+          fieldDisplay: 'fives',
+          isChecked: false,
+          value: 0
+        },
+        sixes: {
+          columnName: item.columnName,
+          fieldDisplay: 'sixes',
+          isChecked: false,
+          value: 0
+        },
+        numbersTotals: {
+          columnName: item.columnName,
+          fieldDisplay: 'numbersTotals',
+          isChecked: false,
+          value: 0
+        },
+        maximum: {
+          columnName: item.columnName,
+          fieldDisplay: 'max',
+          isChecked: false,
+          value: 0
+        },
+        minimum: {
+          columnName: item.columnName,
+          fieldDisplay: 'min',
+          isChecked: false,
+          value: 0
+        },
+        differenceTotal: {
+          columnName: item.columnName,
+          fieldDisplay: 'differenceTotal',
+          isChecked: false,
+          value: 0
+        },
+        kenta: {
+          columnName: item.columnName,
+          fieldDisplay: 'kenta',
+          isChecked: false,
+          value: 0
+        },
+        triling: {
+          columnName: item.columnName,
+          fieldDisplay: 'triling',
+          isChecked: false,
+          value: 0
+        },
+        ful: {
+          columnName: item.columnName,
+          fieldDisplay: 'full',
+          isChecked: false,
+          value: 0
+        },
+        poker: {
+          columnName: item.columnName,
+          fieldDisplay: 'poker',
+          isChecked: false,
+          value: 0
+        },
+        jamb: {
+          columnName: item.columnName,
+          fieldDisplay: 'jamb',
+          isChecked: false,
+          value: 0
+        },
+        setsTotal: {
+          columnName: item.columnName,
+          fieldDisplay: 'setsTotal',
+          isChecked: false,
+          value: 0
+        }
       }
     });
 
