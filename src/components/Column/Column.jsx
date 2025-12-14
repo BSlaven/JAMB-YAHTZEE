@@ -18,7 +18,7 @@ import DiceContext from '../../context/DiceContext';
 
 import classes from './Column.module.css';
 
-const Column = ({ column }) => {
+const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals } = useContext(ColumnContext);
   const { showToast } = useContext(DiceContext);
@@ -580,6 +580,20 @@ const sendData = () => {
           >
             {item[1].fieldDisplay}
           </div>
+        }
+
+        if(isOpponent) {
+          return (
+            <div 
+              key={item[0]}
+              className={`
+                ${classes.field}
+                ${unclickable(item[1].fieldDisplay) ? `${classes.dark}` : null}
+              `}
+            >
+              {item[1].value ?? ''}
+            </div>
+          )
         }
 
         return (
