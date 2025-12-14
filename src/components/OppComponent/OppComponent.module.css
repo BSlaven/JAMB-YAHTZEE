@@ -1,0 +1,5 @@
+.opponentContainer {
+  margin-left: 10rem;
+  opacity: 0.6;
+  pointer-events: none;
+}

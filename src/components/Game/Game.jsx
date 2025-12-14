@@ -9,17 +9,18 @@ import OppComponent from '../OppComponent/OppComponent';
 const Game = () => {
 
   return (
-    <>
-      <div className={classes.gameContainer}>
+    <div className={classes.gameContainer}>
 
-        <Toaster visibleToasts={5} richColors position='top-left' />
-        
+      <Toaster visibleToasts={5} richColors position='top-left' />
+
+      <section className={classes.playerContainer}>
         <Dice />
         <Fields />
+      </section>
 
-      </div>
-      <OppComponent />  
-    </>
+      <OppComponent />
+
+    </div>
   )
 }
 
