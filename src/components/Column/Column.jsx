@@ -524,39 +524,37 @@ const Column = ({ column }) => {
     calculateSetsAndNumbersTotals(totalsField, fieldValue, fieldObject);
   }
 
-  const sendData = () => {
-    const playerSimplifiedColumns = localStorage.getItem('simpleColumns');
-    const columnIndex = columnsTotals.findIndex(item => item.columnName === column.columnName);
+const sendData = () => {
+    
+    // console.log(Object.entries(columnFields))
+    
+    const playerSimplifiedColumns = JSON.parse(localStorage.getItem('simpleColumns'));
 
-    const playerColumns = JSON.parse(playerSimplifiedColumns);
+    // console.log(playerSimplifiedColumns);
 
-    const newSimplifiedColumn = columnFields.map(item => {
-      return {
-        columnName: item.columnName,
-        ones: item.ones,
-        twos: item.twos,
-        threes: item.threes,
-        fours: item.fours,
-        fives: item.fives,
-        sixes: item.sixes,
-        numbersTotals: item.numbersTotals,
-        maximum: item.maximum,
-        minimum: item.minimum,
-        differenceTotal: item.differenceTotal,
-        kenta: item.kenta,
-        triling: item.triling,
-        ful: item.ful,
-        poker: item.poker,
-        jamb: item.jamb,
-        setsTotal: item.setsTotal
+    // console.log(Object.keys(columnsTotals));
+
+    const columnIndex = playerSimplifiedColumns.findIndex(item => item.columnName === column.columnName);
+
+    // console.log(columnIndex, column.columnName)
+
+    const newSimplifiedColumn = Object.entries(columnFields).map(item => {
+      return { 
+        name: item[0],
+        fieldDisplay: item[1].fieldDisplay,
+        value: item[1]?.value
       }
     })
 
-    playerColumns[columnIndex] = newSimplifiedColumn;
+    // console.log(newSimplifiedColumn)
 
-    localStorage.setItem('simpleColumns', JSON.stringify(playerColumns));
+    playerSimplifiedColumns.splice(columnIndex, newSimplifiedColumn)
 
-    socket.emit('opponentData', playerColumns);
+    console.log(playerSimplifiedColumns);
+
+    localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
+
+    // socket.emit('opponentData', playerSimplifiedColumns);
   }
 
   const unclickable = element => {
