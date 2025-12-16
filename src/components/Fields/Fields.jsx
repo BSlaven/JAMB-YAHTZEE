@@ -6,7 +6,7 @@ import classes from './Fields.module.css';
 
 import Column from '../Column/Column';
 
-const Fields = () => {
+const Fields = ({ isOpponent = false }) => {
 
   const { columnsTotals, gameColumns } = useContext(ColumnContext);
   
@@ -14,104 +14,26 @@ const Fields = () => {
   
   useEffect(() => {
     const simpleColumns = gameColumns.map(item => {
-      
       return {
-        ones: {
-          columnName: item.columnName,
-          fieldDisplay: 'ones',
-          isChecked: false,
-          value: 0
-        },
-        twos: {
-          columnName: item.columnName,
-          fieldDisplay: 'twos',
-          isChecked: false,
-          value: 0
-        },
-        threes: {
-          columnName: item.columnName,
-          fieldDisplay: 'threes',
-          isChecked: false,
-          value: 0
-        },
-        fours: {
-          columnName: item.columnName,
-          fieldDisplay: 'fours',
-          isChecked: false,
-          value: 0
-        },
-        fives: {
-          columnName: item.columnName,
-          fieldDisplay: 'fives',
-          isChecked: false,
-          value: 0
-        },
-        sixes: {
-          columnName: item.columnName,
-          fieldDisplay: 'sixes',
-          isChecked: false,
-          value: 0
-        },
-        numbersTotals: {
-          columnName: item.columnName,
-          fieldDisplay: 'numbersTotals',
-          isChecked: false,
-          value: 0
-        },
-        maximum: {
-          columnName: item.columnName,
-          fieldDisplay: 'max',
-          isChecked: false,
-          value: 0
-        },
-        minimum: {
-          columnName: item.columnName,
-          fieldDisplay: 'min',
-          isChecked: false,
-          value: 0
-        },
-        differenceTotal: {
-          columnName: item.columnName,
-          fieldDisplay: 'differenceTotal',
-          isChecked: false,
-          value: 0
-        },
-        kenta: {
-          columnName: item.columnName,
-          fieldDisplay: 'kenta',
-          isChecked: false,
-          value: 0
-        },
-        triling: {
-          columnName: item.columnName,
-          fieldDisplay: 'triling',
-          isChecked: false,
-          value: 0
-        },
-        ful: {
-          columnName: item.columnName,
-          fieldDisplay: 'full',
-          isChecked: false,
-          value: 0
-        },
-        poker: {
-          columnName: item.columnName,
-          fieldDisplay: 'poker',
-          isChecked: false,
-          value: 0
-        },
-        jamb: {
-          columnName: item.columnName,
-          fieldDisplay: 'jamb',
-          isChecked: false,
-          value: 0
-        },
-        setsTotal: {
-          columnName: item.columnName,
-          fieldDisplay: 'setsTotal',
-          isChecked: false,
-          value: 0
-        }
+        columnName: item.columnName,
+        columnData: [
+          { name: 'ones', fieldDisplay: 1 },
+          { name: 'twos', fieldDisplay: 2 },
+          { name: 'threes', fieldDisplay: 3 },
+          { name: 'fours', fieldDisplay: 4 },
+          { name: 'fives', fieldDisplay: 5 },
+          { name: 'sixes', fieldDisplay: 6 },
+          { name: 'numbersTotals', fieldDisplay: 'ukupno', value: 0 },
+          { name: 'maximum', fieldDisplay: 'max' },
+          { name: 'minimum', fieldDisplay: 'min' },
+          { name: 'differenceTotal', fieldDisplay: 'razlika', value: 0 },
+          { name: 'kenta', fieldDisplay: 'kenta' },
+          { name: 'triling', fieldDisplay: 'triling' },
+          { name: 'ful', fieldDisplay: 'ful' },
+          { name: 'poker', fieldDisplay: 'poker' },
+          { name: 'jamb', fieldDisplay: 'jamb' },
+          { name: 'setsTotal', fieldDisplay: 'ukupno', value: 0 }
+        ]
       }
     });
 
@@ -133,9 +55,10 @@ const Fields = () => {
   return (
     <div className={classes.fieldsContainer}>
       {gameColumns.map(column => {
-        return <Column 
+        return <Column
           key={column.columnName}
           column={column}
+          isOpponent={isOpponent}
         />
       })}
 
@@ -144,7 +67,7 @@ const Fields = () => {
         <div className={`${classes.totals} ${classes.differencesTotals}`}>{differencesTotals}</div>
         <div className={`${classes.totals} ${classes.setsTotals}`}>{setsTotals}</div>
       </aside>
-      <div className={`${classes.totals} ${classes.totalsTotal}`}>{numbersTotals + differencesTotals + setsTotals}</div>   
+      <div className={`${classes.totals} ${classes.totalsTotal}`}>{numbersTotals + differencesTotals + setsTotals}</div>
     </div>
   )
 }

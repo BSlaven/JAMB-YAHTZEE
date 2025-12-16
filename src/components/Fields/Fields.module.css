@@ -4,7 +4,7 @@
   text-align: center;
 }
 
-totalsContainer {
+.totalsContainer {
   padding: 1rem 0 0;
 }
 
@@ -20,7 +20,7 @@ totalsContainer {
 }
 
 .numbersTotals {
-  margin-top: 14.35rem;
+  margin-top: 13.65rem;
 }
 
 .differencesTotals {
@@ -28,7 +28,7 @@ totalsContainer {
 }
 
 .setsTotals {
-  margin-top: 10.3rem;
+  margin-top: 10.5rem;
 }
 
 .totalsTotal {
@@ -36,7 +36,7 @@ totalsContainer {
   top: 51rem;
   width: 50%;
   max-width: 15rem;
-  margin: -1rem auto;
+  margin: 1rem auto;
   font-size: 1.3rem;
   padding: 0.4rem 0
 }
