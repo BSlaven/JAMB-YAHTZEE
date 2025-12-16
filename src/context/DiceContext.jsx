@@ -76,7 +76,6 @@ export const DiceProvider = ({ children }) => {
     socket.emit('newDiceValues', {
       dice, rollNumber
     });
-
   }
 
   const [ gameColumns, setGameColumns ] = useState([
