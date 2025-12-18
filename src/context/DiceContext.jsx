@@ -221,6 +221,7 @@ export const DiceProvider = ({ children }) => {
   return <DiceContext.Provider value={{
       diceValues,
       dice,
+      diceIcons,
       numbersTotals,
       differencesTotals,
       setsTotals,
