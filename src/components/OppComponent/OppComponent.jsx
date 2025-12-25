@@ -1,6 +1,5 @@
 import { useState, useEffect,useContext } from 'react';
 
-import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
 
 import classes from './OppComponent.module.css';
@@ -72,7 +71,6 @@ const OppComponent = () => {
               ROLL {rollNumber <= 3 ? rollNumber : 3}
             </button>
           </div>
-          {/* <Dice /> */}
           <Fields isOpponent={true} />
         </section>
     </div>
