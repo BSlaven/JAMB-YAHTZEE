@@ -59,8 +59,9 @@ const OppComponent = () => {
             {
               Object.entries(dice).map(([name, die]) => (
                 <div
-              className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
-            >
+                  key={name}
+                  className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
+                >
               {diceIcons[`input_dice_${die.value}`]}
             </div>
               ))
