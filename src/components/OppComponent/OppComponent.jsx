@@ -58,11 +58,11 @@ const OppComponent = () => {
         <section className={classes.opponentContainer}>
           <div className={classes.diceContainer}>
             {
-              Object.entries(dice).map(([name, oneDie]) => (
+              Object.entries(dice).map(([name, die]) => (
                 <div
-              className={`${classes.singleDiceContainer} ${dice.input_dice_two.checked ? classes.checked : null}`}
+              className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
             >
-              {diceIcons[`input_dice_${oneDie.value}`]}
+              {diceIcons[`input_dice_${die.value}`]}
             </div>
               ))
             }
