@@ -66,36 +66,6 @@ const OppComponent = () => {
             </div>
               ))
             }
-            {/* <div
-              className={`${classes.singleDiceContainer} ${dice.input_dice_two.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_1}
-            </div>
-            <div 
-              className={`${classes.singleDiceContainer} ${dice.input_dice_two.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_2}
-            </div>
-            <div 
-              className={`${classes.singleDiceContainer} ${dice.input_dice_three.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_3}
-            </div>
-            <div 
-              className={`${classes.singleDiceContainer} ${dice.input_dice_four.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_4}
-            </div>
-            <div
-              className={`${classes.singleDiceContainer} ${dice.input_dice_five.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_5}
-            </div>
-            <div
-              className={`${classes.singleDiceContainer} ${dice.input_dice_six.checked ? classes.checked : null}`}
-            >
-              {diceIcons.input_dice_6}
-            </div> */}
             <button 
               className={classes.rollButton}
             >
