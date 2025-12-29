@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 
-import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
 
-import classes from './OppComponent.module.css'
+import classes from './OppComponent.module.css';
+
+import DiceContext from "../../context/DiceContext";
 
 // import { io } from 'socket.io-client';
 
@@ -11,7 +12,20 @@ import classes from './OppComponent.module.css'
 //   withCredentials: true
 // });
 
+// const diceIcons = {
+//   input_dice_1: <CgDice1 />,
+//   input_dice_2: <CgDice2 />,
+//   input_dice_3: <CgDice3 />,
+//   input_dice_4: <CgDice4 />,
+//   input_dice_5: <CgDice5 />,
+//   input_dice_6: <CgDice6 />
+// }
+
 const OppComponent = () => {
+
+  const { dice, diceIcons } = useContext(DiceContext);
+
+  const [ rollNumber, setRollNumber ] = useState(3)
 
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(null);
@@ -41,11 +55,27 @@ const OppComponent = () => {
         <p>Opponent totals: {opponentData.columnNumbersTotal + opponentData.columnDifference + opponentData.columnSetsTotal}</p>
         </div>} */}
         <section className={classes.opponentContainer}>
-          <Dice />
+          <div className={classes.diceContainer}>
+            {
+              Object.entries(dice).map(([name, die]) => (
+                <div
+                  key={name}
+                  className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
+                >
+              {diceIcons[`input_dice_${die.value}`]}
+            </div>
+              ))
+            }
+            <button 
+              className={classes.rollButton}
+            >
+              ROLL {rollNumber <= 3 ? rollNumber : 3}
+            </button>
+          </div>
           <Fields isOpponent={true} />
         </section>
     </div>
   )
 }
 
-export default OppComponent
+export default OppComponent;

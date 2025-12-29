@@ -6,7 +6,13 @@ import DiceContext from "../../context/DiceContext";
 
 const Dice = () => {
 
-  const { dice, checkDice, rollDice, rollNumber, showToast } = useContext(DiceContext);
+  const { 
+    dice,
+    checkDice,
+    rollDice,
+    rollNumber,
+    showToast
+  } = useContext(DiceContext);
 
   const rollBtnClickHandler = () => {
     if(rollNumber > 3) showToast('error', 'Kocke su već bačene tri puta!')
