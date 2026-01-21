@@ -525,10 +525,11 @@ const Column = ({ column, isOpponent }) => {
   }
 
 const sendData = () => {
-    
-    // console.log(Object.entries(columnFields))
-    
     const playerSimplifiedColumns = JSON.parse(localStorage.getItem('simpleColumns'));
+
+    const selectedColumn = playerSimplifiedColumns.find(item => item.columnName === column.columnName);
+    
+
 
     // console.log(playerSimplifiedColumns);
 
