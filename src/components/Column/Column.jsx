@@ -525,36 +525,23 @@ const Column = ({ column, isOpponent }) => {
   }
 
 const sendData = () => {
-    
-    // console.log(Object.entries(columnFields))
-    
     const playerSimplifiedColumns = JSON.parse(localStorage.getItem('simpleColumns'));
 
-    // console.log(playerSimplifiedColumns);
+    const selectedColumn = playerSimplifiedColumns.find(item => item.columnName === column.columnName);
 
-    // console.log(Object.keys(columnsTotals));
+    const newColumnData = Object.values(columnFields).map(item => {
+      return {
+        name: item.name,
+        fieldDisplay: item.fieldDisplay,
+        value: item?.value
+      }      
+    })
+    
+    selectedColumn.columnData = newColumnData;
 
-    // const columnIndex = playerSimplifiedColumns.findIndex(item => item.columnName === column.columnName);
+    localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
 
-    // console.log(columnIndex, column.columnName)
-
-    // const newSimplifiedColumn = Object.entries(columnFields).map(item => {
-    //   return { 
-    //     name: item[0],
-    //     fieldDisplay: item[1].fieldDisplay,
-    //     value: item[1]?.value
-    //   }
-    // })
-
-    // console.log(newSimplifiedColumn)
-
-    // playerSimplifiedColumns.splice(columnIndex, newSimplifiedColumn)
-
-    // console.log(playerSimplifiedColumns);
-
-    // localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
-
-    // socket.emit('opponentData', playerSimplifiedColumns);
+    socket.emit('opponentData', playerSimplifiedColumns);
   }
 
   const unclickable = element => {
