@@ -528,8 +528,16 @@ const sendData = () => {
     const playerSimplifiedColumns = JSON.parse(localStorage.getItem('simpleColumns'));
 
     const selectedColumn = playerSimplifiedColumns.find(item => item.columnName === column.columnName);
-    
 
+    const newColumnData = Object.values(columnFields).map(item => {
+      return {
+        name: item.name,
+        fieldDisplay: item.fieldDisplay,
+        value: item?.value
+      }      
+    })
+    
+    selectedColumn.columnData = newColumnData;
 
     // console.log(playerSimplifiedColumns);
 
