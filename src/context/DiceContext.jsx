@@ -31,7 +31,7 @@ const diceIcons = {
 const columnIcons = {
   downColumn: <FaAnglesDown />,
   upColumn: <FaAnglesUp />,
-  randomColumn: <LuArrowUpDown />,
+  freeColumn: <LuArrowUpDown />,
   announcementColumn: <TbCircleDashedLetterN />,
   fromMiddleColumn: <RiExpandUpDownLine />,
   toMiddleColumn: <RiContractUpDownLine />
@@ -252,6 +252,7 @@ export const DiceProvider = ({ children }) => {
         gameColumns,
         columnsTotals,
         addNewTotal,
+        columnIcons,
       }}>
         {children}
       </ColumnContext.Provider>
