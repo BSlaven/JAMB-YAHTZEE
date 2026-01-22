@@ -15,6 +15,7 @@ import { FaAnglesUp } from "react-icons/fa6";
 import { LuArrowUpDown } from "react-icons/lu";
 import { TbCircleDashedLetterR } from "react-icons/tb";
 import { TbCircleDashedLetterN } from "react-icons/tb";
+import { TbCircleDashedLetterK } from "react-icons/tb";
 import { TbCircleLetterR } from "react-icons/tb";
 import { RiExpandUpDownLine } from "react-icons/ri";
 import { RiContractUpDownLine } from "react-icons/ri";
@@ -29,6 +30,7 @@ const diceIcons = {
 }
 
 const columnIcons = {
+  defaultColumn: <TbCircleDashedLetterK />,
   downColumn: <FaAnglesDown />,
   upColumn: <FaAnglesUp />,
   freeColumn: <LuArrowUpDown />,

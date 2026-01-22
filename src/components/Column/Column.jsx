@@ -551,7 +551,7 @@ const sendData = () => {
   return (
     <section className={classes.columnContainer}>
       <h4>
-        {columnIcons[column.columnName]} 
+        {columnIcons[column.columnName]}
       </h4>
       {Object.entries(columnFields).map(item => {
         if(column.isDefault) {
