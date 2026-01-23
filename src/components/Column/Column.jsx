@@ -20,7 +20,7 @@ import classes from './Column.module.css';
 
 const Column = ({ column, isOpponent }) => {
 
-  const { addNewTotal, columnsTotals } = useContext(ColumnContext);
+  const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
   const { showToast } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
@@ -551,9 +551,7 @@ const sendData = () => {
   return (
     <section className={classes.columnContainer}>
       <h4>
-        <TbCircleLetterR />
-        {/* <LuArrowUpDown /> */}
-        {/* <TbCircleDashedLetterR /> */}
+        {columnIcons[column.columnName]}
       </h4>
       {Object.entries(columnFields).map(item => {
         if(column.isDefault) {

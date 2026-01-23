@@ -10,6 +10,15 @@ const socket = io("http://localhost:3000", {
 
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
+import { FaAnglesDown } from "react-icons/fa6";
+import { FaAnglesUp } from "react-icons/fa6";
+import { LuArrowUpDown } from "react-icons/lu";
+import { TbCircleDashedLetterO, TbCircleLetterM } from "react-icons/tb";
+import { TbCircleDashedLetterN } from "react-icons/tb";
+import { TbCircleDashedLetterK } from "react-icons/tb";
+import { RiExpandUpDownLine } from "react-icons/ri";
+import { RiContractUpDownLine } from "react-icons/ri";
+
 const diceIcons = {
   input_dice_1: <CgDice1 />,
   input_dice_2: <CgDice2 />,
@@ -17,6 +26,18 @@ const diceIcons = {
   input_dice_4: <CgDice4 />,
   input_dice_5: <CgDice5 />,
   input_dice_6: <CgDice6 />
+}
+
+const columnIcons = {
+  defaultColumn: <TbCircleDashedLetterK />,
+  downColumn: <FaAnglesDown />,
+  upColumn: <FaAnglesUp />,
+  freeColumn: <LuArrowUpDown />,
+  fromMiddleColumn: <RiExpandUpDownLine />,
+  toMiddleColumn: <RiContractUpDownLine />,
+  answerColumn: <TbCircleDashedLetterO />,
+  announcementColumn: <TbCircleDashedLetterN />,
+  maximumColumn: <TbCircleLetterM />,
 }
 
 const DiceContext = createContext();
@@ -234,6 +255,7 @@ export const DiceProvider = ({ children }) => {
         gameColumns,
         columnsTotals,
         addNewTotal,
+        columnIcons,
       }}>
         {children}
       </ColumnContext.Provider>
