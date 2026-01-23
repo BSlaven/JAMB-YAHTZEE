@@ -13,10 +13,9 @@ import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icon
 import { FaAnglesDown } from "react-icons/fa6";
 import { FaAnglesUp } from "react-icons/fa6";
 import { LuArrowUpDown } from "react-icons/lu";
-import { TbCircleDashedLetterR } from "react-icons/tb";
+import { TbCircleDashedLetterO, TbCircleLetterM } from "react-icons/tb";
 import { TbCircleDashedLetterN } from "react-icons/tb";
 import { TbCircleDashedLetterK } from "react-icons/tb";
-import { TbCircleLetterR } from "react-icons/tb";
 import { RiExpandUpDownLine } from "react-icons/ri";
 import { RiContractUpDownLine } from "react-icons/ri";
 
@@ -34,9 +33,11 @@ const columnIcons = {
   downColumn: <FaAnglesDown />,
   upColumn: <FaAnglesUp />,
   freeColumn: <LuArrowUpDown />,
-  announcementColumn: <TbCircleDashedLetterN />,
   fromMiddleColumn: <RiExpandUpDownLine />,
-  toMiddleColumn: <RiContractUpDownLine />
+  toMiddleColumn: <RiContractUpDownLine />,
+  answerColumn: <TbCircleDashedLetterO />,
+  announcementColumn: <TbCircleDashedLetterN />,
+  maximumColumn: <TbCircleLetterM />,
 }
 
 const DiceContext = createContext();
