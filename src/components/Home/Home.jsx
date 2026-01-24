@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
+
+import { Toaster, toast } from 'sonner';
 
 import classes from './Home.module.css';
 
+import DiceContext from '../../context/DiceContext';
+
 const Home = () => {
+
+  // <Toaster visibleToasts={5} richColors position='top-left' />
 
   const navigate = useNavigate();
 
   const [ gameId, setGameId ] = useState('');
+  const { showToast } = useContext(DiceContext);
 
   const enterGameHandler = () => {
-    if(!gameId) return;
+    showToast('info', 'Pokušavam da uđem u igru...');
+
+    console.log(showToast)
+    if(!gameId) {
+      showToast('error', 'To polje nije dostupno!')
+      return
+    };
 
     navigate(`game/${gameId}`);
   }
+
+
   
   return (
     <div className={classes.inputControl}>
@@ -53,7 +68,6 @@ const Home = () => {
 
       <input type="checkbox" id="maximumColumn" name="maximumColumn" />
       <label htmlFor="maximumColumn">Maksimum</label>
-
 
       <button 
         className={classes.enterGameBtn}
