@@ -51,3 +51,66 @@
 .enterBtn:active {
   transform: scale(0.98);
 }
+
+/* SELECTION */
+.selection_container {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  justify-content: center;
+}
+
+.selection {
+  width: 15rem;
+  margin: 0 auto;
+}
+
+.selection input {
+  width: 0;
+  height: 0;
+}
+
+.selection input:checked ~ label {
+  border-color: var(--main-highlight);
+}
+
+.selection input:checked ~ label:before, 
+.selection input:checked ~ label:after {
+  display: block
+}
+
+.selection label {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 15rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid var(--main-light);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px var(--main-light);
+  position: relative
+}
+
+.selection label:before,
+.selection label:after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--main-highlight);
+  position: absolute;
+  top: calc(50% - 5px);
+  display: none
+}
+
+.selection label:before {
+  left: 1rem;
+}
+
+.selection label:after {
+  right: 1rem;
+}
