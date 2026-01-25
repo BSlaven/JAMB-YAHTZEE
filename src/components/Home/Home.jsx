@@ -16,9 +16,6 @@ const Home = () => {
   const { showToast } = useContext(DiceContext);
 
   const enterGameHandler = () => {
-    showToast('info', 'Pokušavam da uđem u igru...');
-
-    console.log(showToast)
     if(!gameId) {
       showToast('error', 'To polje nije dostupno!')
       return
@@ -30,7 +27,7 @@ const Home = () => {
 
   
   return (
-    <>
+    <main className={classes.home}>
       <Toaster visibleToasts={5} richColors position='top-left' />
 
       <div className={classes.inputControl}>
@@ -43,42 +40,54 @@ const Home = () => {
           name="game_id"
           placeholder="id igre..."
         />
-
-        <input type="checkbox" id="downColumn" name="downColumn" />
-        <label htmlFor="downColumn">Dole</label>
-
-        <input type="checkbox" id="freeColumn" name="freeColumn" />
-        <label htmlFor="freeColumn">Sloboda</label>
-        
-        <input type="checkbox" id="upColumn" name="upColumn" />
-        <label htmlFor="upColumn">Gore</label>
-
-        <input type="checkbox" id="announcementColumn" name="announcementColumn" />
-        <label htmlFor="announcementColumn">Najava</label>
-
-        <input type="checkbox" id="fromMiddleColumn" name="fromMiddleColumn" />
-        <label htmlFor="fromMiddleColumn">Od sredine</label>
-        
-        <input type="checkbox" id="fromMiddleColumn" name="fromMiddleColumn" />
-        <label htmlFor="fromMiddleColumn">Do sredine</label>
-
-        <input type="checkbox" id="handColumn" name="handColumn" />
-        <label htmlFor="handColumn">Ručna</label>
-
-        <input type="checkbox" id="answerColumn" name="answerColumn" />
-        <label htmlFor="answerColumn">Odjava</label>
-
-        <input type="checkbox" id="maximumColumn" name="maximumColumn" />
-        <label htmlFor="maximumColumn">Maksimum</label>
-
-        <button 
-          className={classes.enterGameBtn}
-          onClick={enterGameHandler}
-        >
-          Uđi u igru
-        </button>
       </div>
-    </>
+
+      <section className={classes.selection_container}>
+        <div className={classes.selection}>
+          <input type="checkbox" name="downColumn" id="downColumn" />
+          <label htmlFor="downColumn">Dole</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="freeColumn" id="freeColumn" />
+          <label htmlFor="freeColumn">Sloboda</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="upColumn" id="upColumn" />
+          <label htmlFor="upColumn">Gore</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="toMiddleColumn" id="toMiddleColumn" />
+          <label htmlFor="toMiddleColumn">Do sredine</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="fromMiddleColumn" id="fromMiddleColumn" />
+          <label htmlFor="fromMiddleColumn">Od sredine</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="announcementColumn" id="announcementColumn" />
+          <label htmlFor="announcementColumn">Najava</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="answerColumn" id="answerColumn" />
+          <label htmlFor="answerColumn">Odjava</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="handColumn" id="handColumn" />
+          <label htmlFor="handColumn">Ručna</label>
+        </div>
+        <div className={classes.selection}>
+          <input type="checkbox" name="maximumColumn" id="maximumColumn" />
+          <label htmlFor="maximumColumn">Maksimum</label>
+        </div>
+      </section>
+
+      <button 
+        className={classes.enterGameBtn}
+        onClick={enterGameHandler}
+      >
+        Uđi u igru
+      </button>
+    </main>
   )
 }
 
