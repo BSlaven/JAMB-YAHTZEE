@@ -107,31 +107,19 @@ export const DiceProvider = ({ children }) => {
     },
     { 
       columnName: 'downColumn',
-      isRandomColumn: false,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      isRandomColumn: false
     },
     { 
       columnName: 'upColumn',
-      isRandomColumn: false,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      isRandomColumn: false
     },
     { 
       columnName: 'freeColumn',
       isRandomColumn: true,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
     },
     { 
       columnName: 'announcementColumn',
       isRandomColumn: true,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
     }
   ]);
 

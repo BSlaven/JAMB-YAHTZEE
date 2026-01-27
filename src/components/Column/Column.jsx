@@ -541,7 +541,7 @@ const sendData = () => {
 
     localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
 
-    socket.emit('opponentData', playerSimplifiedColumns);
+    // socket.emit('opponentData', playerSimplifiedColumns);
   }
 
   const unclickable = element => {
