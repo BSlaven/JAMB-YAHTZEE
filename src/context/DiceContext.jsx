@@ -99,6 +99,57 @@ export const DiceProvider = ({ children }) => {
   //   });
   // }
 
+  const [ allColumns, setColumns ] = useState([
+  {
+    columnName: 'downColumn',
+    isRandomColumn: false,
+    orderNumber: 1,
+    isSelected: false,
+  },
+  {
+    columnName: 'upColumn',
+    isRandomColumn: false,
+    orderNumber: 2,
+    isSelected: false,
+  },
+  {
+    columnName: 'freeColumn',
+    isRandomColumn: true,
+    orderNumber: 3,
+    isSelected: false,
+  },
+  {
+    columnName: 'toMiddleColumn',
+    isRandomColumn: false,
+    orderNumber: 4,
+    isSelected: false,
+  },
+  {
+    columnName: 'fromMiddleColumn',
+    isRandomColumn: false,
+    orderNumber: 5,
+    isSelected: false,
+  },
+  {
+    columnName: 'announcementColumn',
+    isRandomColumn: false,
+    orderNumber: 6,
+    isSelected: false,
+  },
+  {
+    columnName: 'answerColumn',
+    isRandomColumn: true,
+    orderNumber: 7,
+    isSelected: false,
+  },
+  {
+    columnName: 'maximumColumn',
+    isRandomColumn: true,
+    orderNumber: 8,
+    isSelected: false,
+  }
+]);
+
   const [ gameColumns, setGameColumns ] = useState([
     { 
       columnName: 'defaultColumn',
