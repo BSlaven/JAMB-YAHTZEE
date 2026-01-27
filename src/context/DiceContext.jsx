@@ -100,55 +100,62 @@ export const DiceProvider = ({ children }) => {
   // }
 
   const [ allColumns, setColumns ] = useState([
-  {
-    columnName: 'downColumn',
-    isRandomColumn: false,
-    orderNumber: 1,
-    isSelected: false,
-  },
-  {
-    columnName: 'upColumn',
-    isRandomColumn: false,
-    orderNumber: 2,
-    isSelected: false,
-  },
-  {
-    columnName: 'freeColumn',
-    isRandomColumn: true,
-    orderNumber: 3,
-    isSelected: false,
-  },
-  {
-    columnName: 'toMiddleColumn',
-    isRandomColumn: false,
-    orderNumber: 4,
-    isSelected: false,
-  },
-  {
-    columnName: 'fromMiddleColumn',
-    isRandomColumn: false,
-    orderNumber: 5,
-    isSelected: false,
-  },
-  {
-    columnName: 'announcementColumn',
-    isRandomColumn: false,
-    orderNumber: 6,
-    isSelected: false,
-  },
-  {
-    columnName: 'answerColumn',
-    isRandomColumn: true,
-    orderNumber: 7,
-    isSelected: false,
-  },
-  {
-    columnName: 'maximumColumn',
-    isRandomColumn: true,
-    orderNumber: 8,
-    isSelected: false,
+    {
+      columnName: 'downColumn',
+      isRandomColumn: false,
+      orderNumber: 1,
+      isSelected: false,
+    },
+    {
+      columnName: 'upColumn',
+      isRandomColumn: false,
+      orderNumber: 2,
+      isSelected: false,
+    },
+    {
+      columnName: 'freeColumn',
+      isRandomColumn: true,
+      orderNumber: 3,
+      isSelected: false,
+    },
+    {
+      columnName: 'toMiddleColumn',
+      isRandomColumn: false,
+      orderNumber: 4,
+      isSelected: false,
+    },
+    {
+      columnName: 'fromMiddleColumn',
+      isRandomColumn: false,
+      orderNumber: 5,
+      isSelected: false,
+    },
+    {
+      columnName: 'announcementColumn',
+      isRandomColumn: false,
+      orderNumber: 6,
+      isSelected: false,
+    },
+    {
+      columnName: 'answerColumn',
+      isRandomColumn: true,
+      orderNumber: 7,
+      isSelected: false,
+    },
+    {
+      columnName: 'maximumColumn',
+      isRandomColumn: true,
+      orderNumber: 8,
+      isSelected: false,
+    }
+  ]);
+
+  const handleColumnSelection = (columnName) => {
+    const columnsCopy = structuredClone(allColumns);
+    const selectedColumn = columnsCopy.find(item => item.columnName === columnName);
+    selectedColumn.isSelected = !selectedColumn.isSelected;
+    setColumns(columnsCopy);
   }
-]);
 
   const gameColumns = allColumns
     .filter(item => item.isSelected)
@@ -273,8 +280,9 @@ export const DiceProvider = ({ children }) => {
       <ColumnContext.Provider value={{
         gameColumns,
         columnsTotals,
-        addNewTotal,
         columnIcons,
+        addNewTotal,
+        handleColumnSelection
       }}>
         {children}
       </ColumnContext.Provider>
