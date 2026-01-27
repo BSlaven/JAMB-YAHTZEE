@@ -150,29 +150,9 @@ export const DiceProvider = ({ children }) => {
   }
 ]);
 
-  const [ gameColumns, setGameColumns ] = useState([
-    { 
-      columnName: 'defaultColumn',
-      isRandomColumn: false,
-      isDefault: true,
-    },
-    { 
-      columnName: 'downColumn',
-      isRandomColumn: false
-    },
-    { 
-      columnName: 'upColumn',
-      isRandomColumn: false
-    },
-    { 
-      columnName: 'freeColumn',
-      isRandomColumn: true,
-    },
-    { 
-      columnName: 'announcementColumn',
-      isRandomColumn: true,
-    }
-  ]);
+  const gameColumns = allColumns
+    .filter(item => item.isSelected)
+    .sort((a, b) => a.orderNumber - b.orderNumber);
 
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
