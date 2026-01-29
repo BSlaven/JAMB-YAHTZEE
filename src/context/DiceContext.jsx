@@ -167,6 +167,8 @@ export const DiceProvider = ({ children }) => {
     .filter(item => item.isSelected)
     .sort((a, b) => a.orderNumber - b.orderNumber);
 
+    console.log('gameColumns', gameColumns)
+
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
       numbersTotals: 0,
@@ -219,15 +221,15 @@ export const DiceProvider = ({ children }) => {
 
   const numbersTotals = gameColumns
     .map(item => item.columnNumbersTotal)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
 
   const differencesTotals = gameColumns
     .map(item => item.columnDifference)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
 
   const setsTotals = gameColumns
     .map(item => item.columnSetsTotal)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
 
   const checkDice = diceName => {
     if(rollNumber > 2) return;

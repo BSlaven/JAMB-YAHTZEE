@@ -527,14 +527,18 @@ const Column = ({ column, isOpponent }) => {
 const sendData = () => {
     const playerSimplifiedColumns = JSON.parse(localStorage.getItem('simpleColumns'));
 
+    console.log('playerSimplifiedColumns', playerSimplifiedColumns)
+
     const selectedColumn = playerSimplifiedColumns.find(item => item.columnName === column.columnName);
+
+    if(!selectedColumn) return
 
     const newColumnData = Object.values(columnFields).map(item => {
       return {
         name: item.name,
         fieldDisplay: item.fieldDisplay,
         value: item?.value
-      }      
+      }
     })
     
     selectedColumn.columnData = newColumnData;
