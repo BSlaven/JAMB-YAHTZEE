@@ -143,6 +143,12 @@ export const DiceProvider = ({ children }) => {
       isSelected: false,
     },
     {
+      columnName: 'handColumn',
+      isRandomColumn: true,
+      orderNumber: 7,
+      isSelected: false,
+    },
+    {
       columnName: 'maximumColumn',
       isRandomColumn: true,
       orderNumber: 8,
@@ -273,16 +279,17 @@ export const DiceProvider = ({ children }) => {
       differencesTotals,
       setsTotals,
       rollNumber,
+      allColumns,
       checkDice,
       rollDice,
-      showToast
+      showToast,
+      handleColumnSelection
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
         columnsTotals,
         columnIcons,
         addNewTotal,
-        handleColumnSelection
       }}>
         {children}
       </ColumnContext.Provider>

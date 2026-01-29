@@ -13,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [ gameId, setGameId ] = useState('');
-  const { showToast } = useContext(DiceContext);
+  const { showToast, handleColumnSelection, allColumns } = useContext(DiceContext);
 
   const enterGameHandler = () => {
     if(!gameId) {
@@ -24,7 +24,9 @@ const Home = () => {
     navigate(`game/${gameId}`);
   }
 
-
+  const selectColumn = columnName => {
+    handleColumnSelection(columnName);
+  }
   
   return (
     <main className={classes.home}>
@@ -44,39 +46,94 @@ const Home = () => {
 
       <section className={classes.selection_container}>
         <div className={classes.selection}>
-          <input type="checkbox" name="downColumn" id="downColumn" />
+          <input 
+            type="checkbox"
+            name="downColumn"
+            id="downColumn"
+            value={allColumns.find(col => col.columnName === 'downColumn').isSelected} 
+            onChange={() => selectColumn('downColumn')}
+          />
           <label htmlFor="downColumn">Dole</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="freeColumn" id="freeColumn" />
+          <input 
+            type="checkbox"
+            name="freeColumn"
+            id="freeColumn"
+            value={allColumns.find(col => col.columnName === 'freeColumn').isSelected}
+            onChange={() => selectColumn('freeColumn')}
+          />
           <label htmlFor="freeColumn">Sloboda</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="upColumn" id="upColumn" />
+          <input
+            type="checkbox"
+            name="upColumn"
+            id="upColumn"
+            value={allColumns.find(col => col.columnName === 'upColumn').isSelected}
+            onChange={() => selectColumn('upColumn')}
+          />
           <label htmlFor="upColumn">Gore</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="toMiddleColumn" id="toMiddleColumn" />
+          <input 
+            type="checkbox"
+            name="toMiddleColumn"
+            id="toMiddleColumn"
+            value={allColumns.find(col => col.columnName === 'toMiddleColumn').isSelected}
+            onChange={() => selectColumn('toMiddleColumn')}
+          />
           <label htmlFor="toMiddleColumn">Do sredine</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="fromMiddleColumn" id="fromMiddleColumn" />
+          <input
+            type="checkbox"
+            name="fromMiddleColumn"
+            id="fromMiddleColumn"
+            value={allColumns.find(col => col.columnName === 'fromMiddleColumn').isSelected}
+            onChange={() => selectColumn('fromMiddleColumn')}
+          />
           <label htmlFor="fromMiddleColumn">Od sredine</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="announcementColumn" id="announcementColumn" />
+          <input
+            type="checkbox"
+            name="announcementColumn"
+            id="announcementColumn"
+            value={allColumns.find(col => col.columnName === 'announcementColumn').isSelected}
+            onChange={() => selectColumn('announcementColumn')}
+          />
           <label htmlFor="announcementColumn">Najava</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="answerColumn" id="answerColumn" />
+          <input 
+            type="checkbox"
+            name="answerColumn"
+            id="answerColumn"
+            value={allColumns.find(col => col.columnName === 'answerColumn').isSelected}
+            onChange={() => selectColumn('answerColumn')}
+          />
+
           <label htmlFor="answerColumn">Odjava</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="handColumn" id="handColumn" />
+          <input
+            type="checkbox"
+            name="handColumn"
+            id="handColumn"
+            value={allColumns.find(col => col.columnName === 'handColumn').isSelected}
+            onChange={() => selectColumn('handColumn')}
+          />
           <label htmlFor="handColumn">Ručna</label>
         </div>
         <div className={classes.selection}>
-          <input type="checkbox" name="maximumColumn" id="maximumColumn" />
+          <input
+            type="checkbox"
+            name="maximumColumn"
+            id="maximumColumn"
+            value={allColumns.find(col => col.columnName === 'maximumColumn').isSelected}
+            onChange={() => selectColumn('maximumColumn')}
+          />
           <label htmlFor="maximumColumn">Maksimum</label>
         </div>
       </section>
