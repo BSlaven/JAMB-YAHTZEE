@@ -2,11 +2,11 @@ import { createContext, useEffect, useState } from "react";
 
 import { toast } from 'sonner';
 
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
-const socket = io("http://localhost:3000", {
-  withCredentials: true
-});
+// const socket = io("http://localhost:3000", {
+//   withCredentials: true
+// });
 
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
@@ -88,52 +88,84 @@ export const DiceProvider = ({ children }) => {
     }
   });
 
-  useEffect(() => {
-    sendDiceValues();
-  }, [ dice, rollNumber ]);
+  // useEffect(() => {
+  //   sendDiceValues();
+  // }, [ dice, rollNumber ]);
 
-  const sendDiceValues = () => {
-    console.log('dice', dice)
-    socket.emit('newDiceValues', {
-      dice, rollNumber
-    });
-  }
+  // const sendDiceValues = () => {
+  //   console.log('dice', dice)
+  //   socket.emit('newDiceValues', {
+  //     dice, rollNumber
+  //   });
+  // }
 
-  const [ gameColumns, setGameColumns ] = useState([
-    { 
-      columnName: 'defaultColumn',
-      isRandomColumn: false,
-      isDefault: true,
-    },
-    { 
+  const [ allColumns, setColumns ] = useState([
+    {
       columnName: 'downColumn',
       isRandomColumn: false,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      orderNumber: 1,
+      isSelected: false,
     },
-    { 
+    {
       columnName: 'upColumn',
       isRandomColumn: false,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      orderNumber: 2,
+      isSelected: false,
     },
-    { 
+    {
       columnName: 'freeColumn',
       isRandomColumn: true,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      orderNumber: 3,
+      isSelected: false,
     },
-    { 
+    {
+      columnName: 'toMiddleColumn',
+      isRandomColumn: false,
+      orderNumber: 4,
+      isSelected: false,
+    },
+    {
+      columnName: 'fromMiddleColumn',
+      isRandomColumn: false,
+      orderNumber: 5,
+      isSelected: false,
+    },
+    {
       columnName: 'announcementColumn',
+      isRandomColumn: false,
+      orderNumber: 6,
+      isSelected: false,
+    },
+    {
+      columnName: 'answerColumn',
       isRandomColumn: true,
-      columnNumbersTotal: 0,
-      columnDifference: 0,
-      columnSetsTotal: 0
+      orderNumber: 7,
+      isSelected: false,
+    },
+    {
+      columnName: 'handColumn',
+      isRandomColumn: true,
+      orderNumber: 7,
+      isSelected: false,
+    },
+    {
+      columnName: 'maximumColumn',
+      isRandomColumn: true,
+      orderNumber: 8,
+      isSelected: false,
     }
   ]);
+
+  const handleColumnSelection = (columnName) => {
+    const columnsCopy = structuredClone(allColumns);
+    const selectedColumn = columnsCopy.find(item => item.columnName === columnName);
+    selectedColumn.isSelected = !selectedColumn.isSelected;
+    setColumns(columnsCopy);
+  }
+
+  const gameColumns = allColumns
+    .filter(item => item.isSelected)
+    .sort((a, b) => a.orderNumber - b.orderNumber);
 
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
@@ -247,15 +279,17 @@ export const DiceProvider = ({ children }) => {
       differencesTotals,
       setsTotals,
       rollNumber,
+      allColumns,
       checkDice,
       rollDice,
-      showToast
+      showToast,
+      handleColumnSelection
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
         columnsTotals,
-        addNewTotal,
         columnIcons,
+        addNewTotal,
       }}>
         {children}
       </ColumnContext.Provider>
