@@ -17,7 +17,7 @@ const Home = () => {
 
   const enterGameHandler = () => {
     if(!gameId) {
-      showToast('error', 'To polje nije dostupno!')
+      showToast('error', 'Morate unijeti ispravan ID igre!')
       return
     };
 
@@ -25,6 +25,9 @@ const Home = () => {
   }
 
   const selectColumn = columnName => {
+    if(!columnName) {
+      showToast('error', 'Došlo je do greške pri odabiru kolone!')
+    }
     handleColumnSelection(columnName);
   }
   
