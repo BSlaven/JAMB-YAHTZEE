@@ -165,9 +165,7 @@ export const DiceProvider = ({ children }) => {
 
   const gameColumns = allColumns
     .filter(item => item.isSelected)
-    .sort((a, b) => a.orderNumber - b.orderNumber);
-
-    console.log('gameColumns', gameColumns)
+    .toSorted((a, b) => a.orderNumber - b.orderNumber);
 
   const [ columnsTotals, setColumnsTotals ] = useState({
     downColumn: {
