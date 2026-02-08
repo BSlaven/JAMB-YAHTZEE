@@ -12,15 +12,6 @@ import DiceContext from "../../context/DiceContext";
 //   withCredentials: true
 // });
 
-// const diceIcons = {
-//   input_dice_1: <CgDice1 />,
-//   input_dice_2: <CgDice2 />,
-//   input_dice_3: <CgDice3 />,
-//   input_dice_4: <CgDice4 />,
-//   input_dice_5: <CgDice5 />,
-//   input_dice_6: <CgDice6 />
-// }
-
 const OppComponent = () => {
 
   const { dice, diceIcons } = useContext(DiceContext);
