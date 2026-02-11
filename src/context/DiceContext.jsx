@@ -167,28 +167,25 @@ export const DiceProvider = ({ children }) => {
     .filter(item => item.isSelected)
     .toSorted((a, b) => a.orderNumber - b.orderNumber);
 
-  const [ columnsTotals, setColumnsTotals ] = useState({
-    downColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    upColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    freeColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    announcementColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    }
-  });
+  const [ columnsTotals, setColumnsTotals ] = useState({});
+
+  useEffect(() => {
+    const columnsCopy = structuredClone(allColumns);
+
+    const totals = columnsCopy
+      .filter(item => item.isSelected)
+      .reduce((acc, curr) => {
+        acc[curr.columnName] = {
+          numbersTotals: 0,
+          differenceTotal: 0,
+          setsTotal: 0
+        }
+        return acc;
+      }, {});
+
+      setColumnsTotals(totals);
+  
+  }, [ allColumns ]);
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
     const currentValue = columnsTotals[columnName][newTotalField]
