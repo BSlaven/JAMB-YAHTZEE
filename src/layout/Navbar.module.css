@@ -1,0 +1,7 @@
+.navbar {
+  /* border: 1px solid red; */
+  height: 3rem;
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 78, 0.334);
+}
