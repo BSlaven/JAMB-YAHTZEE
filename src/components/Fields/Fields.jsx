@@ -9,6 +9,8 @@ import Column from '../Column/Column';
 const Fields = ({ isOpponent = false }) => {
 
   const { columnsTotals, gameColumns } = useContext(ColumnContext);
+
+  if(!columnsTotals || !gameColumns) return;
   
   const filteredColumns = Object.values(columnsTotals).filter(item => !item.isDefault);
   

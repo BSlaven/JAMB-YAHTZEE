@@ -165,32 +165,27 @@ export const DiceProvider = ({ children }) => {
 
   const gameColumns = allColumns
     .filter(item => item.isSelected)
-    .sort((a, b) => a.orderNumber - b.orderNumber);
+    .toSorted((a, b) => a.orderNumber - b.orderNumber);
 
-    console.log('gameColumns', gameColumns)
+  const [ columnsTotals, setColumnsTotals ] = useState({});
 
-  const [ columnsTotals, setColumnsTotals ] = useState({
-    downColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    upColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    freeColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    },
-    announcementColumn: {
-      numbersTotals: 0,
-      differenceTotal: 0,
-      setsTotal: 0
-    }
-  });
+  useEffect(() => {
+    const columnsCopy = structuredClone(allColumns);
+
+    const totals = columnsCopy
+      .filter(item => item.isSelected)
+      .reduce((acc, curr) => {
+        acc[curr.columnName] = {
+          numbersTotals: 0,
+          differenceTotal: 0,
+          setsTotal: 0
+        }
+        return acc;
+      }, {});
+
+      setColumnsTotals(totals);
+  
+  }, [ allColumns ]);
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
     const currentValue = columnsTotals[columnName][newTotalField]
