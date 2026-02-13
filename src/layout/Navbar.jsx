@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 
-
 import classes from './Navbar.module.css';
 
 const Navbar = () => {
