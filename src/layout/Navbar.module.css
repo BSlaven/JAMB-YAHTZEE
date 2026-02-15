@@ -30,3 +30,13 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.navbar ul li a img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+
+}

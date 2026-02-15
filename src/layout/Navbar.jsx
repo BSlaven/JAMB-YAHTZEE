@@ -6,7 +6,9 @@ const Navbar = () => {
   return (
     <nav className={classes.navbar}>
       <ul>
-        <li><Link to="/">Home</Link></li>
+        <li><Link to="/">
+          <img src="/public/dice_logo.svg" alt="Yahtzee Logo" />
+        </Link></li>
         <li><Link to="/game">Game</Link></li>
         <li><Link to="/rules">Rules</Link></li>
       </ul>
