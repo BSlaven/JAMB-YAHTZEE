@@ -6,11 +6,11 @@ import classes from './OppComponent.module.css';
 
 import DiceContext from "../../context/DiceContext";
 
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-// const socket = io("http://localhost:3000", {
-//   withCredentials: true
-// });
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
 
 const OppComponent = () => {
 
@@ -21,20 +21,21 @@ const OppComponent = () => {
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(null);
 
-  // useEffect(() => {
-  //   socket.on('opponentData', (data) => {
-  //     setOpponentData(data);
-  //   });
+  useEffect(() => {
+    socket.on('opponentData', (data) => {
+      console.log('Opponent data received:', data);
+      setOpponentData(data);
+    });
 
-  //   socket.on('newDiceValues', (data) => {
-  //     console.log('New dice values received:', data);
-  //     setOpponentDice(data);
-  //   });
+    socket.on('newDiceValues', (data) => {
+      console.log('New dice values received:', data);
+      setOpponentDice(data);
+    });
 
-  //   return () => {
-  //     socket.off('opponentData');
-  //   }
-  // }, [])
+    return () => {
+      socket.off('opponentData');
+    }
+  }, [])
 
   return (
     <div>
