@@ -65,9 +65,18 @@ const Fields = ({ isOpponent = false }) => {
       })}
 
       <aside className={classes.totalsContainer}>
-        <div className={`${classes.totals} ${classes.numbersTotals}`}>{numbersTotals}</div>
-        <div className={`${classes.totals} ${classes.differencesTotals}`}>{differencesTotals}</div>
-        <div className={`${classes.totals} ${classes.setsTotals}`}>{setsTotals}</div>
+        <div 
+          className={`${classes.totals} ${classes.numbersTotals}`}>
+            {numbersTotals}
+        </div>
+        <div 
+          className={`${classes.totals} ${classes.differencesTotals}`}>
+            {differencesTotals}
+        </div>
+        <div
+          className={`${classes.totals} ${classes.setsTotals}`}>
+            {setsTotals}
+        </div>
       </aside>
       <div className={`${classes.totals} ${classes.totalsTotal}`}>{numbersTotals + differencesTotals + setsTotals}</div>
     </div>
