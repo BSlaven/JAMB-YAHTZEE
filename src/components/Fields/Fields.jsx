@@ -78,7 +78,9 @@ const Fields = ({ isOpponent = false }) => {
             {setsTotals}
         </div>
       </aside>
-      <div className={`${classes.totals} ${classes.totalsTotal}`}>{numbersTotals + differencesTotals + setsTotals}</div>
+      <div className={`${classes.totals} ${classes.totalsTotal}`}>
+        {numbersTotals + differencesTotals + setsTotals}
+      </div>
     </div>
   )
 }
