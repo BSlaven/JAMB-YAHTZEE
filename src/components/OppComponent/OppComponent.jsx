@@ -40,7 +40,7 @@ const OppComponent = () => {
 
     socket.on('newDiceValues', (data) => {
       console.log('New dice values received:', data);
-      setOpponentDice(data);
+      setOpponentDice(data.diceWithoutIcons);
     });
 
     return () => {
