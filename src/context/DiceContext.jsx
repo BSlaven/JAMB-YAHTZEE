@@ -94,8 +94,18 @@ export const DiceProvider = ({ children }) => {
 
   const sendDiceValues = () => {
     console.log('dice', dice)
+    const diceWithoutIcons = {}
+    for(let die in dice) {
+      diceWithoutIcons[die] = {
+        label: dice[die].label,
+        checked: dice[die].checked,
+        value: dice[die].value,
+      }
+    }
+    console.log(diceWithoutIcons)
+
     socket.emit('newDiceValues', {
-      dice, rollNumber
+      diceWithoutIcons, rollNumber
     });
   }
 
