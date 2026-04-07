@@ -1,16 +1,27 @@
 import { useState, useEffect,useContext } from 'react';
 
+import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
+
 import Fields from '../Fields/Fields';
 
 import classes from './OppComponent.module.css';
 
 import DiceContext from "../../context/DiceContext";
 
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-// const socket = io("http://localhost:3000", {
-//   withCredentials: true
-// });
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
+
+const diceIcons = {
+  input_dice_1: <CgDice1 />,
+  input_dice_2: <CgDice2 />,
+  input_dice_3: <CgDice3 />,
+  input_dice_4: <CgDice4 />,
+  input_dice_5: <CgDice5 />,
+  input_dice_6: <CgDice6 />
+}
 
 const OppComponent = () => {
 
@@ -19,22 +30,23 @@ const OppComponent = () => {
   const [ rollNumber, setRollNumber ] = useState(3)
 
   const [ opponentData, setOpponentData ] = useState(null);
-  const [ opponentDice, setOpponentDice ] = useState(null);
+  const [ opponentDice, setOpponentDice ] = useState(dice);
 
-  // useEffect(() => {
-  //   socket.on('opponentData', (data) => {
-  //     setOpponentData(data);
-  //   });
+  useEffect(() => {
+    socket.on('opponentData', (data) => {
+      // console.log('Opponent data received:', data);
+      setOpponentData(data);
+    });
 
-  //   socket.on('newDiceValues', (data) => {
-  //     console.log('New dice values received:', data);
-  //     setOpponentDice(data);
-  //   });
+    socket.on('newDiceValues', (data) => {
+      console.log('New dice values received:', data);
+      setOpponentDice(data.diceWithoutIcons);
+    });
 
-  //   return () => {
-  //     socket.off('opponentData');
-  //   }
-  // }, [])
+    return () => {
+      socket.off('opponentData');
+    }
+  }, [])
 
   return (
     <div>
@@ -48,7 +60,7 @@ const OppComponent = () => {
         <section className={classes.opponentContainer}>
           <div className={classes.diceContainer}>
             {
-              Object.entries(dice).map(([name, die]) => (
+              Object.entries(opponentDice).map(([name, die]) => (
                 <div
                   key={name}
                   className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}

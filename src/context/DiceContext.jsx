@@ -2,11 +2,11 @@ import { createContext, useEffect, useState } from "react";
 
 import { toast } from 'sonner';
 
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-// const socket = io("http://localhost:3000", {
-//   withCredentials: true
-// });
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
 
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
@@ -88,16 +88,26 @@ export const DiceProvider = ({ children }) => {
     }
   });
 
-  // useEffect(() => {
-  //   sendDiceValues();
-  // }, [ dice, rollNumber ]);
+  useEffect(() => {
+    sendDiceValues();
+  }, [ dice, rollNumber ]);
 
-  // const sendDiceValues = () => {
-  //   console.log('dice', dice)
-  //   socket.emit('newDiceValues', {
-  //     dice, rollNumber
-  //   });
-  // }
+  const sendDiceValues = () => {
+    console.log('dice', dice)
+    const diceWithoutIcons = {}
+    for(let die in dice) {
+      diceWithoutIcons[die] = {
+        label: dice[die].label,
+        checked: dice[die].checked,
+        value: dice[die].value,
+      }
+    }
+    console.log(diceWithoutIcons)
+
+    socket.emit('newDiceValues', {
+      diceWithoutIcons, rollNumber
+    });
+  }
 
   const [ allColumns, setColumns ] = useState([
     {
