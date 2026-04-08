@@ -3,6 +3,7 @@ import { useState, useEffect,useContext } from 'react';
 import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
 
 import Fields from '../Fields/Fields';
+import Column from '../Column/Column';
 
 import classes from './OppComponent.module.css';
 
@@ -34,7 +35,7 @@ const OppComponent = () => {
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
-      // console.log('Opponent data received:', data);
+      console.log('Opponent data received:', data);
       setOpponentData(data);
     });
 
@@ -75,7 +76,36 @@ const OppComponent = () => {
               ROLL {rollNumber <= 3 ? rollNumber : 3}
             </button>
           </div>
-          <Fields isOpponent={true} />
+
+          {/* <Fields isOpponent={true} /> */}
+          <div className={classes.fieldsContainer}>
+            {opponentData.columnData.map(column => {
+              return <Column
+                key={column.columnName}
+                column={column}
+                isOpponent={true}
+              />
+            })}
+
+            <aside className={classes.totalsContainer}>
+              <div 
+                className={`${classes.totals} ${classes.numbersTotals}`}>
+                  {numbersTotals}
+              </div>
+              <div 
+                className={`${classes.totals} ${classes.differencesTotals}`}>
+                  {differencesTotals}
+              </div>
+              <div
+                className={`${classes.totals} ${classes.setsTotals}`}>
+                  {setsTotals}
+              </div>
+            </aside>
+            <div className={`${classes.totals} ${classes.totalsTotal}`}>
+              {numbersTotals + differencesTotals + setsTotals}
+            </div>
+          </div>
+
         </section>
     </div>
   )
