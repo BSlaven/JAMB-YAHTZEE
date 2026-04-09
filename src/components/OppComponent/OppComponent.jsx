@@ -35,12 +35,10 @@ const OppComponent = () => {
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
-      console.log('Opponent data received:', data);
       setOpponentData(data);
     });
 
     socket.on('newDiceValues', (data) => {
-      console.log('New dice values received:', data);
       setOpponentDice(data.diceWithoutIcons);
       setRollNumber(data.rollNumber);
     });
@@ -70,61 +68,54 @@ const OppComponent = () => {
 
   return (
     <div>
-      {/* {opponentData && <div>
-        <h5>Opponent Data</h5>
-        <p>Opponent numbers: {opponentData.columnNumbersTotal}</p>
-        <p>Opponent diff: {opponentData.columnDifference}</p>
-        <p>Opponent sets: {opponentData.columnSetsTotal}</p>
-        <p>Opponent totals: {opponentData.columnNumbersTotal + opponentData.columnDifference + opponentData.columnSetsTotal}</p>
-        </div>} */}
-        <section className={classes.opponentContainer}>
-          <div className={classes.diceContainer}>
-            {
-              Object.entries(opponentDice).map(([name, die]) => (
-                <div
-                  key={name}
-                  className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
-                >
-              {diceIcons[`input_dice_${die.value}`]}
-            </div>
-              ))
-            }
-            <button 
-              className={classes.rollButton}
-            >
-              ROLL {rollNumber <= 3 ? rollNumber : 3}
-            </button>
-          </div>
-
-          <div className={classes.fieldsContainer}>
-            {opponentData.map(column => {
-              return <Column
-                key={column.columnName}
-                column={column}
-                isOpponent={true}
-              />
-            })}
-
-            <aside className={classes.totalsContainer}>
-              <div 
-                className={`${classes.totals} ${classes.numbersTotals}`}>
-                  {numbersTotals}
-              </div>
+      <section className={classes.opponentContainer}>
+        <div className={classes.diceContainer}>
+          {
+            Object.entries(opponentDice).map(([name, die]) => (
               <div
-                className={`${classes.totals} ${classes.differencesTotals}`}>
-                  {differencesTotals}
-              </div>
-              <div
-                className={`${classes.totals} ${classes.setsTotals}`}>
-                  {setsTotals}
-              </div>
-            </aside>
-            <div className={`${classes.totals} ${classes.totalsTotal}`}>
-              {numbersTotals + differencesTotals + setsTotals}
-            </div>
+                key={name}
+                className={`${classes.singleDiceContainer} ${die.checked ? classes.checked : null}`}
+              >
+            {diceIcons[`input_dice_${die.value}`]}
           </div>
+            ))
+          }
+          <button 
+            className={classes.rollButton}
+          >
+            ROLL {rollNumber <= 3 ? rollNumber : 3}
+          </button>
+        </div>
 
-        </section>
+        <div className={classes.fieldsContainer}>
+          {opponentData.map(column => {
+            return <Column
+              key={column.columnName}
+              column={column}
+              isOpponent={true}
+            />
+          })}
+
+          <aside className={classes.totalsContainer}>
+            <div 
+              className={`${classes.totals} ${classes.numbersTotals}`}>
+                {numbersTotals}
+            </div>
+            <div
+              className={`${classes.totals} ${classes.differencesTotals}`}>
+                {differencesTotals}
+            </div>
+            <div
+              className={`${classes.totals} ${classes.setsTotals}`}>
+                {setsTotals}
+            </div>
+          </aside>
+          <div className={`${classes.totals} ${classes.totalsTotal}`}>
+            {numbersTotals + differencesTotals + setsTotals}
+          </div>
+        </div>
+
+      </section>
     </div>
   )
 }
