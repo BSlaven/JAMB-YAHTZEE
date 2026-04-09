@@ -49,6 +49,24 @@ const OppComponent = () => {
     }
   }, [])
 
+  const numbersTotals = opponentData
+    ?.map(column => column.columnData)
+    .map(column => column.find(row => row.fieldDisplay === 'ukupno'))
+    .map(field => field.value)
+    .reduce((acc, curr) => acc + curr)
+
+  const differencesTotals = opponentData
+    ?.map(column => column.columnData)
+    .map(column => column.find(row => row.fieldDisplay === 'razlika'))
+    .map(field => field.value)
+    .reduce((acc, curr) => acc + curr)
+
+  const setsTotals = opponentData
+    ?.map(column => column.columnData)
+    .map(column => column.find(row => row.fieldDisplay === 'setoviUkupno'))
+    .map(field => field.value)
+    .reduce((acc, curr) => acc + curr)
+
   return (
     <div>
       {/* {opponentData && <div>
@@ -91,7 +109,7 @@ const OppComponent = () => {
                 className={`${classes.totals} ${classes.numbersTotals}`}>
                   {numbersTotals}
               </div>
-              <div 
+              <div
                 className={`${classes.totals} ${classes.differencesTotals}`}>
                   {differencesTotals}
               </div>
