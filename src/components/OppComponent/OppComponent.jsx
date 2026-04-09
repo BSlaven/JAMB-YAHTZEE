@@ -28,7 +28,7 @@ const OppComponent = () => {
 
   const { dice, diceIcons } = useContext(DiceContext);
 
-  const [ rollNumber, setRollNumber ] = useState(3)
+  const [ rollNumber, setRollNumber ] = useState(1)
 
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(dice);
@@ -77,7 +77,6 @@ const OppComponent = () => {
             </button>
           </div>
 
-          {/* <Fields isOpponent={true} /> */}
           <div className={classes.fieldsContainer}>
             {opponentData.columnData.map(column => {
               return <Column
