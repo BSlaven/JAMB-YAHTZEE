@@ -34,7 +34,7 @@ const Fields = ({ isOpponent = false }) => {
           { name: 'ful', fieldDisplay: 'ful' },
           { name: 'poker', fieldDisplay: 'poker' },
           { name: 'jamb', fieldDisplay: 'jamb' },
-          { name: 'setsTotal', fieldDisplay: 'ukupno', value: 0 }
+          { name: 'setsTotal', fieldDisplay: 'ukupnoSetovi', value: 0 }
         ]
       }
     });

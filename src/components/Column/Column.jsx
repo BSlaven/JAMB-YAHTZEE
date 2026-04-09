@@ -339,7 +339,7 @@ const Column = ({ column, isOpponent }) => {
     },
     setsTotal: {
       value: 0,
-      fieldDisplay: 'ukupno',
+      fieldDisplay: 'ukupnoSetovi',
     }
   });
 

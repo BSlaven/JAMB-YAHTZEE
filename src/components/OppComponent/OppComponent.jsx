@@ -64,7 +64,7 @@ const OppComponent = () => {
 
   const setsTotals = opponentData
     ?.map(column => column.columnData)
-    .map(column => column.find(row => row.fieldDisplay === 'setoviUkupno'))
+    .map(column => column.find(row => row.fieldDisplay === 'ukupnoSetovi'))
     .map(field => field.value)
     .reduce((acc, curr) => acc + curr)
 
