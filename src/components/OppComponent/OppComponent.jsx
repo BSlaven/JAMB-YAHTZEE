@@ -1,8 +1,5 @@
 import { useState, useEffect,useContext } from 'react';
 
-import { CgDice2, CgDice1, CgDice3, CgDice4, CgDice5, CgDice6 } from "react-icons/cg";
-
-import Fields from '../Fields/Fields';
 import Column from '../Column/Column';
 
 import classes from './OppComponent.module.css';
@@ -14,15 +11,6 @@ import { io } from 'socket.io-client';
 const socket = io("http://localhost:3000", {
   withCredentials: true
 });
-
-const diceIcons = {
-  input_dice_1: <CgDice1 />,
-  input_dice_2: <CgDice2 />,
-  input_dice_3: <CgDice3 />,
-  input_dice_4: <CgDice4 />,
-  input_dice_5: <CgDice5 />,
-  input_dice_6: <CgDice6 />
-}
 
 const OppComponent = () => {
 
