@@ -42,6 +42,7 @@ const OppComponent = () => {
     socket.on('newDiceValues', (data) => {
       console.log('New dice values received:', data);
       setOpponentDice(data.diceWithoutIcons);
+      setRollNumber(data.rollNumber);
     });
 
     return () => {
@@ -96,7 +97,7 @@ const OppComponent = () => {
           </div>
 
           <div className={classes.fieldsContainer}>
-            {opponentData.columnData.map(column => {
+            {opponentData.map(column => {
               return <Column
                 key={column.columnName}
                 column={column}
