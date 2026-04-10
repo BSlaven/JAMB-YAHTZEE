@@ -76,7 +76,7 @@ const OppComponent = () => {
         </div>
 
         <div className={classes.fieldsContainer}>
-          {opponentData.map(column => {
+          {opponentData?.map(column => {
             return <Column
               key={column.columnName}
               column={column}
