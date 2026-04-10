@@ -20,7 +20,7 @@
 }
 
 .numbersTotals {
-  margin-top: 13.65rem;
+  margin-top: 13.4rem;
 }
 
 .differencesTotals {
@@ -28,7 +28,7 @@
 }
 
 .setsTotals {
-  margin-top: 10.5rem;
+  margin-top: 10.4rem;
 }
 
 .totalsTotal {
@@ -36,7 +36,7 @@
   top: 51rem;
   width: 50%;
   max-width: 15rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   font-size: 1.3rem;
   padding: 0.4rem 0
 }
