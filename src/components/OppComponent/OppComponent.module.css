@@ -53,7 +53,7 @@
   box-shadow: none;
 }
 
-/* FIELDS STYLING */
+/* FIELDS */
 .fieldsContainer {
   display: flex;
   gap: 0.2rem;
@@ -61,7 +61,7 @@
 }
 
 .totalsContainer {
-  padding: 0.8rem 0 0;
+  padding: 1rem 0 0;
 }
 
 .totals {
@@ -76,7 +76,7 @@
 }
 
 .numbersTotals {
-  margin-top: 13.65rem;
+  margin-top: 13.4rem;
 }
 
 .differencesTotals {
@@ -84,7 +84,7 @@
 }
 
 .setsTotals {
-  margin-top: 10.5rem;
+  margin-top: 10.4rem;
 }
 
 .totalsTotal {
