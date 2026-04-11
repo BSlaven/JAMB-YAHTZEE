@@ -21,7 +21,7 @@ import classes from './Column.module.css';
 const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
-  const { showToast } = useContext(DiceContext);
+  const { showToast, dice } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
@@ -94,10 +94,9 @@ const Column = ({ column, isOpponent }) => {
 
     return false;
   }
-
   
   const calculateFieldValue = (field, number) => {
-    const dice = [ 2, 4, 6, 6, 2, 1]
+    const diceValues = Object.values(dice).map(die => die.value);
     
     switch(field) {
       case 'ones':
@@ -111,13 +110,13 @@ const Column = ({ column, isOpponent }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        const maxDiceCopy = [...dice];
+        const maxDiceCopy = [...diceValues];
         maxDiceCopy.sort().shift()
         const max = maxDiceCopy.reduce((acc, curr) => acc + curr);
         return max;
       
       case 'minimum':
-        const minDiceCopy = [...dice];
+        const minDiceCopy = [...diceValues];
         minDiceCopy.sort().pop()
         const min = minDiceCopy.reduce((acc, curr) => acc + curr);
         return min;
@@ -132,10 +131,10 @@ const Column = ({ column, isOpponent }) => {
   }
   
   const calculateSetValue = (field) => {
+    const diceValues = Object.values(dice).map(die => die.value);
 
-    const dice = [ 2, 4, 6, 6, 6, 1]
     const valuesObject = {}
-    dice.forEach(value => {
+    diceValues.forEach(value => {
       if(!valuesObject[value]) {
         valuesObject[value] = 1;
         return
