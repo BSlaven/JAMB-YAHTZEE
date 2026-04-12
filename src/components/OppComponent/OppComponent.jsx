@@ -14,27 +14,12 @@ const socket = io("http://localhost:3000", {
 
 const OppComponent = () => {
 
-  const { dice, diceIcons } = useContext(DiceContext);
+  const { dice, diceIcons, showToast } = useContext(DiceContext);
 
   const [ rollNumber, setRollNumber ] = useState(1)
 
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(dice);
-
-  useEffect(() => {
-    socket.on('opponentData', (data) => {
-      setOpponentData(data);
-    });
-
-    socket.on('newDiceValues', (data) => {
-      setOpponentDice(data.diceWithoutIcons);
-      setRollNumber(data.rollNumber);
-    });
-
-    return () => {
-      socket.off('opponentData');
-    }
-  }, [])
 
   const numbersTotals = opponentData
     ?.map(column => column.columnData)
@@ -53,6 +38,28 @@ const OppComponent = () => {
     .map(column => column.find(row => row.fieldDisplay === 'ukupnoSetovi'))
     .map(field => field.value)
     .reduce((acc, curr) => acc + curr)
+
+  useEffect(() => {
+    socket.on('opponentData', (data) => {
+      setOpponentData(data);
+    });
+
+    socket.on('newDiceValues', (data) => {
+      setOpponentDice(data.diceWithoutIcons);
+      setRollNumber(data.rollNumber);
+    });
+
+    return () => {
+      socket.off('opponentData');
+    }
+  }, [])
+
+  useEffect(() => {
+    if(numbersTotals || differencesTotals || setsTotals) {
+      showToast('info', 'Tvoj potez!');
+    };
+  }, [numbersTotals, differencesTotals, setsTotals])
+
 
   return (
     <div>

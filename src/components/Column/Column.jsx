@@ -105,7 +105,7 @@ const Column = ({ column, isOpponent }) => {
       case 'fours':
       case 'fives':
       case 'sixes':
-        const filteredNumber = dice.filter(item => item === number)
+        const filteredNumber = diceValues.filter(item => item === number)
         if(!filteredNumber || filteredNumber.length === 0) return 0;
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
