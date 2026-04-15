@@ -49,6 +49,8 @@ export const DiceProvider = ({ children }) => {
 
   const [ rollNumber, setRollNumber ] = useState(1);
 
+  const [ gameId, setGameId ] = useState(null);
+
   const [ dice, setDice ] = useState({
     input_dice_one: {
       label: 'input_dice_one',
@@ -106,6 +108,10 @@ export const DiceProvider = ({ children }) => {
       diceWithoutIcons, rollNumber
     });
   }
+
+  const handleJoinRoom = gameId => {
+    socket.emit('join_game', { gameId });
+  };
 
   const [ allColumns, setColumns ] = useState([
     {
