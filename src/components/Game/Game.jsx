@@ -8,6 +8,12 @@ import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
 import OppComponent from '../OppComponent/OppComponent';
 
+import { io } from 'socket.io-client';
+
+const socket = io("http://localhost:3000", {
+  withCredentials: true
+});
+
 const Game = () => {
 
   const { gameId } = useParams();
