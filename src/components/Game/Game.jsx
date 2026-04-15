@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { Toaster } from 'sonner';
 
 import classes from './Game.module.css';
@@ -7,6 +9,8 @@ import Fields from '../Fields/Fields';
 import OppComponent from '../OppComponent/OppComponent';
 
 const Game = () => {
+
+  const { gameId } = useParams();
 
   return (
     <div className={classes.gameContainer}>
