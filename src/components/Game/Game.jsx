@@ -9,6 +9,7 @@ import Fields from '../Fields/Fields';
 import OppComponent from '../OppComponent/OppComponent';
 
 import { io } from 'socket.io-client';
+import { useEffect } from 'react';
 
 const socket = io("http://localhost:3000", {
   withCredentials: true
@@ -17,6 +18,15 @@ const socket = io("http://localhost:3000", {
 const Game = () => {
 
   const { gameId } = useParams();
+
+  useEffect(() => {
+    if(!gameId) return
+    socket.emit('join_game', { gameId });
+
+    return () => {
+      socket.emit('leave_game', { gameId });
+    }
+  }, [gameId])
 
   return (
     <div className={classes.gameContainer}>
