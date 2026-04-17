@@ -292,6 +292,7 @@ export const DiceProvider = ({ children }) => {
       setsTotals,
       rollNumber,
       allColumns,
+      gameId,
       checkDice,
       rollDice,
       showToast,
