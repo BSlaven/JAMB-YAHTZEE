@@ -111,6 +111,7 @@ export const DiceProvider = ({ children }) => {
 
   const handleJoinRoom = gameId => {
     socket.emit('join_game', { gameId });
+    setGameId(gameId);
   };
 
   const [ allColumns, setColumns ] = useState([
