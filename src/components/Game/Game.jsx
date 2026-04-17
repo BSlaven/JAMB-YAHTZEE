@@ -1,3 +1,5 @@
+import { useEffect, useContext } from 'react';
+
 import { useParams } from 'react-router-dom';
 
 import { Toaster } from 'sonner';
@@ -8,20 +10,16 @@ import Dice from '../Dice/Dice';
 import Fields from '../Fields/Fields';
 import OppComponent from '../OppComponent/OppComponent';
 
-import { io } from 'socket.io-client';
-import { useEffect } from 'react';
-
-const socket = io("http://localhost:3000", {
-  withCredentials: true
-});
+import DiceContext from '../../context/DiceContext';
 
 const Game = () => {
 
   const { gameId } = useParams();
 
+  const { socket, handleJoinRoom } = useContext(DiceContext);
+
   useEffect(() => {
-    if(!gameId) return
-    socket.emit('join_game', { gameId });
+    handleJoinRoom(gameId);
 
     return () => {
       socket.emit('leave_game', { gameId });
