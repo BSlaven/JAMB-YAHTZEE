@@ -6,13 +6,6 @@ const socket = io("http://localhost:3000", {
   withCredentials: true
 });
 
-import { FaAnglesDown } from "react-icons/fa6";
-import { FaAnglesUp } from "react-icons/fa6";
-import { LuArrowUpDown } from "react-icons/lu";
-import { TbCircleDashedLetterR } from "react-icons/tb";
-import { TbCircleDashedLetterN } from "react-icons/tb";
-import { TbCircleLetterR } from "react-icons/tb";
-
 import { ColumnContext } from "../../context/DiceContext";
 import DiceContext from '../../context/DiceContext';
 
