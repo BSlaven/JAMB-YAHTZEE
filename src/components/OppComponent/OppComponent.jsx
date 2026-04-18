@@ -6,15 +6,9 @@ import classes from './OppComponent.module.css';
 
 import DiceContext from "../../context/DiceContext";
 
-import { io } from 'socket.io-client';
-
-const socket = io("http://localhost:3000", {
-  withCredentials: true
-});
-
 const OppComponent = () => {
 
-  const { dice, diceIcons, showToast } = useContext(DiceContext);
+  const { dice, diceIcons, showToast, socket } = useContext(DiceContext);
 
   const [ rollNumber, setRollNumber ] = useState(1)
 
