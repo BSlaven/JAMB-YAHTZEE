@@ -559,6 +559,7 @@ const sendData = () => {
         }
 
         if(isOpponent) {
+          const fieldValue = columns.columnData.find(field => field.name === item[0])
           return (
             <div 
               key={item[0]}
@@ -567,7 +568,7 @@ const sendData = () => {
                 ${unclickable(item[1].fieldDisplay) ? `${classes.dark}` : null}
               `}
             >
-              {item[1].value ?? ''}
+              {fieldValue?.value}
             </div>
           )
         }
