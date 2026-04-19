@@ -1,18 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 
-import { io } from 'socket.io-client';
-
-const socket = io("http://localhost:3000", {
-  withCredentials: true
-});
-
-import { FaAnglesDown } from "react-icons/fa6";
-import { FaAnglesUp } from "react-icons/fa6";
-import { LuArrowUpDown } from "react-icons/lu";
-import { TbCircleDashedLetterR } from "react-icons/tb";
-import { TbCircleDashedLetterN } from "react-icons/tb";
-import { TbCircleLetterR } from "react-icons/tb";
-
 import { ColumnContext } from "../../context/DiceContext";
 import DiceContext from '../../context/DiceContext';
 
@@ -21,7 +8,7 @@ import classes from './Column.module.css';
 const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
-  const { showToast, dice } = useContext(DiceContext);
+  const { showToast, dice, roomId, socket } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
@@ -544,7 +531,8 @@ const sendData = () => {
 
     localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
 
-    socket.emit('opponentData', playerSimplifiedColumns);
+    socket.emit('opponentData', {
+      columns: playerSimplifiedColumns, roomId });
   }
 
   const unclickable = element => {
@@ -571,6 +559,7 @@ const sendData = () => {
         }
 
         if(isOpponent) {
+          const fieldValue = columns.columnData.find(field => field.name === item[0])
           return (
             <div 
               key={item[0]}
@@ -579,7 +568,7 @@ const sendData = () => {
                 ${unclickable(item[1].fieldDisplay) ? `${classes.dark}` : null}
               `}
             >
-              {item[1].value ?? ''}
+              {fieldValue?.value}
             </div>
           )
         }
