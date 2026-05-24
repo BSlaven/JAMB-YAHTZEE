@@ -100,16 +100,16 @@ const Column = ({ column, isOpponent }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        const maxDiceCopy = structuredClone(diceValues);
-        maxDiceCopy.sort().shift()
-        const max = maxDiceCopy.reduce((acc, curr) => acc + curr);
-        return max;
+        const diceValuesCopy = structuredClone(diceValues);
+        diceValuesCopy.sort().shift()
+        const maxValue = diceValuesCopy.reduce((acc, curr) => acc + curr);
+        return maxValue;
       
       case 'minimum':
-        const minDiceCopy = structuredClone(diceValues);
-        minDiceCopy.sort().pop()
-        const min = minDiceCopy.reduce((acc, curr) => acc + curr);
-        return min;
+        const diceValuesCopy = structuredClone(diceValues);
+        diceValuesCopy.sort().pop()
+        const minValue = diceValuesCopy.reduce((acc, curr) => acc + curr);
+        return minValue;
 
       case 'triling':
       case 'kenta':
