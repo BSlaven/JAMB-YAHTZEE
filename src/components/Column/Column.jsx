@@ -53,6 +53,7 @@ const Column = ({ column, isOpponent }) => {
         case 'sixes':
           nextField = upField
           break;
+        case 'minimum':
         case 'kenta':
         case 'triling':
         case 'full':
