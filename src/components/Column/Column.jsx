@@ -100,13 +100,13 @@ const Column = ({ column, isOpponent }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        const maxDiceCopy = [...diceValues];
+        const maxDiceCopy = structuredClone(diceValues);
         maxDiceCopy.sort().shift()
         const max = maxDiceCopy.reduce((acc, curr) => acc + curr);
         return max;
       
       case 'minimum':
-        const minDiceCopy = [...diceValues];
+        const minDiceCopy = structuredClone(diceValues);
         minDiceCopy.sort().pop()
         const min = minDiceCopy.reduce((acc, curr) => acc + curr);
         return min;
