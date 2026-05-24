@@ -58,7 +58,7 @@ const Column = ({ column, isOpponent }) => {
         case 'full':
         case 'poker':
         case 'jamb':
-          nextField = upField
+          nextField = downField
           break;
         default:
           nextField = null
