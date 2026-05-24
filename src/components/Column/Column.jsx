@@ -15,10 +15,6 @@ const Column = ({ column, isOpponent }) => {
 
     let nextField;
 
-    if(column === 'downColumn') nextField = downField;
-
-    if(column === 'upColumn') nextField = upField;
-    
     if(column === 'toMiddle') {
       if(currentField === 'maximum' || currentField === 'minimum') return;
 
@@ -41,6 +37,8 @@ const Column = ({ column, isOpponent }) => {
         default:
           nextField = null
       }
+
+      return nextField;
     }
     
     if(column === 'fromMiddle') {
@@ -65,7 +63,11 @@ const Column = ({ column, isOpponent }) => {
         default:
           nextField = null
       }
+
+      return nextField;
     }
+
+    nextField = column === 'downColumn' ? downField : upField;
 
     return nextField;
   }
