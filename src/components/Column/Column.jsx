@@ -87,6 +87,7 @@ const Column = ({ column, isOpponent }) => {
   
   const calculateFieldValue = (field, number) => {
     const diceValues = Object.values(dice).map(die => die.value);
+    const diceValuesCopy = structuredClone(diceValues);
     
     switch(field) {
       case 'ones':
@@ -100,15 +101,17 @@ const Column = ({ column, isOpponent }) => {
         return filteredNumber.reduce((acc, curr) => acc + curr)
       
       case 'maximum':
-        const diceValuesCopy = structuredClone(diceValues);
-        diceValuesCopy.sort().shift()
-        const maxValue = diceValuesCopy.reduce((acc, curr) => acc + curr);
+        const maxValue = diceValuesCopy
+          .sort((a, b) => b - a)
+          .slice(0, -1)
+          .reduce((acc, curr) => acc + curr);
         return maxValue;
       
       case 'minimum':
-        const diceValuesCopy = structuredClone(diceValues);
-        diceValuesCopy.sort().pop()
-        const minValue = diceValuesCopy.reduce((acc, curr) => acc + curr);
+        const minValue = diceValuesCopy
+          .sort((a, b) => a - b)
+          .slice(0, -1)
+          .reduce((acc, curr) => acc + curr);
         return minValue;
 
       case 'triling':
