@@ -143,7 +143,7 @@ const Column = ({ column, isOpponent }) => {
       case 'triling':
         multiplesOfTheSame = mapArray.filter(item => item[1] >= 3);
         if(!multiplesOfTheSame || multiplesOfTheSame.length === 0) return 0;
-        const trilingValue = multiplesOfTheSame .sort((a, b) => Number(b[0]) - Number(a[0]))
+        const trilingValue = multiplesOfTheSame.sort((a, b) => Number(b[0]) - Number(a[0]))
         return (parseInt(trilingValue[0][0]) * 3) + 20;
 
       case 'kenta':
@@ -597,4 +597,4 @@ const sendData = () => {
   )
 }
 
-export default Column
+export default Column;

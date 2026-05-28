@@ -105,7 +105,7 @@ export const DiceProvider = ({ children }) => {
     }
 
     socket.emit('newDiceValues', {
-      diceWithoutIcons, rollNumber, roomId
+      diceWithoutIcons, rollNumber, gameId
     });
   }
 
