@@ -293,7 +293,7 @@ export const DiceProvider = ({ children }) => {
       rollNumber,
       allColumns,
       socket,
-      roomId,
+      gameId,
       handleJoinRoom,
       checkDice,
       rollDice,

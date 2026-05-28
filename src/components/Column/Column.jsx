@@ -8,7 +8,7 @@ import classes from './Column.module.css';
 const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
-  const { showToast, dice, roomId, socket } = useContext(DiceContext);
+  const { showToast, dice, gameId: roomId, socket } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
