@@ -298,7 +298,8 @@ export const DiceProvider = ({ children }) => {
       checkDice,
       rollDice,
       showToast,
-      handleColumnSelection
+      handleColumnSelection,
+      setRollNumber
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
