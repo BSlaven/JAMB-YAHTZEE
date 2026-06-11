@@ -29,6 +29,20 @@ const Home = () => {
       })
   }
 
+  const createGameHandler = () => {
+    if(!gameId) {
+      showToast('error', 'Morate unijeti ispravan ID igre!')
+      return
+    };
+
+    socket.emit('create_game', { gameId }, response => {
+      if(response.success) {
+        navigate(`game/${gameId}`);
+      } else 
+        showToast('error', `${response.message}`)
+    });
+  }
+
   const selectColumn = columnName => {
     if(!columnName) {
       showToast('error', 'Došlo je do greške pri odabiru kolone!')
