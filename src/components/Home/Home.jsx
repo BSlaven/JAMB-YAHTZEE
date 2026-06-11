@@ -13,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [ gameId, setGameId ] = useState('');
-  const { showToast, handleColumnSelection, allColumns } = useContext(DiceContext);
+  const { showToast, handleColumnSelection, allColumns, socket } = useContext(DiceContext);
 
   const joinGameHandler = () => {
     if(!gameId) {
