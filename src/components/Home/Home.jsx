@@ -13,15 +13,34 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [ gameId, setGameId ] = useState('');
-  const { showToast, handleColumnSelection, allColumns } = useContext(DiceContext);
+  const { showToast, handleColumnSelection, allColumns, socket } = useContext(DiceContext);
 
-  const enterGameHandler = () => {
+  const joinGameHandler = () => {
     if(!gameId) {
       showToast('error', 'Morate unijeti ispravan ID igre!')
       return
     };
 
-    navigate(`game/${gameId}`);
+    socket.emit('join_game', { gameId }, response => {
+      if(response.success) {
+        navigate(`game/${gameId}`);
+      } else 
+        showToast('error', `${response.message}`)
+      })
+  }
+
+  const createGameHandler = () => {
+    if(!gameId) {
+      showToast('error', 'Morate unijeti ispravan ID igre!')
+      return
+    };
+
+    socket.emit('create_game', { gameId }, response => {
+      if(response.success) {
+        navigate(`game/${gameId}`);
+      } else 
+        showToast('error', `${response.message}`)
+    });
   }
 
   const selectColumn = columnName => {
@@ -143,9 +162,15 @@ const Home = () => {
 
       <button 
         className={classes.enterGameBtn}
-        onClick={enterGameHandler}
+        onClick={joinGameHandler}
       >
         Uđi u igru
+      </button>
+      <button
+        className={classes.enterGameBtn}
+        onClick={createGameHandler}
+      >
+        Kreiraj igru
       </button>
     </main>
   )
