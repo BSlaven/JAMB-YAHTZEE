@@ -166,6 +166,12 @@ const Home = () => {
       >
         Uđi u igru
       </button>
+      <button
+        className={classes.enterGameBtn}
+        onClick={createGameHandler}
+      >
+        Kreiraj igru
+      </button>
     </main>
   )
 }
