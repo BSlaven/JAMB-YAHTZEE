@@ -9,35 +9,39 @@ import DiceContext from '../../context/DiceContext';
 
 const Home = () => {
 
-
   const navigate = useNavigate();
 
-  const [ gameId, setGameId ] = useState('');
-  const { showToast, handleColumnSelection, allColumns, socket } = useContext(DiceContext);
+  const [ roomId, setRoomId ] = useState('');
+  const { 
+    showToast,
+    handleColumnSelection,
+    allColumns,
+    socket
+  } = useContext(DiceContext);
 
   const joinGameHandler = () => {
-    if(!gameId) {
+    if(!roomId) {
       showToast('error', 'Morate unijeti ispravan ID igre!')
       return
     };
 
-    socket.emit('join_game', { gameId }, response => {
+    socket.emit('join_game', { roomId }, response => {
       if(response.success) {
-        navigate(`game/${gameId}`);
+        navigate(`game/${roomId}`);
       } else 
         showToast('error', `${response.message}`)
       })
   }
 
   const createGameHandler = () => {
-    if(!gameId) {
+    if(!roomId) {
       showToast('error', 'Morate unijeti ispravan ID igre!')
       return
     };
 
-    socket.emit('create_game', { gameId }, response => {
+    socket.emit('create_game', { roomId }, response => {
       if(response.success) {
-        navigate(`game/${gameId}`);
+        navigate(`game/${roomId}`);
       } else 
         showToast('error', `${response.message}`)
     });
@@ -57,8 +61,8 @@ const Home = () => {
       <div className={classes.inputControl}>
         <label htmlFor="game_id">Unesite ID igre</label>
         <input
-          onChange={(e) => setGameId(e.target.value)}
-          value={gameId}
+          onChange={(e) => setRoomId(e.target.value)}
+          value={roomId}
           type="text"
           id="game_id"
           name="game_id"
