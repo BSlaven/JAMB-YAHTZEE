@@ -160,7 +160,7 @@ const Home = () => {
         </div>
       </section>
 
-      <button 
+      <button
         className={classes.enterGameBtn}
         onClick={joinGameHandler}
       >
