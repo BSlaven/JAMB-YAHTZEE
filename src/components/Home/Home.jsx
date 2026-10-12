@@ -21,7 +21,7 @@ const Home = () => {
 
   const joinGameHandler = () => {
     if(!roomId) {
-      showToast('error', 'Morate unijeti ispravan ID igre!')
+      showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
@@ -35,7 +35,7 @@ const Home = () => {
 
   const createGameHandler = () => {
     if(!roomId) {
-      showToast('error', 'Morate unijeti ispravan ID igre!')
+      showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
