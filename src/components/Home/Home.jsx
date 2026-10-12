@@ -35,35 +35,6 @@ const Home = () => {
     });
   }
 
-  // const joinGameHandler = () => {
-  //   if(!roomId) {
-  //     showToast('error', 'Morate unijeti ispravan broj igre!')
-  //     return
-  //   };
-
-  //   socket.emit('join_game', { roomId }, response => {
-  //     if(response.success) {
-  //       navigate(`game/${roomId}`);
-  //     } else 
-  //       showToast('error', `${response.message}`)
-  //     }
-  //   )
-  // }
-
-  // const createGameHandler = () => {
-  //   if(!roomId) {
-  //     showToast('error', 'Morate unijeti ispravan broj igre!')
-  //     return
-  //   };
-
-  //   socket.emit('create_game', { roomId }, response => {
-  //     if(response.success) {
-  //       navigate(`game/${roomId}`);
-  //     } else 
-  //       showToast('error', `${response.message}`)
-  //   });
-  // }
-
   const selectColumn = columnName => {
     if(!columnName) {
       showToast('error', 'Došlo je do greške pri odabiru kolone!')
