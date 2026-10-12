@@ -19,33 +19,49 @@ const Home = () => {
     socket
   } = useContext(DiceContext);
 
-  const joinGameHandler = () => {
+  const findOrCreateGame = () => {
     if(!roomId) {
       showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
-    socket.emit('join_game', { roomId }, response => {
+    socket.emit('find_or_create_game', { roomId }, response => {
       if(response.success) {
         navigate(`game/${roomId}`);
       } else 
         showToast('error', `${response.message}`)
-      })
+      }
+    )
   }
 
-  const createGameHandler = () => {
-    if(!roomId) {
-      showToast('error', 'Morate unijeti ispravan broj igre!')
-      return
-    };
+  // const joinGameHandler = () => {
+  //   if(!roomId) {
+  //     showToast('error', 'Morate unijeti ispravan broj igre!')
+  //     return
+  //   };
 
-    socket.emit('create_game', { roomId }, response => {
-      if(response.success) {
-        navigate(`game/${roomId}`);
-      } else 
-        showToast('error', `${response.message}`)
-    });
-  }
+  //   socket.emit('join_game', { roomId }, response => {
+  //     if(response.success) {
+  //       navigate(`game/${roomId}`);
+  //     } else 
+  //       showToast('error', `${response.message}`)
+  //     }
+  //   )
+  // }
+
+  // const createGameHandler = () => {
+  //   if(!roomId) {
+  //     showToast('error', 'Morate unijeti ispravan broj igre!')
+  //     return
+  //   };
+
+  //   socket.emit('create_game', { roomId }, response => {
+  //     if(response.success) {
+  //       navigate(`game/${roomId}`);
+  //     } else 
+  //       showToast('error', `${response.message}`)
+  //   });
+  // }
 
   const selectColumn = columnName => {
     if(!columnName) {
@@ -166,13 +182,13 @@ const Home = () => {
 
       <button
         className={classes.enterGameBtn}
-        onClick={joinGameHandler}
+        onClick={findOrCreateGame}
       >
         Uđi u igru
       </button>
       <button
         className={classes.enterGameBtn}
-        onClick={createGameHandler}
+        onClick={findOrCreateGame}
       >
         Kreiraj igru
       </button>
