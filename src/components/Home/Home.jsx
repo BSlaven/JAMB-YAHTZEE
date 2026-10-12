@@ -26,12 +26,13 @@ const Home = () => {
     };
 
     socket.emit('find_or_create_game', { roomId }, response => {
-      if(response.success) {
-        navigate(`game/${roomId}`);
-      } else 
-        showToast('error', `${response.message}`)
+      if(!response.success) {
+        showToast('error', `${response.message}`);
+        return;
       }
-    )
+
+      navigate(`game/${roomId}`);
+    });
   }
 
   // const joinGameHandler = () => {
