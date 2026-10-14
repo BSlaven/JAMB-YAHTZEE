@@ -14,17 +14,17 @@ import DiceContext from '../../context/DiceContext';
 
 const Game = () => {
 
-  const { gameId } = useParams();
+  const { roomId } = useParams();
 
   const { socket, handleJoinRoom } = useContext(DiceContext);
 
   useEffect(() => {
-    handleJoinRoom(gameId);
+    handleJoinRoom(roomId);
 
     return () => {
-      socket.emit('leave_game', { gameId });
+      socket.emit('leave_game', { roomId });
     }
-  }, [gameId])
+  }, [roomId])
 
   return (
     <div className={classes.gameContainer}>

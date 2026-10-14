@@ -8,11 +8,10 @@ import classes from './Home.module.css';
 import DiceContext from '../../context/DiceContext';
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const [ roomId, setRoomId ] = useState('');
-  const { 
+  const {
     showToast,
     handleColumnSelection,
     allColumns,
@@ -20,12 +19,13 @@ const Home = () => {
   } = useContext(DiceContext);
 
   const joinGameHandler = () => {
+    console.log(roomId)
     if(!roomId) {
-      showToast('error', 'Morate unijeti ispravan ID igre!')
+      showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
-    socket.emit('join_game', { roomId }, response => {
+    socket.emit('join_room', { roomId }, response => {
       if(response.success) {
         navigate(`game/${roomId}`);
       } else 
@@ -35,15 +35,15 @@ const Home = () => {
 
   const createGameHandler = () => {
     if(!roomId) {
-      showToast('error', 'Morate unijeti ispravan ID igre!')
+      showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
-    socket.emit('create_game', { roomId }, response => {
+    socket.emit('create_room', { roomId }, response => {
       if(response.success) {
         navigate(`game/${roomId}`);
       } else 
-        showToast('error', `${response.message}`)
+        showToast('error', `${response.message}`);
     });
   }
 
@@ -164,7 +164,7 @@ const Home = () => {
         </div>
       </section>
 
-      <button
+      <button 
         className={classes.enterGameBtn}
         onClick={joinGameHandler}
       >
