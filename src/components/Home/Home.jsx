@@ -8,30 +8,42 @@ import classes from './Home.module.css';
 import DiceContext from '../../context/DiceContext';
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const [ roomId, setRoomId ] = useState('');
-  const { 
+  const {
     showToast,
     handleColumnSelection,
     allColumns,
     socket
   } = useContext(DiceContext);
 
-  const findOrCreateGame = () => {
+  const joinGameHandler = () => {
+    console.log(roomId)
     if(!roomId) {
       showToast('error', 'Morate unijeti ispravan broj igre!')
       return
     };
 
-    socket.emit('find_or_create_game', { roomId }, response => {
-      if(!response.success) {
-        showToast('error', `${response.message}`);
-        return;
-      }
+    socket.emit('join_room', { roomId }, response => {
+      if(response.success) {
+        navigate(`game/${roomId}`);
+      } else 
+        showToast('error', `${response.message}`)
+      })
+  }
 
-      navigate(`game/${roomId}`);
+  const createGameHandler = () => {
+    if(!roomId) {
+      showToast('error', 'Morate unijeti ispravan broj igre!')
+      return
+    };
+
+    socket.emit('create_room', { roomId }, response => {
+      if(response.success) {
+        navigate(`game/${roomId}`);
+      } else 
+        showToast('error', `${response.message}`);
     });
   }
 
@@ -152,15 +164,15 @@ const Home = () => {
         </div>
       </section>
 
-      <button
+      <button 
         className={classes.enterGameBtn}
-        onClick={findOrCreateGame}
+        onClick={joinGameHandler}
       >
         Uđi u igru
       </button>
       <button
         className={classes.enterGameBtn}
-        onClick={findOrCreateGame}
+        onClick={createGameHandler}
       >
         Kreiraj igru
       </button>
