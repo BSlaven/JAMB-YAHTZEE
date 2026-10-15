@@ -15,23 +15,18 @@ const OppComponent = () => {
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(dice);
 
-  const numbersTotals = opponentData
-    ?.map(column => column.columnData)
-    .map(column => column.find(row => row.fieldDisplay === 'ukupno'))
-    .map(field => field.value)
-    .reduce((acc, curr) => acc + curr)
+  // Safe Total Calculations
+  const calculateTotal = (fieldKey) => {
+    if (!opponentData || !Array.isArray(opponentData)) return 0;
 
-  const differencesTotals = opponentData
-    ?.map(column => column.columnData)
-    .map(column => column.find(row => row.fieldDisplay === 'razlika'))
-    .map(field => field.value)
-    .reduce((acc, curr) => acc + curr)
+    return opponentData
+      .map(col => col.columnData?.find(row => row.fieldDisplay === fieldKey)?.value || 0)
+      .reduce((acc, curr) => acc + curr, 0);
+  };
 
-  const setsTotals = opponentData
-    ?.map(column => column.columnData)
-    .map(column => column.find(row => row.fieldDisplay === 'ukupnoSetovi'))
-    .map(field => field.value)
-    .reduce((acc, curr) => acc + curr)
+  const numbersTotals = calculateTotal('ukupno');
+  const differencesTotals = calculateTotal('razlika');
+  const setsTotals = calculateTotal('ukupnoSetovi');
 
   useEffect(() => {
     socket.on('opponentData', (data) => {
