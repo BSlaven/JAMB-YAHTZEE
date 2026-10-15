@@ -29,19 +29,28 @@ const OppComponent = () => {
   const setsTotals = calculateTotal('ukupnoSetovi');
 
   useEffect(() => {
-    socket.on('opponentData', (data) => {
-      setOpponentData(data);
-    });
+    if(!socket) return;
 
-    socket.on('newDiceValues', (data) => {
+    const handleOpponentData = (data) => {
+      console.log('dobio si podatke')
+      console.log('opponentData received: ', data);
+      setOpponentData(data);
+    };
+
+    const handleNewDiceValues = (data) => {
+      console.log('newDiceValues received: ', data);
       setOpponentDice(data.diceWithoutIcons);
       setRollNumber(data.rollNumber);
-    });
+    };
+
+    socket.on('opponentData', handleOpponentData);
+    socket.on('newDiceValues', handleNewDiceValues);
 
     return () => {
-      socket.off('opponentData');
+      socket.off('opponentData', handleOpponentData);
+      socket.off('newDiceValues', handleNewDiceValues);
     }
-  }, [])
+  }, [socket, showToast]);
 
   useEffect(() => {
     if(numbersTotals || differencesTotals || setsTotals) {
