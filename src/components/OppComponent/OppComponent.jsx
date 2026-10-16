@@ -15,7 +15,6 @@ const OppComponent = () => {
   const [ opponentData, setOpponentData ] = useState(null);
   const [ opponentDice, setOpponentDice ] = useState(dice);
 
-  // Safe Total Calculations
   const calculateTotal = (fieldKey) => {
     if (!opponentData || !Array.isArray(opponentData)) return 0;
 
