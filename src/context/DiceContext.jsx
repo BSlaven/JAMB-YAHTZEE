@@ -294,6 +294,7 @@ export const DiceProvider = ({ children }) => {
       allColumns,
       socket,
       roomId,
+      setRoomId,
       handleJoinRoom,
       checkDice,
       rollDice,
