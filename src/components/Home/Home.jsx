@@ -11,6 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [ roomId, setRoomId ] = useState('');
+
   const {
     showToast,
     handleColumnSelection,
