@@ -37,7 +37,6 @@ const OppComponent = () => {
     };
 
     const handleNewDiceValues = (data) => {
-      console.log('newDiceValues received: ', data);
       setOpponentDice(data.diceWithoutIcons);
       setRollNumber(data.rollNumber);
     };
