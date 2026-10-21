@@ -182,6 +182,8 @@ export const DiceProvider = ({ children }) => {
     .filter(item => item.isSelected)
     .toSorted((a, b) => a.orderNumber - b.orderNumber);
 
+  const [ initColumns, setInitColumns ] = useState([]);
+
   const [ columnsTotals, setColumnsTotals ] = useState({});
 
   useEffect(() => {
@@ -294,6 +296,8 @@ export const DiceProvider = ({ children }) => {
       allColumns,
       socket,
       roomId,
+      initColumns,
+      setInitColumns,
       setRoomId,
       handleJoinRoom,
       checkDice,
