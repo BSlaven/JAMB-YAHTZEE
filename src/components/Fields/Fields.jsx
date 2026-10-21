@@ -40,7 +40,7 @@ const Fields = ({ isOpponent = false }) => {
     });
 
     localStorage.setItem('simpleColumns', JSON.stringify(simpleColumns));
-  }, []);
+  }, [ initColumns ]);
   
   const numbersTotals = filteredColumns
     .map(item => item.numbersTotals)
