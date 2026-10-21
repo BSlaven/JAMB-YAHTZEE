@@ -16,7 +16,8 @@ const Home = () => {
     showToast,
     handleColumnSelection,
     allColumns,
-    socket
+    socket,
+    setInitColumns
   } = useContext(DiceContext);
 
   const joinGameHandler = () => {
@@ -28,6 +29,7 @@ const Home = () => {
     socket.emit('join_room', { roomId }, response => {
       if(response.success) {
         navigate(`game/${roomId}`);
+        setInitColumns(response.columns);
       } else 
         showToast('error', `${response.message}`)
       })
