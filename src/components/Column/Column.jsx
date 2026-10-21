@@ -8,7 +8,7 @@ import classes from './Column.module.css';
 const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
-  const { showToast, dice, gameId: roomId, setRollNumber, socket } = useContext(DiceContext);
+  const { showToast, dice, roomId, setRollNumber, socket } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
@@ -536,6 +536,8 @@ const sendData = () => {
     selectedColumn.columnData = newColumnData;
 
     localStorage.setItem('simpleColumns', JSON.stringify(playerSimplifiedColumns));
+
+    console.log('U OVOM TRNEUTKU ROOM ID JE: ', roomId);
 
     socket.emit('opponentData', {
       columns: playerSimplifiedColumns, roomId 

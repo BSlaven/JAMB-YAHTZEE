@@ -15,7 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/game/:id" element={<Game />} />
+          <Route path="/game/:roomId" element={<Game />} />
         </Routes>
       </Router>
     </DiceProvider>

@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { Toaster } from 'sonner';
 
@@ -16,10 +16,11 @@ const Game = () => {
 
   const { roomId } = useParams();
 
-  const { socket, handleJoinRoom } = useContext(DiceContext);
+  const { socket, handleJoinRoom, setRoomId } = useContext(DiceContext);
 
   useEffect(() => {
     handleJoinRoom(roomId);
+    setRoomId(roomId);
 
     return () => {
       socket.emit('leave_game', { roomId });

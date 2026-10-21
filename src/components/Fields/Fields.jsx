@@ -44,15 +44,15 @@ const Fields = ({ isOpponent = false }) => {
   
   const numbersTotals = filteredColumns
     .map(item => item.numbersTotals)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
 
   const differencesTotals = filteredColumns
     .map(item => item.differenceTotal)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
 
   const setsTotals = filteredColumns
     .map(item => item.setsTotal)
-    .reduce((acc, curr) => acc + curr);
+    .reduce((acc, curr) => acc + curr, 0);
   
   return (
     <div className={classes.fieldsContainer}>

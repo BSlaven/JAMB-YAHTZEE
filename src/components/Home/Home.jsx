@@ -11,6 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [ roomId, setRoomId ] = useState('');
+
   const {
     showToast,
     handleColumnSelection,
@@ -19,7 +20,6 @@ const Home = () => {
   } = useContext(DiceContext);
 
   const joinGameHandler = () => {
-    console.log(roomId)
     if(!roomId) {
       showToast('error', 'Morate unijeti ispravan broj igre!')
       return
