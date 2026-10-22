@@ -299,8 +299,6 @@ export const DiceProvider = ({ children }) => {
       allColumns,
       socket,
       roomId,
-      initColumns,
-      setInitColumns,
       setRoomId,
       handleJoinRoom,
       checkDice,
@@ -311,8 +309,10 @@ export const DiceProvider = ({ children }) => {
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
+        initColumns,
         columnsTotals,
         columnIcons,
+        setInitColumns,
         addNewTotal,
       }}>
         {children}
