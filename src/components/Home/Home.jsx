@@ -17,12 +17,12 @@ const Home = () => {
     showToast,
     handleColumnSelection,
     allColumns,
-    socket,
-    setInitColumns
+    socket
   } = useContext(DiceContext);
 
   const {
-    gameColumns
+    gameColumns,
+    setInitColumns
   } = useContext(ColumnContext);
 
   const joinGameHandler = () => {

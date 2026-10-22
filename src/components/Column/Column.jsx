@@ -570,7 +570,7 @@ const sendData = () => {
         }
 
         if(isOpponent) {
-          const fieldValue = columns.columnData.find(field => field.name === item[0])
+          const fieldValue = column.columnData.find(field => field.name === item[0])
           return (
             <div 
               key={item[0]}
