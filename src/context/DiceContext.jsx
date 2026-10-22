@@ -190,24 +190,24 @@ export const DiceProvider = ({ children }) => {
   const [ columnsTotals, setColumnsTotals ] = useState({});
 
   useEffect(() => {
-    const columnsCopy = structuredClone(allColumns);
+    const activeColumns = initColumns.length > 0 ? initColumns : gameColumns;
 
-    const totals = columnsCopy
-      .filter(item => item.isSelected)
-      .reduce((acc, curr) => {
-        acc[curr.columnName] = {
-          numbersTotals: 0,
-          differenceTotal: 0,
-          setsTotal: 0
-        }
-        return acc;
-      }, {});
+    const totals = activeColumns.reduce((acc, curr) => {
+      acc[curr.columnName] = {
+        numbersTotals: 0,
+        differenceTotal: 0,
+        setsTotal: 0
+      };
+      return acc;
+    }, {});
+    
 
-      setColumnsTotals(totals);
-  
-  }, [ allColumns ]);
+    setColumnsTotals(totals);
+  }, [allColumns, initColumns]);
 
   const addNewTotal = (columnName, newTotalField, addValue) => {
+
+    console.log(columnName, newTotalField, addValue)
     const currentValue = columnsTotals[columnName][newTotalField]
 
     if(newTotalField === 'differenceTotal') {
