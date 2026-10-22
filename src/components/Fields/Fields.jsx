@@ -8,14 +8,14 @@ import Column from '../Column/Column';
 
 const Fields = ({ isOpponent = false }) => {
 
-  const { columnsTotals, gameColumns } = useContext(ColumnContext);
+  const { columnsTotals, initColumns } = useContext(ColumnContext);
 
-  if(!columnsTotals || !gameColumns) return;
+  if(!columnsTotals || !initColumns) return;
   
   const filteredColumns = Object.values(columnsTotals).filter(item => !item.isDefault);
   
   useEffect(() => {
-    const simpleColumns = gameColumns.map(item => {
+    const simpleColumns = initColumns.map(item => {
       return {
         columnName: item.columnName,
         columnData: [
@@ -40,7 +40,7 @@ const Fields = ({ isOpponent = false }) => {
     });
 
     localStorage.setItem('simpleColumns', JSON.stringify(simpleColumns));
-  }, []);
+  }, [ initColumns ]);
   
   const numbersTotals = filteredColumns
     .map(item => item.numbersTotals)
@@ -56,7 +56,7 @@ const Fields = ({ isOpponent = false }) => {
   
   return (
     <div className={classes.fieldsContainer}>
-      {gameColumns.map(column => {
+      {initColumns.map(column => {
         return <Column
           key={column.columnName}
           column={column}

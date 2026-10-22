@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import classes from './Home.module.css';
 
 import DiceContext from '../../context/DiceContext';
+import { ColumnContext } from '../../context/DiceContext';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ const Home = () => {
     socket
   } = useContext(DiceContext);
 
+  const {
+    gameColumns,
+    setInitColumns
+  } = useContext(ColumnContext);
+
   const joinGameHandler = () => {
     if(!roomId) {
       showToast('error', 'Morate unijeti ispravan broj igre!')
@@ -27,6 +33,8 @@ const Home = () => {
 
     socket.emit('join_room', { roomId }, response => {
       if(response.success) {
+        console.log('response.columns: ', response.columns);
+        setInitColumns(response.columns);
         navigate(`game/${roomId}`);
       } else 
         showToast('error', `${response.message}`)
@@ -39,8 +47,12 @@ const Home = () => {
       return
     };
 
-    socket.emit('create_room', { roomId }, response => {
+    console.log('gameColumns: ', gameColumns)
+
+    socket.emit('create_room', { roomId, gameColumns }, response => {
       if(response.success) {
+        // console.log('response.columns: ', response.columns);
+        setInitColumns(response.columns);
         navigate(`game/${roomId}`);
       } else 
         showToast('error', `${response.message}`);

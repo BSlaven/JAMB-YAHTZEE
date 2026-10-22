@@ -181,6 +181,11 @@ export const DiceProvider = ({ children }) => {
   const gameColumns = allColumns
     .filter(item => item.isSelected)
     .toSorted((a, b) => a.orderNumber - b.orderNumber);
+    
+    
+    const [ initColumns, setInitColumns ] = useState([]);
+    
+    console.log('initColumns: ', initColumns);
 
   const [ columnsTotals, setColumnsTotals ] = useState({});
 
@@ -304,8 +309,10 @@ export const DiceProvider = ({ children }) => {
     }}>
       <ColumnContext.Provider value={{
         gameColumns,
+        initColumns,
         columnsTotals,
         columnIcons,
+        setInitColumns,
         addNewTotal,
       }}>
         {children}
