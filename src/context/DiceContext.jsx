@@ -51,6 +51,8 @@ export const DiceProvider = ({ children }) => {
 
   const [ roomId, setRoomId ] = useState(null);
 
+  const [ gameReady, setGameReady ] = useState(false);
+
   const [ dice, setDice ] = useState({
     input_dice_one: {
       label: 'input_dice_one',
@@ -299,6 +301,8 @@ export const DiceProvider = ({ children }) => {
       allColumns,
       socket,
       roomId,
+      gameReady,
+      setGameReady,
       setRoomId,
       handleJoinRoom,
       checkDice,
