@@ -11,11 +11,21 @@ const Dice = () => {
     checkDice,
     rollDice,
     rollNumber,
-    showToast
+    showToast,
+    gameReady
   } = useContext(DiceContext);
 
-  const rollBtnClickHandler = () => {
-    if(rollNumber > 3) showToast('error', 'Kocke su već bačene tri puta!')
+  const rollBtnClickHandler = () => {    
+    if(!gameReady) {
+      showToast('error', 'Igra nije počela! Čekaju se oba igrača.');
+      return;
+    }
+
+    if(rollNumber > 3) {
+      showToast('error', 'Kocke su već bačene tri puta!');
+      return;
+    }
+    
     rollDice();
   }
   
