@@ -8,7 +8,14 @@ import classes from './Column.module.css';
 const Column = ({ column, isOpponent }) => {
 
   const { addNewTotal, columnsTotals, columnIcons } = useContext(ColumnContext);
-  const { showToast, dice, roomId, setRollNumber, socket } = useContext(DiceContext);
+  const { 
+    showToast,
+    dice,
+    roomId,
+    setRollNumber,
+    socket,
+    gameReady
+  } = useContext(DiceContext);
 
   const setNextField = (column, currentField, upField, downField) => {
     if(column.isRandomColumn) return;
@@ -490,6 +497,11 @@ const Column = ({ column, isOpponent }) => {
   }
 
   const fieldClickHandler = ([ fieldName, fieldObject ]) => {
+    if(!gameReady) {
+      showToast('error', 'Igra nije počela! Čekaju se oba igrača.');
+      return;
+    };
+
     if(!fieldObject?.isAvailable || fieldObject.isChecked) {
       showToast('error', 'To polje nije dostupno!')
       return;
